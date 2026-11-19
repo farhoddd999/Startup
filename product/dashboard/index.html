@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hearth for Partners</title>
+  <meta name="description" content="Program dashboard for Hearth partners: engagement, reading growth and reporting, without exposing families' private practice.">
+  <link rel="icon" href="../assets/hearth-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <link rel="stylesheet" href="./dashboard.css">
+</head>
+<body>
+  <div class="viz-root">
+    <header class="top">
+      <a class="brand" href="../"><img src="../assets/hearth-mark.svg" alt=""><span>hearth</span><em>for partners</em></a>
+      <div class="org"><b>Riverside Family Center</b><span>Fall 2026 cohort</span></div>
+      <button class="btn" id="export">Export grant report (CSV)</button>
+    </header>
+    <main>
+      <p class="demo-banner">Demo data: 48 synthetic families generated for illustration. No real family data is shown.</p>
+      <div class="filters" role="group" aria-label="Time range">
+        <span class="lbl">Time range</span>
+        <button data-range="4">Last 4 weeks</button>
+        <button data-range="8">Last 8 weeks</button>
+        <button data-range="12" class="on">Since enrollment</button>
+      </div>
+      <section class="tiles" id="tiles"></section>
+      <section class="grid">
+        <article class="card wide">
+          <h2>Families reading together each week</h2>
+          <p class="sub">Families with at least one story-time night that week</p>
+          <div class="chart" id="cActive"></div>
+        </article>
+        <article class="card">
+          <h2>Words parents can read</h2>
+          <p class="sub">Median, of the 5,000 most common English words, by weeks since joining</p>
+          <div class="chart" id="cGrowth"></div>
+        </article>
+        <article class="card">
+          <h2>Where families are on the path</h2>
+          <p class="sub">Families by current step of the 40-step sequence</p>
+          <div class="chart" id="cSteps"></div>
+        </article>
+        <article class="card">
+          <h2>Nights per week</h2>
+          <p class="sub">Families by average story-time nights per week, this period</p>
+          <div class="chart" id="cNights"></div>
+        </article>
+        <article class="card">
+          <h2>What partners can and can't see</h2>
+          <ul class="privacy">
+            <li><b>Shared, with the family's consent:</b> nights read, minutes practised, sounds learned (step), words-you-can-read count.</li>
+            <li><b>Never shared:</b> recordings, the words a parent stumbled on, hints used, or anything a child said.</li>
+            <li>Families can turn sharing off at any time in Settings. Their app keeps working the same.</li>
+          </ul>
+        </article>
+        <article class="card wide">
+          <div class="row-head">
+            <div><h2>Families who might welcome a check-in</h2><p class="sub">No story time in 7+ days. A friendly text from their family advocate often helps.</p></div>
+          </div>
+          <div class="table-wrap"><table class="tbl" id="tCheck"></table></div>
+        </article>
+        <article class="card wide">
+          <h2>All families</h2>
+          <p class="sub">Display names are what each family chose to share with the program</p>
+          <div class="table-wrap"><table class="tbl" id="tAll"></table></div>
+        </article>
+        <article class="card wide">
+          <h2>Reporting</h2>
+          <div class="report-grid">
+            <div><h3>Head Start PFCE</h3><p>Evidence for "Families as Lifelong Learners" and "Family Engagement": parent literacy growth and shared reading frequency, per family and for the cohort.</p></div>
+            <div><h3>Adult education (WIOA Title II)</h3><p>Continuous progress data between formal assessments. Use it to target support before the post-test that counts toward Measurable Skill Gains.</p></div>
+            <div><h3>Funders &amp; libraries</h3><p>Cohort engagement, nights read, and words read aloud to children, with a plain-language summary.</p></div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <div class="tip" id="tip" role="status" aria-live="polite"></div>
+  </div>
+  <script type="module" src="./dashboard.js"></script>
+</body>
+</html>

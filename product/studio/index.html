@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hearth Story Studio</title>
+  <meta name="description" content="Decodability x-ray, library audit and AI story writer for Hearth.">
+  <link rel="icon" href="../assets/hearth-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <link rel="stylesheet" href="./studio.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="../"><img src="../assets/hearth-mark.svg" alt=""><span>hearth</span><em>Story Studio</em></a>
+    <nav>
+      <button class="tab on" data-tab="xray">Decodability x-ray</button>
+      <button class="tab" data-tab="library">Library audit</button>
+      <button class="tab" data-tab="write">Write with Claude</button>
+    </nav>
+    <div class="links"><a href="../">Parent app</a><a href="../dashboard/">Partner dashboard</a></div>
+  </header>
+
+  <main>
+    <section id="xray" class="panel on">
+      <div class="intro">
+        <h1>Which words can this parent actually read?</h1>
+        <p>Paste any text. Hearth explains every word as letter-sound patterns from its 40-step sequence, then sorts the words: ones this reader can sound out, the new sound they're learning, heart words they know by sight, and words they can't read yet. This check is what keeps every Hearth story readable for the parent holding it.</p>
+      </div>
+      <div class="grid2">
+        <div class="card controls">
+          <label class="lbl" for="step">Reader is working on <b id="stepTitle"></b></label>
+          <input id="step" type="range" min="1" max="40" value="14">
+          <div class="ticks"><span>step 1</span><span id="stepNum">14</span><span>step 40</span></div>
+          <label class="lbl" for="names">Family words (always readable)</label>
+          <input id="names" type="text" value="Mateo, Mama">
+          <label class="lbl" for="text">Text</label>
+          <textarea id="text" rows="9"></textarea>
+          <div class="samples">
+            <span>Try:</span>
+            <button data-sample="classic">A classic picture book line</button>
+            <button data-sample="hearth">A Hearth page</button>
+            <button data-sample="note">A note home from school</button>
+            <button data-sample="label">A medicine label</button>
+          </div>
+        </div>
+        <div class="card out">
+          <div class="stats" id="stats"></div>
+          <div class="legend">
+            <span><i class="sw decodable"></i>Can sound out</span>
+            <span><i class="sw focus"></i>Uses tonight's new sound</span>
+            <span><i class="sw heart"></i>Heart word</span>
+            <span><i class="sw name"></i>Family word</span>
+            <span><i class="sw tricky"></i>Not yet</span>
+          </div>
+          <div class="xray" id="xrayText" aria-live="polite"></div>
+          <div class="detail" id="detail"><p class="muted">Click any word to see how Hearth explains it.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="library" class="panel">
+      <div class="intro">
+        <h1>Every story, checked word by word</h1>
+        <p>Each library story is written for one step and passes this check automatically in the test suite. "Readable" counts decodable, heart and family words at the story's step.</p>
+      </div>
+      <div class="card"><table class="tbl" id="libTable"></table></div>
+    </section>
+
+    <section id="write" class="panel">
+      <div class="intro">
+        <h1>Write a story for one family, one step</h1>
+        <p>Claude writes a 7-page bedtime story from the family's details and the parent's exact step. The phonics engine checks every word and sends unreadable ones back for revision (up to three rounds). A story is only accepted when every word passes.</p>
+      </div>
+      <div class="grid2">
+        <form class="card controls" id="writeForm">
+          <label class="lbl" for="wStep">Step</label>
+          <select id="wStep"></select>
+          <label class="lbl" for="wChild">Child's name</label>
+          <input id="wChild" value="Mateo">
+          <label class="lbl" for="wGrown">What the child calls the parent</label>
+          <input id="wGrown" value="Mama">
+          <label class="lbl" for="wLoves">Loves</label>
+          <input id="wLoves" value="space, animals">
+          <button class="btn" type="submit">Write story</button>
+          <p class="muted small" id="engineState"></p>
+        </form>
+        <div class="card out" id="writeOut"><p class="muted">The story will appear here, with its illustrations and decodability report.</p></div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="./studio.js"></script>
+</body>
+</html>
