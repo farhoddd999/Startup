@@ -99,3 +99,13 @@ test('chunksFor gives display chunks covering the word', () => {
 test('textStep reports the hardest word', () => {
   assert.equal(textStep('The fox sat.', lx).step, 12);
 });
+
+test('every library story is fully readable at its step', async () => {
+  const { STORIES } = await import('../data/stories.js');
+  for (const s of STORIES) {
+    const fam = { childName: 'Maya', grownup: 'Mama' };
+    const pages = [{ text: personalize(s.title, fam) }, ...s.pages.map(p => ({ text: personalize(p.text, fam) }))];
+    const v = validateStory({ pages }, lx, { step: s.step, known: ['maya', 'mama'] });
+    assert.ok(v.ok, `${s.id}: ${v.problems.map(p => p.word).join(', ')}`);
+  }
+});

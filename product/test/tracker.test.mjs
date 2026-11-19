@@ -106,3 +106,11 @@ test('learner: fluent reading builds mastery, struggles are blamed narrowly', ()
   assert.equal(L.p.i_short, before.i_short, 'well-known short i untouched');
   assert.ok(stars(L).length > 100);
 });
+
+test('learner: one stumble does not un-learn a mastered sound', () => {
+  const L = createLearner(13);
+  const before = workingStep(L);
+  observe(L, lx.analyze('duck'), 'helped');
+  observe(L, lx.analyze('kiss'), 'skipped');
+  assert.equal(workingStep(L), before, 'still working on the same step');
+});

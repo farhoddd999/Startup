@@ -174,7 +174,7 @@ export class PageTracker {
   resetClock() { this.lastProgress = this.now(); }
   summary() {
     const q = { fluent: 0, effortful: 0, helped: 0, skipped: 0 };
-    for (const s of this.state) if (s.quality) q[s.quality]++;
+    for (const s of this.state) if (s.quality in q) q[s.quality]++;
     return q;
   }
 }

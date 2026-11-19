@@ -12,7 +12,7 @@
 
 import { STEPS, PATTERN_STEP, MAX_STEP } from './phonics.js';
 
-export const BKT = { pInitKnown: 0.92, pInitWorking: 0.3, pInitFuture: 0.04, pLearn: 0.14, pSlip: 0.08, pGuess: 0.18, mastery: 0.88 };
+export const BKT = { pInitKnown: 0.92, pInitWorking: 0.3, pInitFuture: 0.04, pLearn: 0.14, pSlip: 0.12, pGuess: 0.18, mastery: 0.88, unmastery: 0.55 };
 
 const ALL_PATTERNS = STEPS.flatMap(s => s.patterns);
 
@@ -23,7 +23,12 @@ export function createLearner(placedStep = 0) {
     const st = PATTERN_STEP[pat];
     p[pat] = st <= placedStep ? BKT.pInitKnown : st === placedStep + 1 ? BKT.pInitWorking : BKT.pInitFuture;
   }
-  return { version: 1, placedStep, p, seen: {}, log: [], createdAt: Date.now() };
+  // Mastery has hysteresis: a pattern becomes mastered at p ≥ mastery and only
+  // loses that status if the evidence drops it below `unmastery`. One stumble
+  // on a tired evening should not take a learned sound away.
+  const mastered = {};
+  for (const pat of ALL_PATTERNS) if (PATTERN_STEP[pat] <= placedStep) mastered[pat] = true;
+  return { version: 2, placedStep, p, mastered, seen: {}, createdAt: Date.now() };
 }
 
 function bktUpdate(pL, correct, weight = 1) {
@@ -38,25 +43,31 @@ function bktUpdate(pL, correct, weight = 1) {
  * @param outcome 'fluent' | 'effortful' | 'helped' | 'skipped'
  * @param analysis result of lexicon.analyze(word)
  */
-export function observe(learner, analysis, outcome, { firstTimeToday = true } = {}) {
+export function observe(learner, analysis, outcome, { firstTimeToday = true, weight: w0 = 1 } = {}) {
   if (!analysis || !analysis.known || analysis.decodeStep === Infinity) return learner;
+  learner.mastered ||= {};
   const pats = analysis.patterns.filter(p => PATTERN_STEP[p] !== undefined);
   if (!pats.length) return learner;
   // repeated reads of the same word within a session can be memorised by sight,
   // so they carry less evidence about decoding.
-  const weight = firstTimeToday ? 1 : 0.35;
+  const weight = (firstTimeToday ? 1 : 0.35) * w0;
   if (outcome === 'fluent' || outcome === 'effortful') {
     const w = outcome === 'fluent' ? weight : weight * 0.6;
     for (const pat of pats) learner.p[pat] = bktUpdate(learner.p[pat], true, w);
   } else {
     const culprit = pats.reduce((a, b) => (learner.p[a] <= learner.p[b] ? a : b));
-    learner.p[culprit] = bktUpdate(learner.p[culprit], false, weight);
+    // a skipped word is weaker evidence than one that needed help (recognisers miss words too)
+    learner.p[culprit] = bktUpdate(learner.p[culprit], false, outcome === 'skipped' ? weight * 0.5 : weight);
+  }
+  for (const pat of pats) {
+    if (learner.p[pat] >= BKT.mastery) learner.mastered[pat] = true;
+    else if (learner.p[pat] < BKT.unmastery) learner.mastered[pat] = false;
   }
   learner.seen[analysis.word] = (learner.seen[analysis.word] || 0) + 1;
   return learner;
 }
 
-export const isMastered = (learner, pat) => (learner.p[pat] ?? 0) >= BKT.mastery;
+export const isMastered = (learner, pat) => (learner.mastered ? !!learner.mastered[pat] || (learner.p[pat] ?? 0) >= BKT.mastery : (learner.p[pat] ?? 0) >= BKT.mastery);
 
 /** The first step that still has a pattern below mastery. */
 export function workingStep(learner) {

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hearth">
+  <title>Hearth</title>
+  <!-- flame rising from the spine of an open book: stories are where the warmth is -->
+  <path d="M32 4c5.5 7 10 11.5 9.2 18.4-.6 5-4.4 8.1-9.2 8.1s-8.6-3.1-9.2-8.1C22 15.5 26.5 11 32 4z" fill="#F2C14E"/>
+  <path d="M32 14.5c2.8 3.6 5 6 4.6 9.6-.3 2.6-2.2 4.2-4.6 4.2s-4.3-1.6-4.6-4.2c-.4-3.6 1.8-6 4.6-9.6z" fill="#E8833A"/>
+  <path d="M32 33c-6.5-4.8-15.2-6.3-25-4.6v24.3c9.8-1.7 18.5-.2 25 4.6z" fill="#E8833A"/>
+  <path d="M32 33c6.5-4.8 15.2-6.3 25-4.6v24.3c-9.8-1.7-18.5-.2-25 4.6z" fill="#C9622A"/>
+  <path d="M12 34.6c5.6-.6 10.7.3 15 2.6M12 40.6c5.6-.6 10.7.3 15 2.6M37 37.2c4.3-2.3 9.4-3.2 15-2.6M37 43.2c4.3-2.3 9.4-3.2 15-2.6" stroke="#FFF6E9" stroke-width="1.6" stroke-linecap="round" fill="none" opacity=".75"/>
+</svg>

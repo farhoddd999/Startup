@@ -44,6 +44,7 @@ export class Lexicon {
     const base = b => (this.data[b] ? this.prons(b)[0] : depth === 0 ? this.derive(b, depth + 1) : null);
     const last = p => stripStress(p[p.length - 1]);
     let m;
+    if ((m = w.match(/^(.+)'s$/)) && base(m[1])) { const b = base(m[1]), l = last(b); return [...b, ...(SIBILANT.has(l) ? ['IH0', 'Z'] : VOICELESS.has(l) ? ['S'] : ['Z'])]; }
     if ((m = w.match(/^(.+?)(es)$/)) && base(m[1]) && SIBILANT.has(last(base(m[1])))) return [...base(m[1]), 'IH0', 'Z'];
     if ((m = w.match(/^(.+)s$/)) && base(m[1])) { const b = base(m[1]); return [...b, VOICELESS.has(last(b)) ? 'S' : 'Z']; }
     if ((m = w.match(/^(.+)ing$/))) {

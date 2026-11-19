@@ -1,0 +1,22 @@
+{
+  "name": "hearth",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hearth — a private reading coach for parents who are learning to read, built around the bedtime story.",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "validate:stories": "node tools/validate-stories.mjs",
+    "build:lexicon": "node tools/build-lexicon.mjs node_modules 20000"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.10.0"
+  },
+  "devDependencies": {
+    "cmu-pronouncing-dictionary": "^3.0.0",
+    "subtlex-word-frequencies": "^2.0.0"
+  },
+  "engines": { "node": ">=20" },
+  "license": "UNLICENSED"
+}
