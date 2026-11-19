@@ -1,7 +1,8 @@
 // Hearth dev/demo server — zero dependencies.
-//   node product/server/server.mjs            → http://localhost:8787/product/
-// Serves the whole repository (app, studio, dashboard, website, pitch) and
-// exposes the story engine at …/api/story (needs ANTHROPIC_API_KEY).
+//   node product/server/server.mjs            → http://localhost:8787/
+// Serves the repository the way Cloudflare does in production: the website at /,
+// the app at /product/, _redirects and _headers applied, 404.html for misses.
+// Also exposes the story engine at …/api/story (needs ANTHROPIC_API_KEY).
 
 import http from 'node:http';
 import fs from 'node:fs';
@@ -32,6 +33,36 @@ const send = (res, code, body, type = 'application/json; charset=utf-8') => {
   res.end(typeof body === 'string' || Buffer.isBuffer(body) ? body : JSON.stringify(body));
 };
 
+
+// ---- _redirects and _headers (the subset of Cloudflare's syntax the site uses) ----
+function readRules(name) {
+  try { return fs.readFileSync(path.join(ROOT, name), 'utf8').split('\n'); } catch { return []; }
+}
+const REDIRECTS = readRules('_redirects').map(l => l.trim()).filter(l => l && !l.startsWith('#')).map(l => {
+  const [from, to, status = '302'] = l.split(/\s+/);
+  return { from, to, status: Number(status) };
+});
+function matchRedirect(p) {
+  for (const r of REDIRECTS) {
+    if (r.from.endsWith('/*') ? p.startsWith(r.from.slice(0, -1)) : p === r.from) {
+      const splat = r.from.endsWith('/*') ? p.slice(r.from.length - 1) : '';
+      return { to: r.to.replace(':splat', splat), status: r.status };
+    }
+  }
+  return null;
+}
+const HEADER_RULES = [];
+for (const line of readRules('_headers')) {
+  if (!line.trim() || line.trim().startsWith('#')) continue;
+  if (!/^\s/.test(line)) HEADER_RULES.push({ pattern: line.trim(), headers: {} });
+  else if (HEADER_RULES.length) { const i = line.indexOf(':'); HEADER_RULES.at(-1).headers[line.slice(0, i).trim().toLowerCase()] = line.slice(i + 1).trim(); }
+}
+function headersFor(p) {
+  const out = {};
+  for (const r of HEADER_RULES) if (r.pattern.endsWith('*') ? p.startsWith(r.pattern.slice(0, -1)) : p === r.pattern) Object.assign(out, r.headers);
+  return out;
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (url.pathname.endsWith('/api/story')) {
@@ -47,25 +78,30 @@ const server = http.createServer(async (req, res) => {
       return send(res, 500, { error: 'Story generation failed' });
     }
   }
-  // static files
-  let p = decodeURIComponent(url.pathname);
-  if (p === '/') { res.writeHead(302, { location: '/website/' }); return res.end(); }
+  // static files, with Cloudflare-style redirects, headers and trailing slashes
+  let p;
+  try { p = decodeURIComponent(url.pathname); } catch { return send(res, 400, 'bad request', 'text/plain'); }
+  const rd = matchRedirect(p);
+  if (rd) { res.writeHead(rd.status, { location: rd.to + (rd.to.includes('?') ? '' : url.search) }); return res.end(); }
+  const extra = headersFor(p);
   let file = path.normalize(path.join(ROOT, p));
-  if (!file.startsWith(ROOT)) return send(res, 403, 'forbidden', 'text/plain');
+  if (!file.startsWith(ROOT) || /(^|[\\/])\.(git|env)/.test(p)) return send(res, 403, 'forbidden', 'text/plain');
   try {
     let st = fs.statSync(file);
     if (st.isDirectory()) {
-      if (!p.endsWith('/')) { res.writeHead(301, { location: `${p}/` }); return res.end(); }
+      if (!p.endsWith('/')) { res.writeHead(301, { location: `${p}/${url.search}` }); return res.end(); }
       file = path.join(file, 'index.html'); st = fs.statSync(file);
     }
-    res.writeHead(200, { 'content-type': TYPES[path.extname(file)] || 'application/octet-stream', 'content-length': st.size });
+    res.writeHead(200, { ...extra, 'content-type': TYPES[path.extname(file)] || 'application/octet-stream', 'content-length': st.size });
     fs.createReadStream(file).pipe(res);
   } catch {
+    const nf = path.join(ROOT, '404.html');
+    if (fs.existsSync(nf)) { res.writeHead(404, { ...headersFor('/404.html'), 'content-type': TYPES['.html'] }); return fs.createReadStream(nf).pipe(res); }
     send(res, 404, 'not found', 'text/plain');
   }
 });
 
 server.listen(PORT, () => {
-  console.log(`Hearth running:  http://localhost:${PORT}/product/   (website: /website/, studio: /product/studio/, dashboard: /product/dashboard/)`);
+  console.log(`Hearth running:  http://localhost:${PORT}/   (app: /app/ → /product/, studio: /studio/, dashboard: /dashboard/)`);
   console.log(`Story engine: ${storyEngineReady() ? 'ready (Claude)' : 'offline — set ANTHROPIC_API_KEY to enable live story writing'}`);
 });

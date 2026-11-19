@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /docs/
+Disallow: /pitch/
+Disallow: /site/
+Disallow: /brand/README.md
+Disallow: /product/server/
+Disallow: /product/test/
+Disallow: /product/tools/
+Disallow: /product/package.json
+Disallow: /product/package-lock.json
+Disallow: /product/artifact.html
+Disallow: /README.md
+Disallow: /wrangler.jsonc

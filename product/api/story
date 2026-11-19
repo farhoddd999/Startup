@@ -1,0 +1,1 @@
+{"ready":false,"note":"Live story writing needs the Hearth server (node product/server/server.mjs with ANTHROPIC_API_KEY). The static site uses the story library."}

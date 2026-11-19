@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Decodability checker · Hearth</title>
+<meta name="description" content="Paste any text and see which words a parent at each step of Hearth’s phonics sequence can actually read: decodable words, heart words, and words not yet in reach.">
+<meta name="theme-color" content="#131A2E">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hearth">
+<meta property="og:title" content="Decodability checker · Hearth">
+<meta property="og:description" content="Paste any text and see which words a parent at each step of Hearth’s phonics sequence can actually read: decodable words, heart words, and words not yet in reach.">
+<meta property="og:image" content="/assets/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/product/assets/fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Hearth home"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4c5.5 7 10 11.5 9.2 18.4-.6 5-4.4 8.1-9.2 8.1s-8.6-3.1-9.2-8.1C22 15.5 26.5 11 32 4z" fill="#F2C14E"/><path d="M32 14.5c2.8 3.6 5 6 4.6 9.6-.3 2.6-2.2 4.2-4.6 4.2s-4.3-1.6-4.6-4.2c-.4-3.6 1.8-6 4.6-9.6z" fill="#E8833A"/><path d="M32 33c-6.5-4.8-15.2-6.3-25-4.6v24.3c9.8-1.7 18.5-.2 25 4.6z" fill="#E8833A"/><path d="M32 33c6.5-4.8 15.2-6.3 25-4.6v24.3c-9.8-1.7-18.5-.2-25 4.6z" fill="#C9622A"/></svg><b>hearth</b></a>
+    <nav class="nav" id="site-nav" aria-label="Main"><a href="/how-it-works/">How it works</a><a href="/families/">For families</a><a href="/programs/">For programs</a><a href="/science/">Science</a><a href="/stories/">Stories</a><a href="/about/">About</a><div class="nav-cta"><a class="btn line sm" href="/app/">Try the app</a><a class="btn lamp sm" href="/pilot/">Start a pilot</a></div></nav>
+    <div class="header-cta"><a class="btn line sm" href="/app/">Try the app</a><a class="btn lamp sm" href="/pilot/">Start a pilot</a></div>
+    <button class="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-hero night">
+  <svg class="stars" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="0" cy="0" r="0.6" fill="#F6E7B4" opacity="0.15"/><circle cx="173" cy="97" r="1.1" fill="#F6E7B4" opacity="0.24"/><circle cx="346" cy="194" r="1.6" fill="#F6E7B4" opacity="0.33"/><circle cx="519" cy="291" r="0.6" fill="#F6E7B4" opacity="0.42"/><circle cx="692" cy="388" r="1.1" fill="#F6E7B4" opacity="0.51"/><circle cx="865" cy="485" r="1.6" fill="#F6E7B4" opacity="0.15"/><circle cx="1038" cy="582" r="0.6" fill="#F6E7B4" opacity="0.24"/><circle cx="11" cy="679" r="1.1" fill="#F6E7B4" opacity="0.33"/><circle cx="184" cy="76" r="1.6" fill="#F6E7B4" opacity="0.42"/><circle cx="357" cy="173" r="0.6" fill="#F6E7B4" opacity="0.51"/><circle cx="530" cy="270" r="1.1" fill="#F6E7B4" opacity="0.15"/><circle cx="703" cy="367" r="1.6" fill="#F6E7B4" opacity="0.24"/><circle cx="876" cy="464" r="0.6" fill="#F6E7B4" opacity="0.33"/><circle cx="1049" cy="561" r="1.1" fill="#F6E7B4" opacity="0.42"/><circle cx="22" cy="658" r="1.6" fill="#F6E7B4" opacity="0.51"/><circle cx="195" cy="55" r="0.6" fill="#F6E7B4" opacity="0.15"/><circle cx="368" cy="152" r="1.1" fill="#F6E7B4" opacity="0.24"/><circle cx="541" cy="249" r="1.6" fill="#F6E7B4" opacity="0.33"/><circle cx="714" cy="346" r="0.6" fill="#F6E7B4" opacity="0.42"/><circle cx="887" cy="443" r="1.1" fill="#F6E7B4" opacity="0.51"/><circle cx="1060" cy="540" r="1.6" fill="#F6E7B4" opacity="0.15"/><circle cx="33" cy="637" r="0.6" fill="#F6E7B4" opacity="0.24"/><circle cx="206" cy="34" r="1.1" fill="#F6E7B4" opacity="0.33"/><circle cx="379" cy="131" r="1.6" fill="#F6E7B4" opacity="0.42"/><circle cx="552" cy="228" r="0.6" fill="#F6E7B4" opacity="0.51"/><circle cx="725" cy="325" r="1.1" fill="#F6E7B4" opacity="0.15"/><circle cx="898" cy="422" r="1.6" fill="#F6E7B4" opacity="0.24"/><circle cx="1071" cy="519" r="0.6" fill="#F6E7B4" opacity="0.33"/><circle cx="44" cy="616" r="1.1" fill="#F6E7B4" opacity="0.42"/><circle cx="217" cy="13" r="1.6" fill="#F6E7B4" opacity="0.51"/><circle cx="390" cy="110" r="0.6" fill="#F6E7B4" opacity="0.15"/><circle cx="563" cy="207" r="1.1" fill="#F6E7B4" opacity="0.24"/><circle cx="736" cy="304" r="1.6" fill="#F6E7B4" opacity="0.33"/><circle cx="909" cy="401" r="0.6" fill="#F6E7B4" opacity="0.42"/><circle cx="1082" cy="498" r="1.1" fill="#F6E7B4" opacity="0.51"/><circle cx="55" cy="595" r="1.6" fill="#F6E7B4" opacity="0.15"/><circle cx="228" cy="692" r="0.6" fill="#F6E7B4" opacity="0.24"/><circle cx="401" cy="89" r="1.1" fill="#F6E7B4" opacity="0.33"/><circle cx="574" cy="186" r="1.6" fill="#F6E7B4" opacity="0.42"/><circle cx="747" cy="283" r="0.6" fill="#F6E7B4" opacity="0.51"/></svg>
+  <div class="wrap">
+    <span class="eyebrow">Decodability checker</span>
+    <h1>Which words can this reader actually read?</h1>
+    <p class="lead">Paste any text and choose where a reader is on Hearth’s 40-step path. Every word is explained as sounds, then sorted. It’s the same engine that checks every Hearth story before a parent sees it.</p>
+  </div>
+</section>
+
+<section class="band paper" aria-label="Checker">
+  <div class="wrap">
+    <div class="checker" data-checker>
+      <div class="card stack">
+        <div class="field"><label for="ckStep">Reader is working on <span data-ck="stepTitle">step 14: sh</span></label><input id="ckStep" type="range" min="1" max="40" value="14"><div class="small muted" style="display:flex;justify-content:space-between"><span>step 1</span><b data-ck="stepNum" style="color:var(--ember-deep)">14</b><span>step 40</span></div></div>
+        <div class="field"><label for="ckNames">Family words (always readable)</label><input id="ckNames" type="text" value="Mateo, Mama"><span class="hint">The child’s name and what they call the parent.</span></div>
+        <div class="field"><label for="ckText">Text</label><textarea id="ckText" rows="8"></textarea></div>
+        <div class="chip-row"><span>Try:</span><button data-sample="hearth">A Hearth page</button><button data-sample="note">A note from school</button><button data-sample="label">A medicine label</button><button data-sample="classic">A classic picture book line</button></div>
+      </div>
+      <div class="card stack min0">
+        <div class="mini-stats" data-ck="stats"><div><b>…</b><span>loading the dictionary</span></div></div>
+        <div class="legend"><span><i class="sw decodable"></i>Can sound out</span><span><i class="sw focus"></i>Uses the new sound</span><span><i class="sw heart"></i>Heart word</span><span><i class="sw name"></i>Family word</span><span><i class="sw tricky"></i>Not yet</span></div>
+        <div class="xray" data-ck="out" aria-live="polite"></div>
+        <div data-ck="detail" style="border-top:1px solid var(--paper-3);padding-top:14px"><p class="muted">Click any word to see how it splits into sounds.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band paper-2" aria-labelledby="whyTitle">
+  <div class="wrap split top">
+    <div class="stack"><span class="eyebrow">Why it matters</span><h2 id="whyTitle">Most text isn’t written for new readers.</h2><p class="lead">A typical note home from school is only about 30% readable for a parent learning “sh”. That’s why generic content fails these parents, and why every Hearth story is checked word by word before it reaches them.</p></div>
+    <div class="stack">
+      <h3>How it works</h3>
+      <ul class="checklist">
+        <li><span>Each word’s pronunciation comes from the CMU Pronouncing Dictionary (about 19,500 common words are included here).</span></li>
+        <li><span>214 spelling rules map letters to sounds; the simplest explanation wins.</span></li>
+        <li><span>Each sound pattern belongs to one of 40 steps. A word is readable once all its patterns are taught, or if it’s a heart word already learned.</span></li>
+        <li><span>Everything runs in your browser. Nothing you paste is sent anywhere.</span></li>
+      </ul>
+      <p><a class="link-arrow" href="/science/#sequence">See all 40 steps</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="stack">
+        <a class="logo" href="/"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4c5.5 7 10 11.5 9.2 18.4-.6 5-4.4 8.1-9.2 8.1s-8.6-3.1-9.2-8.1C22 15.5 26.5 11 32 4z" fill="#F2C14E"/><path d="M32 14.5c2.8 3.6 5 6 4.6 9.6-.3 2.6-2.2 4.2-4.6 4.2s-4.3-1.6-4.6-4.2c-.4-3.6 1.8-6 4.6-9.6z" fill="#E8833A"/><path d="M32 33c-6.5-4.8-15.2-6.3-25-4.6v24.3c9.8-1.7 18.5-.2 25 4.6z" fill="#E8833A"/><path d="M32 33c6.5-4.8 15.2-6.3 25-4.6v24.3c-9.8-1.7-18.5-.2-25 4.6z" fill="#C9622A"/></svg><b>hearth</b></a>
+        <p>A private reading coach for parents, built around the bedtime story. Every night, two people get better at reading.</p>
+        <p>Pilots and partnerships: <a href="mailto:hello@hearth.example">hello@hearth.example</a></p>
+      </div>
+      <div><h4>Product</h4><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/app/">Try the app</a></li><li><a href="/stories/">Story library</a></li><li><a href="/check/">Decodability checker</a></li><li><a href="/dashboard/">Partner dashboard demo</a></li></ul></div>
+      <div><h4>Who it's for</h4><ul><li><a href="/families/">Families</a></li><li><a href="/families/#es">Familias (español)</a></li><li><a href="/programs/">Programs and partners</a></li><li><a href="/pilot/">Start a pilot</a></li></ul></div>
+      <div><h4>Learn more</h4><ul><li><a href="/science/">The science</a></li><li><a href="/research/">Research and sources</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/about/">About Hearth</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© <span data-year>2026</span> Hearth. Working prototype; pilots next.</span><span>Families never pay. No ads. No data sales.</span></div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+
+<script type="module" src="/assets/check.js"></script>
+</body>
+</html>

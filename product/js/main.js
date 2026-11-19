@@ -83,7 +83,7 @@ function renderRail() {
         h('button.chip', { onclick: () => { reset(); Object.assign(getState(), demoFamily()); update(() => {}); go('#/home'); renderRail(); } }, 'Load demo family'),
         h('button.chip', { onclick: () => { reset(); go('#/welcome'); renderRail(); } }, 'Start onboarding'),
       ),
-      h('p', { style: { marginTop: '10px', fontSize: '14px' } }, h('a', { href: 'studio/index.html' }, 'Story Studio'), ' · ', h('a', { href: 'dashboard/index.html' }, 'Partner dashboard'), isFramed ? null : ' · ', isFramed ? null : h('a', { href: '../website/index.html' }, 'Website')),
+      h('p', { style: { marginTop: '10px', fontSize: '14px' } }, h('a', { href: 'studio/index.html' }, 'Story Studio'), ' · ', h('a', { href: 'dashboard/index.html' }, 'Partner dashboard'), isFramed ? null : ' · ', isFramed ? null : h('a', { href: '/' }, 'Website')),
     ),
   );
 }

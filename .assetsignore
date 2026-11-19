@@ -1,0 +1,23 @@
+# Files in the repository that are not part of the public website (Workers static assets).
+.git
+.github
+.gitignore
+.assetsignore
+wrangler.jsonc
+node_modules
+.DS_Store
+*.log
+.env*
+README.md
+docs
+pitch
+site
+brand/README.md
+product/server
+product/test
+product/tools
+product/node_modules
+product/package.json
+product/package-lock.json
+product/artifact.html
+.wrangler

@@ -1,8 +1,8 @@
 // Offline-first: the app shell, stories, lexicon and fonts are cached so a
 // parent can practise with no data plan. (Story generation needs a connection.)
-const CACHE = 'hearth-v1';
+const CACHE = 'hearth-v2';
 const SHELL = [
-  './', './index.html', './css/app.css', './manifest.webmanifest', './data/lexicon.json', './data/stories.js',
+  './', './css/app.css', './manifest.webmanifest', './data/lexicon.json', './data/stories.js',
   './js/main.js', './js/i18n.js', './js/voice.js', './js/store.js', './js/ui.js', './js/stories.js', './js/art.js', './js/demo.js',
   './js/screens/onboarding.js', './js/screens/home.js', './js/screens/reader.js', './js/screens/sky.js', './js/screens/library.js', './js/screens/settings.js',
   './engine/phonics.js', './engine/align.js', './engine/lexicon.js', './engine/decodable.js', './engine/learner.js', './engine/tracker.js', './engine/text.js', './engine/simulate.js',

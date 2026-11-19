@@ -1,0 +1,13 @@
+// Cloudflare deploy config: the whole site is static files, served from the repository root.
+// Workers (Workers Builds / `npx wrangler deploy`) reads this file. Cloudflare Pages ignores it;
+// for Pages, set the build output directory to "/" with no build command.
+// "name" must match the Worker's name in the Cloudflare dashboard.
+{
+  "name": "startup",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": ".",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
