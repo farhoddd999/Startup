@@ -1,0 +1,17 @@
+<section id="engine">
+<div class="head">
+<p class="eyebrow">Under the hood</p>
+<h2>Every word is checked first.</h2>
+</div>
+<div class="flow">
+<div class="node"><p class="tag">1 · Write</p><h3>Story writer</h3><p>Claude writes a story for one family at one parent’s exact step: their child, their interests, a safe vocabulary.</p></div>
+<div class="arrow"><x-shape kind="arrow-right"></x-shape></div>
+<div class="node"><p class="tag">2 · Check</p><h3>Phonics engine</h3><p>Maps every word to its sounds and a 40-step sequence. Any word this parent can’t read yet goes back for a rewrite.</p></div>
+<div class="arrow"><x-shape kind="arrow-right"></x-shape></div>
+<div class="node"><p class="tag">3 · Listen</p><h3>Reading coach</h3><p>Follows the parent’s voice word by word, ignores repeats and chatter, and gives the smallest hint that helps.</p></div>
+<div class="arrow"><x-shape kind="arrow-right"></x-shape></div>
+<div class="node"><p class="tag">4 · Learn</p><h3>Learner model</h3><p>Tracks each sound per parent. A sound counts as learned only after good reading on two different days.</p></div>
+</div>
+<p class="callout">A typical note home from school is <b>30% readable</b> for a parent learning “sh”. Every Hearth story is <b>100% readable</b> for the parent holding it.</p>
+<aside>Four pieces make this work, and they’re all built. One: a story writer, using Claude, writes for a specific family at a specific parent’s level. Two: our phonics engine maps every word to its sounds using the CMU Pronouncing Dictionary and checks it against a 40-step sequence; words the parent can’t decode go back for a rewrite, up to three rounds, and the story is rejected if it still fails. Three: a reading coach that follows a parent’s voice and tolerates repeats and talking to the child. Four: a learner model that tracks each sound for each parent and only counts a sound as learned after success on two separate days. To make it concrete: run a school letter through our engine for a parent at step 14 and only 30 percent of it is readable. That’s why generic content fails these parents, and why every Hearth story is checked.</aside>
+</section>

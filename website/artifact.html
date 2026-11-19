@@ -83,8 +83,8 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .phone img { border-radius: 31px; }
 .phone.front { right: 40px; top: 10px; z-index: 2; }
 .phone.back { right: 250px; top: 90px; transform: rotate(-5deg); opacity: .95; }
-@media (max-width: 920px) { .phones { height: 560px; } .phone.front { right: auto; left: 50%; margin-left: -60px; } .phone.back { right: auto; left: 50%; margin-left: -250px; } }
-@media (max-width: 520px) { .phones { height: 470px; } .phone { width: 220px; border-radius: 32px; } .phone img { border-radius: 24px; } .phone.front { margin-left: -70px; } .phone.back { margin-left: -190px; top: 70px; } }
+@media (max-width: 920px) { .phones { height: 690px; } .phone.front { right: auto; left: 50%; margin-left: -60px; } .phone.back { right: auto; left: 50%; margin-left: -250px; } }
+@media (max-width: 520px) { .phones { height: 540px; } .phone { width: 220px; border-radius: 32px; } .phone img { border-radius: 24px; } .phone.front { margin-left: -70px; } .phone.back { margin-left: -190px; top: 70px; } }
 .trust { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 36px; color: var(--on-night-2); font-size: 15px; }
 .trust span { display: inline-flex; gap: 8px; align-items: center; }
 .trust i { width: 7px; height: 7px; border-radius: 50%; background: var(--lamp); }
@@ -258,7 +258,7 @@ footer .links { display: flex; flex-direction: column; gap: 8px; }
         <h1 class="reading" id="heroLine" aria-label="Be the one who reads the bedtime story."><span class="w">Be</span> <span class="w">the</span> <span class="w">one</span> <span class="w">who</span> <span class="w">reads</span> <span class="w">the</span> <span class="w pause"><span class="ch">bed</span><span class="ch hot">time</span></span> <span class="w">story.</span></h1>
         <p class="lead">Hearth helps parents who struggle to read practise tonight's picture book on their own, with a coach that listens. Then they read it aloud to their child. Every night, two people get better at reading.</p>
         <div class="cta-row">
-          <a class="btn lamp" href="../product/?demo">Try the prototype</a>
+          <a class="btn lamp" href="https://claude.ai/artifact/RpJueTV3BenGZgeCbq5xEx">Try the prototype</a>
           <a class="btn line" href="#how">See how it works</a>
         </div>
         <p class="fine">Free for families. Paid for by the programs that serve them.</p>
@@ -336,7 +336,7 @@ footer .links { display: flex; flex-direction: column; gap: 8px; }
             <p>Read aloud. Hearth follows along word by word. If you pause, help comes in small steps, so you do as much of the reading as you can. At the end you see a few words to look at once more, and nothing else.</p>
             <ul><li>About five minutes, any time of day</li><li>Press and hold anything to hear it</li><li>“Listen first” reads the page to you</li></ul>
           </div>
-          <div class="media shot"><div class="phone"><img src="assets/app-ready.png" alt="After practice: You're ready for tonight. You read 53 of 59 words on your own. Words to look at once more: fish, wish, ship, shop." width="780" height="1688"></div></div>
+          <div class="media shot"><div class="phone"><img src="assets/app-ready.png" alt="After practice: You're ready for tonight, a count of the words read on your own, and a few words to look at once more: fish, shop, wish." width="780" height="1688"></div></div>
         </div>
         <div class="step">
           <div>
@@ -396,7 +396,7 @@ footer .links { display: flex; flex-direction: column; gap: 8px; }
       <p class="lead" style="margin-top:20px">Each new sound unlocks hundreds of everyday words. Hearth counts them for you: the words you can now read, out of the 5,000 most common in English.</p>
       <div class="growth">
         <div class="chart-card"><svg viewBox="0 0 720 300" role="img" aria-labelledby="growthTitle"><title id="growthTitle">Words a parent can read at each of Hearth's 40 steps, out of the 5,000 most common English words. Step 1: 10 words. Step 18: 801. Step 34: 1,995. Step 40: 4,534.</title><line x1="54" x2="696" y1="260" y2="260" class="g"/><text x="44" y="264" text-anchor="end">0</text><line x1="54" x2="696" y1="211.60000000000002" y2="211.60000000000002" class="g"/><text x="44" y="215.60000000000002" text-anchor="end">1K</text><line x1="54" x2="696" y1="163.2" y2="163.2" class="g"/><text x="44" y="167.2" text-anchor="end">2K</text><line x1="54" x2="696" y1="114.80000000000001" y2="114.80000000000001" class="g"/><text x="44" y="118.80000000000001" text-anchor="end">3K</text><line x1="54" x2="696" y1="66.39999999999999" y2="66.39999999999999" class="g"/><text x="44" y="70.39999999999999" text-anchor="end">4K</text><line x1="54" x2="696" y1="18" y2="18" class="g"/><text x="44" y="22" text-anchor="end">5K</text><text x="70.05" y="282" text-anchor="middle">step 1</text><text x="214.5" y="282" text-anchor="middle">step 10</text><text x="375" y="282" text-anchor="middle">step 20</text><text x="535.5" y="282" text-anchor="middle">step 30</text><text x="696" y="282" text-anchor="middle">step 40</text><polygon points="54,260 54.0,260.0 70.0,259.5 86.1,259.0 102.2,258.1 118.2,257.5 134.3,256.3 150.3,255.4 166.3,254.0 182.4,252.8 198.5,250.5 214.5,249.1 230.6,247.3 246.6,246.5 262.6,240.5 278.7,239.5 294.8,238.3 310.8,237.6 326.8,236.3 342.9,221.2 358.9,216.5 375.0,213.5 391.1,210.0 407.1,208.0 423.1,201.7 439.2,198.6 455.3,196.3 471.3,194.3 487.4,192.1 503.4,189.9 519.5,187.7 535.5,184.2 551.5,182.2 567.6,181.5 583.6,179.3 599.7,163.4 615.8,106.5 631.8,95.3 647.9,78.9 663.9,76.5 679.9,46.6 696.0,40.6 696,260" class="area"/><polyline points="54.0,260.0 70.0,259.5 86.1,259.0 102.2,258.1 118.2,257.5 134.3,256.3 150.3,255.4 166.3,254.0 182.4,252.8 198.5,250.5 214.5,249.1 230.6,247.3 246.6,246.5 262.6,240.5 278.7,239.5 294.8,238.3 310.8,237.6 326.8,236.3 342.9,221.2 358.9,216.5 375.0,213.5 391.1,210.0 407.1,208.0 423.1,201.7 439.2,198.6 455.3,196.3 471.3,194.3 487.4,192.1 503.4,189.9 519.5,187.7 535.5,184.2 551.5,182.2 567.6,181.5 583.6,179.3 599.7,163.4 615.8,106.5 631.8,95.3 647.9,78.9 663.9,76.5 679.9,46.6 696.0,40.6" class="line"/><circle cx="70.05" cy="259.51599999999996" r="5" class="dot"/><text x="78.05" y="245.51599999999996" text-anchor="start" class="note">I am Mateo.</text><circle cx="278.7" cy="239.5268" r="5" class="dot"/><text x="286.7" y="265.5268" text-anchor="start" class="note">“sh” as in ship</text><circle cx="342.90000000000003" cy="221.2316" r="5" class="dot"/><text x="332.90000000000003" y="205.2316" text-anchor="end" class="note">blends: frog, jump</text><circle cx="599.6999999999999" cy="163.442" r="5" class="dot"/><text x="587.6999999999999" y="151.442" text-anchor="end" class="note">endings: -ed, -ing</text><circle cx="696" cy="40.55439999999999" r="5" class="dot"/><text x="684" y="30.554399999999987" text-anchor="end" class="note">4,534 words</text></svg><p class="chart-cap">Words a parent can sound out or knows by heart at each step, from the Hearth engine run on the 5,000 most frequent words in American English (SUBTLEX-US).</p></div>
-        <div class="media shot"><div class="phone" style="width:min(280px,76vw)"><img src="assets/app-sky.png" alt="Your sky: 423 words you can read, shown as a constellation of stars." width="780" height="1688"></div></div>
+        <div class="media shot"><div class="phone" style="width:min(280px,76vw)"><img src="assets/app-sky.png" alt="Your sky: the number of words you can read, above a constellation where each lit star is a sound you know." width="780" height="1688"></div></div>
       </div>
     </div>
   </section>
@@ -462,7 +462,7 @@ footer .links { display: flex; flex-direction: column; gap: 8px; }
     <div class="wrap">
       <h2 id="closeTitle">Every child deserves a bedtime story. Every parent deserves to be the one who reads it.</h2>
       <p class="lead">Try the prototype with a demo family, or talk to us about a pilot with the families you serve.</p>
-      <div class="cta-row"><a class="btn lamp" href="../product/?demo">Try the prototype</a></div>
+      <div class="cta-row"><a class="btn lamp" href="https://claude.ai/artifact/RpJueTV3BenGZgeCbq5xEx">Try the prototype</a></div>
       <p class="contact">Pilots and partnerships: <code>hello@hearth.example</code></p>
     </div>
   </section>
