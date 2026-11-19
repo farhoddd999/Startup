@@ -13,6 +13,7 @@ import * as sky from './screens/sky.js';
 import * as library from './screens/library.js';
 import * as settings from './screens/settings.js';
 import { demoFamily } from './demo.js';
+import { go, current, onRoute, isFramed } from './router.js';
 
 const app = document.getElementById('app');
 let cleanup = null;
@@ -31,10 +32,11 @@ const routes = [
 
 function route() {
   const st = getState();
-  let hash = location.hash || '';
-  if (!st.onboarded && !/^#\/(welcome|onboard|place)/.test(hash)) hash = '#/welcome';
-  if (st.onboarded && (!hash || hash === '#/' || hash === '#/welcome')) hash = '#/home';
-  if (hash !== location.hash) { history.replaceState(null, '', hash); }
+  const hash = current() || '';
+  let target = hash;
+  if (!st.onboarded && !/^#\/(welcome|onboard|place)/.test(hash)) target = '#/welcome';
+  if (st.onboarded && (!hash || hash === '#/' || hash === '#/welcome')) target = '#/home';
+  if (target !== hash) { go(target, { replace: true }); return; }
   stopSpeaking();
   if (typeof cleanup === 'function') { try { cleanup(); } catch { /* ignore */ } }
   cleanup = null;
@@ -44,10 +46,10 @@ function route() {
     const m = hash.match(re);
     if (m) { cleanup = make(m)(app) || null; app.scrollTop = 0; window.scrollTo(0, 0); return; }
   }
-  location.hash = st.onboarded ? '#/home' : '#/welcome';
+  go(st.onboarded ? '#/home' : '#/welcome', { replace: true });
 }
 
-export const go = hash => { if (location.hash === hash) route(); else location.hash = hash; };
+export { go };
 
 // ---- desktop rail: explains the prototype to visitors and offers demo shortcuts ----
 function renderRail() {
@@ -78,10 +80,10 @@ function renderRail() {
     h('div.card',
       h('h3', 'Shortcuts'),
       h('div.row',
-        h('button.chip', { onclick: () => { reset(); Object.assign(getState(), demoFamily()); update(() => {}); location.hash = '#/home'; route(); renderRail(); } }, 'Load demo family'),
-        h('button.chip', { onclick: () => { reset(); location.hash = '#/welcome'; route(); renderRail(); } }, 'Start onboarding'),
+        h('button.chip', { onclick: () => { reset(); Object.assign(getState(), demoFamily()); update(() => {}); go('#/home'); renderRail(); } }, 'Load demo family'),
+        h('button.chip', { onclick: () => { reset(); go('#/welcome'); renderRail(); } }, 'Start onboarding'),
       ),
-      h('p', { style: { marginTop: '10px', fontSize: '14px' } }, h('a', { href: './studio/' }, 'Story Studio'), ' · ', h('a', { href: './dashboard/' }, 'Partner dashboard'), ' · ', h('a', { href: '../website/' }, 'Website')),
+      h('p', { style: { marginTop: '10px', fontSize: '14px' } }, h('a', { href: 'studio/index.html' }, 'Story Studio'), ' · ', h('a', { href: 'dashboard/index.html' }, 'Partner dashboard'), isFramed ? null : ' · ', isFramed ? null : h('a', { href: '../website/index.html' }, 'Website')),
     ),
   );
 }
@@ -92,14 +94,14 @@ async function boot() {
   enableHoldToHear(document);
   const res = await fetch('./data/lexicon.json');
   setLexicon(new Lexicon(await res.json()));
-  if (new URLSearchParams(location.search).has('demo') && !st.onboarded) {
+  if ((new URLSearchParams(location.search).has('demo') || location.hash === '#demo') && !st.onboarded) {
     Object.assign(st, demoFamily()); update(() => {});
   }
-  window.addEventListener('hashchange', route);
+  onRoute(route);
   subscribe(() => document.documentElement.setAttribute('lang', getState().family.lang || 'en'));
   renderRail();
   route();
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(() => {});
+  if (!isFramed && 'serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(() => {});
 }
 
 boot().catch(err => {

@@ -15,13 +15,14 @@ import { observe, workingStep } from '../../engine/learner.js';
 import { chunksFor } from '../../engine/decodable.js';
 import { PATTERN_INFO, STEPS } from '../../engine/phonics.js';
 import { readableCount } from './sky.js';
+import { go, back } from '../router.js';
 
 let lastSession = null;   // handed to the finish screen
 
 export function render(root, { id, mode }) {
   const st = getState();
   const story = findStory(id);
-  if (!story) { location.hash = '#/home'; return; }
+  if (!story) { go('#/home'); return; }
   const P = prepare(story);
   const fam = st.family;
   const story_mode = mode === 'story';
@@ -68,7 +69,7 @@ export function render(root, { id, mode }) {
 
   const scr = h('div.screen.reader',
     h('div.topbar',
-      h('button.icon-btn', { 'aria-label': t('close'), say: t('close'), onclick: () => { location.hash = '#/home'; } }, icon('close')),
+      h('button.icon-btn', { 'aria-label': t('close'), say: t('close'), onclick: () => { go('#/home'); } }, icon('close')),
       h('div', { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', flex: 1 } }, modeChip, dotsEl),
       recBtn,
     ),
@@ -354,7 +355,7 @@ export function render(root, { id, mode }) {
       if (s.history.length > 400) s.history.shift();
     });
     lastSession = { id: story.id, mode, q, words, watch, step: workingStep(getState().learner) };
-    location.hash = `#/done/${story.id}/${mode}`;
+    go(`#/done/${story.id}/${mode}`);
   }
 
   // ---- recording the parent's voice (story time) ----
@@ -386,13 +387,13 @@ function renderListen(root, P) {
   const text = h('div.page-text');
   const dotsEl = h('div.pagedots');
   const scr = h('div.screen.reader',
-    h('div.topbar', h('button.icon-btn', { 'aria-label': t('close'), onclick: () => { location.hash = '#/home'; } }, icon('close')),
+    h('div.topbar', h('button.icon-btn', { 'aria-label': t('close'), onclick: () => { go('#/home'); } }, icon('close')),
       h('div', { style: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', flex: 1 } }, h('span.mode-chip.live', h('span.dot'), t('recorded_by', { grownup: fam.grownup })), dotsEl), h('span', { style: { width: '48px' } })),
     art, text);
   root.append(scr);
   async function play(k) {
     if (stopped) return;
-    if (k >= P.pages.length) { location.hash = '#/home'; return; }
+    if (k >= P.pages.length) { go('#/home'); return; }
     i = k;
     const page = P.pages[k];
     art.innerHTML = renderScene(page.scene, fam.look);
@@ -424,7 +425,7 @@ export function finish(root, { id, mode }) {
       h('p', { style: { fontSize: '20px', opacity: .85 } }, t('goodnight_sub', vars)),
       s ? h('p', { style: { opacity: .7 } }, `${fmt(s.words)} words read aloud tonight.`) : null,
       h('div', { style: { height: '20px' } }),
-      h('button.btn.primary', { onclick: () => { location.hash = '#/home'; } }, h('span.grow', t('done')), icon('check')),
+      h('button.btn.primary', { onclick: () => { go('#/home'); } }, h('span.grow', t('done')), icon('check')),
     ));
     return;
   }
@@ -440,7 +441,7 @@ export function finish(root, { id, mode }) {
   const total = q.fluent + q.effortful + q.helped + q.skipped;
   const onOwn = q.fluent + q.effortful;
   root.append(h('div.screen.finish',
-    h('div.topbar', h('button.icon-btn', { 'aria-label': t('close'), onclick: () => { location.hash = '#/home'; } }, icon('close')), h('span'), sayButton(t('finish_practice_say'))),
+    h('div.topbar', h('button.icon-btn', { 'aria-label': t('close'), onclick: () => { go('#/home'); } }, icon('close')), h('span'), sayButton(t('finish_practice_say'))),
     h('div.stars-burst', icon('star'), icon('star'), icon('star')),
     h('h1', { style: { textAlign: 'center' } }, t('finish_practice_title')),
     h('div.summary', total
@@ -457,8 +458,8 @@ export function finish(root, { id, mode }) {
     })) : null,
     h('div.newsound', h('span.emo', info.pic || '⭐'), h('div', h('div.small.muted', t('new_sound')), h('span.g', info.label || ''), h('span.muted', info.key ? `  as in “${info.key}”` : '')), h('span.spacer'), sayButton(info.key || '')),
     h('div.spacer'),
-    h('button.btn.primary', { onclick: () => { location.hash = `#/read/${id}/story`; } }, icon('moon'), h('span.grow', t('read_now', { child: fam.childName })), icon('next')),
-    h('button.btn.ghost', { onclick: () => { location.hash = '#/home'; } }, h('span.grow', t('later'))),
+    h('button.btn.primary', { onclick: () => { go(`#/read/${id}/story`); } }, icon('moon'), h('span.grow', t('read_now', { child: fam.childName })), icon('next')),
+    h('button.btn.ghost', { onclick: () => { go('#/home'); } }, h('span.grow', t('later'))),
   ));
   void story;
 }

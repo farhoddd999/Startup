@@ -91,6 +91,7 @@ p { margin: 0; }
 .welcome .logo b { font-family: var(--display); font-size: 30px; font-weight: 650; }
 .welcome h1 { font-size: 36px; }
 .lang-row { display: flex; gap: 10px; }
+.demo-link { color: var(--muted); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; padding: 6px; align-self: center; }
 .lang-row button { flex: 1; min-height: 52px; border-radius: 14px; background: var(--surface); box-shadow: inset 0 0 0 2px var(--line); font-weight: 700; }
 .lang-row button.on { box-shadow: inset 0 0 0 3px var(--ember); color: var(--ember-deep); }
 .q-head { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; margin: 10px 0 18px; }

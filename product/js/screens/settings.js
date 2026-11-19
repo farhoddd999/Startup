@@ -5,6 +5,7 @@ import { t, LANGS, setLang } from '../i18n.js';
 import { getState, update, reset } from '../store.js';
 import { recognitionAvailable, requestMic } from '../voice.js';
 import { tabbar } from './home.js';
+import { go, back } from '../router.js';
 
 const PROGRAMS = { 'RIVER-24': 'Riverside Family Center (demo)', 'LIB-OAK': 'Oakwood Public Library (demo)', 'HS-NORTH': 'Northside Head Start (demo)' };
 
@@ -42,7 +43,7 @@ export function render(root) {
     h('div.label', t('settings_privacy')),
     h('p.note', t('privacy_note')),
     h('div', { style: { height: '14px' } }),
-    h('button.btn.ghost', { onclick: () => { if (confirm(t('settings_reset') + '?')) { reset(); location.hash = '#/welcome'; } } }, icon('back'), h('span.grow', t('settings_reset'))),
+    h('button.btn.ghost', { onclick: () => { if (confirm(t('settings_reset') + '?')) { reset(); go('#/welcome'); } } }, icon('back'), h('span.grow', t('settings_reset'))),
     tabbar('settings'),
   ));
 }

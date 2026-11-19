@@ -9,9 +9,11 @@ import { renderScene, SKIN, HAIR, HAIR_STYLES } from '../art.js';
 import { createPlacement, createLearner, PLACEMENT_LADDER } from '../../engine/learner.js';
 import { spokenTokens, similarity } from '../../engine/tracker.js';
 import { pickTonight } from '../stories.js';
+import { demoFamily } from '../demo.js';
+import { replaceState } from '../store.js';
+import { go, back } from '../router.js';
 
 const STEPS = ['promise', 'child', 'call', 'look', 'loves', 'mic'];
-const go = hash => { location.hash = hash; };
 const narrate = text => { if (getState().settings.narrate) speak(text); };
 
 function dots(i) { return h('div.dots', STEPS.map((_, k) => h(`i${k === i ? '.on' : ''}`))); }
@@ -32,6 +34,7 @@ export function welcome(root) {
     h('div.spacer'),
     h('button.btn.primary', { say: t('start'), onclick: () => { speak(t('welcome_say')); go('#/onboard/promise'); } }, h('span.grow', t('start')), icon('next')),
     h('p.muted', { style: { textAlign: 'center', fontSize: '15px' } }, t('hold_to_hear')),
+    h('button.demo-link', { type: 'button', onclick: () => { replaceState(demoFamily()); go('#/home'); } }, 'Presenting Hearth? Explore with a demo family'),
   );
   root.append(scr);
 }
@@ -48,7 +51,7 @@ export function step(name) {
 
 function frame(i, titleKey, sayKey, body, { onNext, nextLabel, vars = {} } = {}) {
   const scr = h('div.screen',
-    h('div.topbar', h('button.icon-btn', { 'aria-label': t('back'), say: t('back'), onclick: () => history.back() }, icon('back')), dots(i), h('span', { style: { width: '48px' } })),
+    h('div.topbar', h('button.icon-btn', { 'aria-label': t('back'), say: t('back'), onclick: () => back() }, icon('back')), dots(i), h('span', { style: { width: '48px' } })),
     h('div.q-head', h('h2', t(titleKey, vars)), sayButton(t(sayKey, vars))),
     body,
     h('div.spacer', { style: { minHeight: '18px' } }),
@@ -184,7 +187,7 @@ export function placement(root) {
   const bar = h('i', { style: { width: '0%' } });
   const skipBtn = h('button.btn.ghost', { say: t('skip'), onclick: () => answer(false) }, h('span.grow', t('skip')), icon('next'));
   const scr = h('div.screen',
-    h('div.topbar', h('button.icon-btn', { 'aria-label': t('back'), onclick: () => history.back() }, icon('back')), h('div.progress-thin', { style: { flex: 1 } }, bar), h('span', { style: { width: '48px' } })),
+    h('div.topbar', h('button.icon-btn', { 'aria-label': t('back'), onclick: () => back() }, icon('back')), h('div.progress-thin', { style: { flex: 1 } }, bar), h('span', { style: { width: '48px' } })),
     h('div.q-head', h('h2', t('place_title')), sayButton(t('place_say'))),
     h('p.muted', t('place_body')),
     h('div.probe', wordEl, status),

@@ -8,6 +8,7 @@ import { allStories } from '../stories.js';
 import { workingStep } from '../../engine/learner.js';
 import { personalize } from '../../engine/text.js';
 import { tabbar } from './home.js';
+import { go } from '../router.js';
 
 export function render(root) {
   const st = getState();
@@ -42,7 +43,7 @@ function openStory(s) {
   const r = st.stories[s.id] || {};
   const vars = { child: st.family.childName, grownup: st.family.grownup };
   const close = () => back.remove();
-  const nav = hash => { close(); location.hash = hash; };
+  const nav = hash => { close(); go(hash); };
   const back = h('div.sheet-backdrop', { onclick: e => { if (e.target === back) close(); } },
     h('div.sheet',
       h('div.grab'),

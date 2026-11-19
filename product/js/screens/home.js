@@ -10,9 +10,10 @@ import { workingStep, stepProgress } from '../../engine/learner.js';
 import { STEPS, PATTERN_INFO } from '../../engine/phonics.js';
 import { personalize } from '../../engine/text.js';
 import { readableCount } from './sky.js';
+import { go, back } from '../router.js';
 
 export function tabbar(active) {
-  const tab = (id, ic, label, hash) => h(`button${active === id ? '.on' : ''}`, { say: label, onclick: () => { location.hash = hash; } }, icon(ic), label);
+  const tab = (id, ic, label, hash) => h(`button${active === id ? '.on' : ''}`, { say: label, onclick: () => { go(hash); } }, icon(ic), label);
   return h('nav.tabbar', tab('home', 'home', t('home'), '#/home'), tab('library', 'book', t('library'), '#/library'), tab('sky', 'star', t('sky'), '#/sky'), tab('settings', 'gear', t('settings'), '#/settings'));
 }
 
@@ -72,21 +73,21 @@ export function render(root) {
           rec.readTogether ? h('span.pill', icon('star'), `Read together ×${rec.readTogether}`) : null,
           story.generated ? h('span.pill', icon('sparkle'), 'Written for you') : null,
         ),
-        h('button.btn.primary', { say: `${t('practice')}. ${t('practice_sub')}`, onclick: () => { location.hash = `#/read/${story.id}/practice`; } },
+        h('button.btn.primary', { say: `${t('practice')}. ${t('practice_sub')}`, onclick: () => { go(`#/read/${story.id}/practice`); } },
           icon('mic'), h('span.grow', t('practice'), h('span.sub', t('practice_sub'))), icon('next')),
-        h('button.btn.ghost', { say: t('read_with', vars), onclick: () => { location.hash = `#/read/${story.id}/story`; } },
+        h('button.btn.ghost', { say: t('read_with', vars), onclick: () => { go(`#/read/${story.id}/story`); } },
           icon('moon'), h('span.grow', t('read_with', vars), h('span.sub', t('read_with_sub'))), icon('next')),
-        rec.recorded ? h('button.btn.ghost', { say: t('play_recording', { grownup: fam.grownup }), onclick: () => { location.hash = `#/read/${story.id}/listen`; } },
+        rec.recorded ? h('button.btn.ghost', { say: t('play_recording', { grownup: fam.grownup }), onclick: () => { go(`#/read/${story.id}/listen`); } },
           icon('play'), h('span.grow', t('play_recording', { grownup: fam.grownup }))) : null,
       ),
     ),
     h('div.mini-grid',
-      h('button.mini.learning', { say: `${t('learning_now')}: ${info.key}`, onclick: () => { location.hash = '#/sky'; } },
+      h('button.mini.learning', { say: `${t('learning_now')}: ${info.key}`, onclick: () => { go('#/sky'); } },
         h('div.emo', info.pic || '⭐'),
         h('div', { style: { flex: 1 } }, h('div.small', t('learning_now')), h('div.grapheme', info.label || step.title), h('div.small', `${info.key ? `as in “${info.key}”` : ''}`)),
         h('span', { html: ring })),
-      h('button.mini', { onclick: () => { location.hash = '#/sky'; } }, h('div.big', fmt(readable)), h('div.small', t('words_you_can_read'))),
-      h('button.mini', { onclick: () => { location.hash = '#/sky'; } }, h('div.big', fmt(st.stats.nights)), h('div.small', t('nights'))),
+      h('button.mini', { onclick: () => { go('#/sky'); } }, h('div.big', fmt(readable)), h('div.small', t('words_you_can_read'))),
+      h('button.mini', { onclick: () => { go('#/sky'); } }, h('div.big', fmt(st.stats.nights)), h('div.small', t('nights'))),
     ),
     h('div', { style: { marginTop: '14px' } }, writeNew),
     tabbar('home'),
