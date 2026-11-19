@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Hearth one-pager</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400..700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+  @page { size: Letter; margin: 0; }
+  :root { --night: #141B30; --paper: #FBF2E4; --ink: #1E2A47; --soft: #4A5370; --lamp: #F4B860; --ember: #B0501C; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 9.1pt/1.36 'Atkinson Hyperlegible', Arial, sans-serif; color: var(--ink); background: var(--paper); }
+  .page { width: 8.5in; height: 11in; display: grid; grid-template-rows: auto 1fr auto; }
+  header { background: var(--night); color: #F4EBDD; padding: 0.38in 0.55in 0.3in; display: grid; grid-template-columns: 1fr auto; gap: 0.3in; align-items: end; }
+  .logo { display: flex; align-items: center; gap: 8px; font-family: 'Fraunces', Georgia, serif; font-size: 20pt; font-weight: 600; }
+  .logo svg { width: 30px; height: 30px; }
+  h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 22pt; line-height: 1.05; margin: 12px 0 8px; letter-spacing: -0.5px; }
+  h1 span { color: var(--lamp); }
+  header p { margin: 0; color: #C3C8D8; max-width: 5in; }
+  .meta { text-align: right; font-size: 9pt; color: #C3C8D8; line-height: 1.6; }
+  .meta b { color: var(--lamp); }
+  main { padding: 0.24in 0.55in 0.06in; display: grid; grid-template-columns: 1fr 1fr; gap: 0.13in 0.34in; align-content: start; }
+  h2 { font-family: 'Fraunces', Georgia, serif; font-size: 11.2pt; font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+  h2 small { font-family: 'Atkinson Hyperlegible', sans-serif; font-size: 7.5pt; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ember); display: block; margin-bottom: 2px; }
+  p { margin: 0 0 5px; color: var(--soft); }
+  ul { margin: 0; padding-left: 15px; color: var(--soft); }
+  li { margin: 2px 0; }
+  b { color: var(--ink); }
+  .full { grid-column: 1 / -1; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .stat { border-top: 2px solid var(--ink); padding-top: 5px; }
+  .stat b { display: block; font-family: 'Fraunces', serif; font-size: 17pt; line-height: 1.1; }
+  .stat span { font-size: 8.5pt; color: var(--soft); }
+  footer { padding: 0.08in 0 0.28in; font-size: 7pt; color: #6A718A; border-top: 1px solid #E4D6C0; margin: 0 0.55in; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <div class="logo"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4c5.5 7 10 11.5 9.2 18.4-.6 5-4.4 8.1-9.2 8.1s-8.6-3.1-9.2-8.1C22 15.5 26.5 11 32 4z" fill="#F2C14E"/><path d="M32 33c-6.5-4.8-15.2-6.3-25-4.6v24.3c9.8-1.7 18.5-.2 25 4.6z" fill="#E8833A"/><path d="M32 33c6.5-4.8 15.2-6.3 25-4.6v24.3c-9.8-1.7-18.5-.2-25 4.6z" fill="#C9622A"/></svg>hearth</div>
+      <h1>Be the one who reads the <span>bedtime story.</span></h1>
+      <p>A private reading coach for parents who struggle to read. They practise tonight’s picture book alone with a coach that listens, then read it aloud to their child. Every night, two people get better at reading.</p>
+    </div>
+    <div class="meta">Pre-seed · November 2026<br><b>Raising [$1.5M]</b><br>[Founder name]<br>[email]</div>
+  </header>
+  <main>
+    <section class="full">
+      <h2><small>The problem</small>For millions of parents, bedtime is where it shows.</h2>
+      <div class="stats">
+        <div class="stat"><b>28%</b><span>of U.S. adults at or below the lowest literacy level (2023), up from 19% in 2017</span></div>
+        <div class="stat"><b>77%</b><span>of U.S. adults at the lowest literacy levels have children</span></div>
+        <div class="stat"><b>~300K</b><span>more words heard by kindergarten when a child is read one book a day</span></div>
+        <div class="stat"><b>739M</b><span>adults worldwide lack basic literacy; two-thirds are women</span></div>
+      </div>
+    </section>
+    <section>
+      <h2><small>Why help misses them</small>No one helps the parent holding the book.</h2>
+      <p>Adult education reached about 1.2M people in 2023 and asks parents to show up, find childcare and admit they can’t read. Children’s AI reading tutors listen to the child. The federal family literacy program was defunded in 2011.</p>
+      <h2 style="margin-top:9px"><small>The insight</small>Every reading app listens to the child. Hearth listens to the parent.</h2>
+      <p>A child at bedtime is the strongest reason an adult has to learn to read, and it comes back every night.</p>
+    </section>
+    <section>
+      <h2><small>The product</small>Practise in private. Read with pride.</h2>
+      <ul>
+        <li><b>Tonight’s story</b> stars their child, and every word is one this parent can sound out, plus the new sound they’re learning.</li>
+        <li><b>Five private minutes:</b> Hearth follows their voice and gives the smallest hint that helps: chunks, then sounds with pictures, then the word.</li>
+        <li><b>Story time:</b> bedtime mode, silent hints, a question per page for the child.</li>
+        <li><b>Dignity by design:</b> no scores, no reading needed to use it, English and Spanish, works offline.</li>
+      </ul>
+    </section>
+    <section>
+      <h2><small>Technology</small>Every word is checked first.</h2>
+      <p>A phonics engine maps each word to its sounds (CMU Pronouncing Dictionary) across a 40-step, 120-pattern sequence. Claude writes stories for one family at one parent’s step; unreadable words go back for revision. A learner model tracks each sound per parent; a speech tracker follows the reader.</p>
+      <p><b>Built today:</b> working phone web app, 14 decodable stories, 19,530-word lexicon, Story Studio, partner dashboard, automated tests. No users yet.</p>
+    </section>
+    <section>
+      <h2><small>Business model</small>Free for families. Programs pay.</h2>
+      <p><b>$60 per enrolled family per year</b> (proposed), paid by Head Start programs, libraries, adult education, pediatric networks and health plans. Estimated cost to serve ~$5 per family per year; target gross margin ~90%. A 300-family Head Start grantee is an $18,000 contract.</p>
+      <p>Buyers today: Head Start ($12.3B, 715,873 slots, FY2024), Reach Out and Read (4.6M children), adult education (1.2M learners).</p>
+    </section>
+    <section>
+      <h2><small>Plan</small>Prove it in 18 months.</h2>
+      <ul>
+        <li><b>Months 0–6:</b> 3 pilot sites, ~150 families, waitlist comparison, research partner. Android app with on-device speech.</li>
+        <li><b>Months 6–18:</b> paid contracts, ~3,000 families, iOS, Spanish stories, published results.</li>
+      </ul>
+    </section>
+    <section>
+      <h2><small>The ask</small>[$1.5M] pre-seed.</h2>
+      <p>45% product &amp; engineering · 25% pilots &amp; partnerships · 20% learning science &amp; stories · 10% operations. Public benefit corporation.</p>
+    </section>
+  </main>
+  <footer>Sources: NCES PIAAC 2017 &amp; 2023; IES/NCER (Larson); UNESCO 2024; Logan et al. 2019 (J Dev Behav Pediatr); Migration Policy Institute; Education Week (2011, Even Start); HHS Head Start Program Facts FY2024; Reach Out and Read FY24 Annual Report. Pricing and cost figures are proposals and estimates to be tested in pilots.</footer>
+</div>
+</body>
+</html>
