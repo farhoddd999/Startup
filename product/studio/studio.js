@@ -100,12 +100,12 @@ async function setupWriter() {
   $('#writeForm').onsubmit = async e => {
     e.preventDefault();
     const out = $('#writeOut');
-    const body = { step: +sel.value, childName: $('#wChild').value.trim(), grownup: $('#wGrown').value.trim(), interests: $('#wLoves').value.split(',').map(s => s.trim()).filter(Boolean), avoid: STORIES.map(s => s.title) };
+    const body = { step: +sel.value, interests: $('#wLoves').value.split(',').map(s => s.trim()).filter(Boolean), avoid: STORIES.map(s => s.title) };
     out.innerHTML = '<p class="muted">Writing… Claude drafts, Hearth checks every word, Claude revises.</p>';
     try {
       const res = await fetch('../api/story', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
       if (!res.ok) throw new Error((await res.json()).error || res.statusText);
-      showStory(await res.json(), body);
+      showStory(await res.json(), { ...body, childName: $('#wChild').value.trim(), grownup: $('#wGrown').value.trim() });
     } catch (err) {
       out.innerHTML = `<p class="bad">${esc(err.message)}</p>`;
     }

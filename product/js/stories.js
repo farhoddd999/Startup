@@ -80,7 +80,8 @@ export async function requestNewStory(state = getState(), { timeout = 45000 } = 
   try {
     const res = await fetch('./api/story', {
       method: 'POST', headers: { 'content-type': 'application/json' }, signal: ctrl.signal,
-      body: JSON.stringify({ step: workingStep(state.learner), childName: state.family.childName, grownup: state.family.grownup, interests: state.family.interests, avoid: allStories().map(s => s.title) }),
+      // No names leave the phone: stories come back with {child} and {grownup} placeholders.
+      body: JSON.stringify({ step: workingStep(state.learner), interests: state.family.interests, avoid: allStories().map(s => s.title) }),
     });
     if (!res.ok) return null;
     const story = await res.json();

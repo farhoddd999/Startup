@@ -116,7 +116,7 @@ What makes a good Hearth story:
 Output only the JSON object the schema asks for.`;
 }
 
-function userPrompt({ step, childName, grownup, interests, avoid }, lx) {
+function userPrompt({ step, interests, avoid }, lx) {
   const steps = STEPS.slice(0, step);
   const patterns = steps.map(s => `${s.n}. ${s.title} (e.g. ${s.words.join(', ')})`).join('\n');
   const hearts = Object.entries(HEART_WORD_STEP).filter(([, st]) => st <= step).map(([w]) => w).join(', ');
@@ -125,7 +125,7 @@ function userPrompt({ step, childName, grownup, interests, avoid }, lx) {
   const wordsPerPage = step <= 6 ? '3 to 7' : step <= 13 ? '5 to 10' : step <= 25 ? '7 to 14' : '9 to 20';
   return `Write a new 7-page Hearth story.
 
-Family: the child is ${childName ? `"${childName}"` : 'a young child'} (write {child}); the parent is called ${grownup ? `"${grownup}"` : 'Mama'} (write {grownup}).
+Family: a young child (always write {child} for their name) and their parent (always write {grownup} for what the child calls them). For privacy you are not told their real names.
 The child loves: ${(interests || []).join(', ') || 'animals'}.
 Avoid these titles (already in the library): ${(avoid || []).slice(0, 40).join('; ')}.
 
