@@ -15,10 +15,10 @@ export function demoFamily() {
   s.settings.mic = 'demo';
   s.settings.program = 'RIVER-24';
   s.settings.share = true;
+  // Placed through step 13 and now learning "sh": a few early sh words have gone well.
   const L = createLearner(13);
-  // a few weeks of history so the sky, charts and stats have something to say
   const lx = getLexicon();
-  if (lx) for (const w of ['ship', 'fish', 'shop', 'wish', 'dish', 'shut']) observe(L, lx.analyze(w), 'fluent');
+  if (lx) for (const w of ['ship', 'shop']) observe(L, lx.analyze(w), 'fluent');
   s.learner = L;
   const day = 86400000, now = Date.now();
   const readable = [180, 205, 233, 260, 291, 318, 344, 372, 388, 403, 418];

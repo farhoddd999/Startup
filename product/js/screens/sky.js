@@ -47,7 +47,7 @@ export function render(root) {
   const readable = readableCount(L);
   const pts = starPositions();
   const stepState = s => {
-    if (s.n < ws || s.patterns.every(p => L.mastered?.[p] || (L.p[p] ?? 0) >= BKT.mastery)) return 'lit';
+    if (s.n < ws || s.patterns.every(p => L.mastered?.[p])) return 'lit';
     if (s.n === ws) return 'glow';
     return 'dim';
   };

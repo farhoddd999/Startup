@@ -12,7 +12,7 @@
 
 import { STEPS, PATTERN_STEP, MAX_STEP } from './phonics.js';
 
-export const BKT = { pInitKnown: 0.92, pInitWorking: 0.3, pInitFuture: 0.04, pLearn: 0.14, pSlip: 0.12, pGuess: 0.18, mastery: 0.88, unmastery: 0.55 };
+export const BKT = { pInitKnown: 0.92, pInitWorking: 0.3, pInitFuture: 0.04, pLearn: 0.12, pSlip: 0.12, pGuess: 0.25, mastery: 0.9, unmastery: 0.55, masteryDays: 2 };
 
 const ALL_PATTERNS = STEPS.flatMap(s => s.patterns);
 
@@ -43,7 +43,9 @@ function bktUpdate(pL, correct, weight = 1) {
  * @param outcome 'fluent' | 'effortful' | 'helped' | 'skipped'
  * @param analysis result of lexicon.analyze(word)
  */
-export function observe(learner, analysis, outcome, { firstTimeToday = true, weight: w0 = 1 } = {}) {
+const today = () => new Date().toISOString().slice(0, 10);
+
+export function observe(learner, analysis, outcome, { firstTimeToday = true, weight: w0 = 1, day = today() } = {}) {
   if (!analysis || !analysis.known || analysis.decodeStep === Infinity) return learner;
   learner.mastered ||= {};
   const pats = analysis.patterns.filter(p => PATTERN_STEP[p] !== undefined);
@@ -53,21 +55,28 @@ export function observe(learner, analysis, outcome, { firstTimeToday = true, wei
   const weight = (firstTimeToday ? 1 : 0.35) * w0;
   if (outcome === 'fluent' || outcome === 'effortful') {
     const w = outcome === 'fluent' ? weight : weight * 0.6;
-    for (const pat of pats) learner.p[pat] = bktUpdate(learner.p[pat], true, w);
+    learner.days ||= {};
+    for (const pat of pats) {
+      learner.p[pat] = bktUpdate(learner.p[pat], true, w);
+      const d = (learner.days[pat] ||= []);
+      if (!d.includes(day)) { d.push(day); if (d.length > 5) d.shift(); }
+    }
   } else {
     const culprit = pats.reduce((a, b) => (learner.p[a] <= learner.p[b] ? a : b));
     // a skipped word is weaker evidence than one that needed help (recognisers miss words too)
     learner.p[culprit] = bktUpdate(learner.p[culprit], false, outcome === 'skipped' ? weight * 0.5 : weight);
   }
+  // Mastery needs confidence AND success on more than one day (spaced practice):
+  // a sound read well in one evening's session is still "being learned".
   for (const pat of pats) {
-    if (learner.p[pat] >= BKT.mastery) learner.mastered[pat] = true;
+    if (learner.p[pat] >= BKT.mastery && (learner.days?.[pat]?.length || 0) >= BKT.masteryDays) learner.mastered[pat] = true;
     else if (learner.p[pat] < BKT.unmastery) learner.mastered[pat] = false;
   }
   learner.seen[analysis.word] = (learner.seen[analysis.word] || 0) + 1;
   return learner;
 }
 
-export const isMastered = (learner, pat) => (learner.mastered ? !!learner.mastered[pat] || (learner.p[pat] ?? 0) >= BKT.mastery : (learner.p[pat] ?? 0) >= BKT.mastery);
+export const isMastered = (learner, pat) => !!learner.mastered?.[pat];
 
 /** The first step that still has a pattern below mastery. */
 export function workingStep(learner) {

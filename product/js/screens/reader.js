@@ -122,10 +122,10 @@ export function render(root, { id, mode }) {
     const page = P.pages[pageIdx];
     // The demo parent stumbles where a real one would: the page's hardest words for this learner.
     const L = getState().learner;
-    const difficulty = w => (w.lenient || !w.a || w.text.length < 3) ? 0 : (1 - Math.min(...w.a.patterns.map(p => L.p[p] ?? 1))) + w.a.decodeStep / 100;
+    const difficulty = w => (w.lenient || !w.a || w.text.length < 3 || w.status === 'heart') ? 0 : (1 - Math.min(...w.a.patterns.map(p => L.p[p] ?? 1))) + w.a.decodeStep / 100;
     const ranked = page.words.map((w, k) => [k, difficulty(w)]).sort((a, b) => b[1] - a[1]);
     const hardSet = new Set(ranked.slice(0, story_mode ? 0 : 1).filter(([, d]) => d > 0).map(([k]) => k));
-    const words = page.words.map((w, k) => ({ ...w, hard: hardSet.has(k) && (pageIdx % 2 === 0 || w.focus) }));
+    const words = page.words.map((w, k) => ({ ...w, hard: hardSet.has(k) && (pageIdx % 2 === 0 || w.focus) ? (pageIdx === 1 ? 'long' : true) : false }));
     tracker.listening = true;
     sim = createSimulatedReader({
       words, seed: 31 + pageIdx * 7 + (story_mode ? 101 : 0), struggle: story_mode ? 0.25 : 0.85,
@@ -194,13 +194,14 @@ export function render(root, { id, mode }) {
   }
 
   function chunk(span, w) {
+    if (w.status === 'heart') { span.classList.add('chunked', 'heartword'); return; }
     const chunks = chunksFor(w.text, getLexicon());
     const hot = hottestChunk(chunks);
     span.innerHTML = '';
     chunks.forEach((c, k) => span.append(h(`span.ch${k === hot ? '.hot' : ''}${c.split || c.close ? '.split' : ''}`, c.g)));
     span.classList.add('chunked');
   }
-  function unchunk(span, w) { span.classList.remove('chunked'); span.textContent = w.text; }
+  function unchunk(span, w) { span.classList.remove('chunked', 'heartword'); span.textContent = w.text; }
 
   /** The chunk most likely to be the sticking point: least-known pattern for this learner. */
   function hottestChunk(chunks) {
@@ -213,10 +214,12 @@ export function render(root, { id, mode }) {
   function openHint(wi, span, w) {
     closeHint();
     hintFor = wi;
-    const chunks = chunksFor(w.text, getLexicon());
+    const heart = w.status === 'heart';
+    const chunks = heart ? [] : chunksFor(w.text, getLexicon());
     const hot = hottestChunk(chunks);
-    const box = h('div.hint', { role: 'dialog', 'aria-label': t('hint_sounds') },
-      h('div.chunks', chunks.filter(c => !c.close).map(c => {
+    const box = h('div.hint', { role: 'dialog', 'aria-label': heart ? t('heart_word') : t('hint_sounds') },
+      heart ? h('div.heart-note', h('span.e', '💛'), h('span', h('b', w.text), t('heart_word_note'))) : null,
+      heart ? null : h('div.chunks', chunks.filter(c => !c.close).map(c => {
         const info = PATTERN_INFO[c.pat] || {};
         const k = chunks.indexOf(c);
         return h(`button.chunk${k === hot ? '.hot' : ''}`, {

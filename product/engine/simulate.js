@@ -25,8 +25,9 @@ export function simulatePage(words, { seed = 7, pace = 1, struggle = 0.5 } = {})
   words.forEach((w, i) => {
     const hard = w.hard || (w.focus && rnd() < struggle);
     if (hard) {
-      // hesitate long enough to earn a hint, sometimes try a near-miss first
-      t += (3400 + rnd() * 4200) / pace;
+      // hesitate long enough to earn a hint, sometimes try a near-miss first;
+      // a 'long' struggle lasts through the sound-it-out bubble
+      t += (w.hard === 'long' ? 9200 + rnd() * 800 : 3400 + rnd() * 4200) / pace;
       if (w.norm.length > 2 && rnd() < 0.5) {
         const miss = nearMiss(w.norm, rnd);
         timeline.push({ at: t, final: said.join(' '), interim: miss });
