@@ -83,7 +83,7 @@ export function render(root) {
     const path = pts2.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
     const last = pts2[pts2.length - 1];
     spark = h('div.mini', { style: { gridColumn: 'span 2' } },
-      h('div.small', 'Words you can read, over time'),
+      h('div.small', t('sky_spark')),
       h('div', { html: `<svg class="spark" viewBox="0 0 320 70" preserveAspectRatio="none"><path d="${path} L310 66 L10 66Z" fill="#FCE6D3"/><path d="${path}" fill="none" stroke="#E8833A" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="${last[0]}" cy="${last[1]}" r="4.5" fill="#E8833A"/></svg>` }),
       h('div.small', `${fmt(vals[0])} → ${fmt(vals[vals.length - 1])}`));
   }
@@ -104,7 +104,7 @@ export function render(root) {
 function openStep(n, state) {
   const s = STEPS[n - 1];
   const close = () => back.remove();
-  const status = state === 'lit' ? 'You can read these sounds.' : state === 'glow' ? 'You are learning these now.' : 'Coming up.';
+  const status = state === 'lit' ? t('sky_lit') : state === 'glow' ? t('sky_glow') : t('sky_later');
   const back = h('div.sheet-backdrop', { onclick: e => { if (e.target === back) close(); } },
     h('div.sheet',
       h('div.grab'),
@@ -114,7 +114,7 @@ function openStep(n, state) {
         const info = PATTERN_INFO[p] || {};
         return h('button.sound-chip', { onclick: () => info.key && speak(info.key, { lang: 'en', rate: 0.8 }) }, h('span.e', info.pic || ''), h('span.g', info.label || p), info.key ? h('span.k', `as in ${info.key}`) : null);
       })),
-      h('div.label', 'Words'),
+      h('div.label', t('sky_words')),
       h('div.example-words', s.words.map(w => h('button', { onclick: () => speak(w, { lang: 'en', rate: 0.75 }) }, w))),
     ));
   document.body.append(back);

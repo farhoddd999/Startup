@@ -57,9 +57,17 @@ function route() {
   app.innerHTML = '';
   for (const [re, make] of routes) {
     const m = hash.match(re);
-    if (m) { cleanup = make(m)(app) || null; app.scrollTop = 0; window.scrollTo(0, 0); paintStatusBar(); return; }
+    if (m) { cleanup = make(m)(app) || null; app.scrollTop = 0; window.scrollTo(0, 0); paintStatusBar(); ensureHeading(hash); return; }
   }
   go(st.onboarded ? '#/home' : '#/welcome', { replace: true });
+}
+
+// Every screen has a main heading for people using a screen reader.
+function ensureHeading(hash) {
+  if (app.querySelector('h1')) return;
+  const name = /^#\/library/.test(hash) ? t('library') : /^#\/sky/.test(hash) ? t('sky') : /^#\/settings/.test(hash) ? t('settings')
+    : /\/story$/.test(hash) ? t('mode_story') : /\/(practice|listen)$/.test(hash) ? t('mode_practice') : /^#\/done/.test(hash) ? t('finish_practice_title') : t('home');
+  app.prepend(h('h1.sr-only', name));
 }
 
 // The phone's status bar follows the screen: cream by day, night blue at bedtime.
@@ -69,6 +77,13 @@ new MutationObserver(paintStatusBar).observe(app, { attributes: true, attributeF
 
 export { go };
 
+// A real family's progress is never wiped without asking.
+function okToReplace() {
+  const st = getState();
+  if (!st.onboarded || st.demo) return true;
+  return confirm(`This replaces ${st.family.childName ? `${st.family.childName}'s` : 'your'} stories and progress on this device. Go ahead?`);
+}
+
 // ---- desktop rail: explains the prototype to visitors and offers demo shortcuts ----
 function renderRail() {
   const rail = document.getElementById('rail');
@@ -77,14 +92,14 @@ function renderRail() {
   rail.innerHTML = '';
   rail.append(
     h('div.brand', h('img', { src: './assets/hearth-mark.svg', alt: '' }), h('b', 'hearth')),
-    h('p', 'A private reading coach for parents who struggle to read. They practise tonight\'s bedtime story alone with a coach that listens, then read it aloud to their child.'),
+    h('p', 'Hearth is a reading coach for parents who find reading hard. They practise tonight’s bedtime story on their own, with a coach that listens, and then read it to their child.'),
     h('div.card',
       h('h3', 'Try it'),
       h('ol',
-        h('li', 'Tap ', h('b', 'Practise first'), '. Read aloud. Hearth follows each word.'),
-        h('li', 'Pause on a word to see the hints: chunks, then sounds, then the whole word.'),
-        h('li', 'Then try ', h('b', 'Read with your child'), ': bedtime mode, quiet hints, conversation prompts.'),
-        h('li', 'Open ', h('b', 'Your sky'), ' to see what the learner model has learned.'),
+        h('li', 'Tap ', h('b', 'Practise first'), ' and read out loud. Hearth follows along word by word.'),
+        h('li', 'Stop on a word to see the help arrive: the parts of the word, then the sounds, then the whole word.'),
+        h('li', 'Then try ', h('b', 'Read it with your child'), ': bedtime mode, quiet help, and a question on each page.'),
+        h('li', 'Open ', h('b', 'Your sky'), ' to see which sounds Hearth thinks you know.'),
       ),
     ),
     h('div.card',
@@ -93,13 +108,13 @@ function renderRail() {
         ...[['voice', 'My voice'], ['demo', 'Demo reader'], ['tap', 'Tap']].map(([id, label]) =>
           h(`button.chip${st.settings.mic === id ? '.on' : ''}`, { onclick: () => { update(s => { s.settings.mic = id; }); renderRail(); route(); } }, label)),
       ),
-      h('p', { style: { marginTop: '10px', fontSize: '14px' } }, 'No microphone, or presenting to a room? The demo reader simulates a parent reading, including hesitations, so you can watch every hint fire.'),
+      h('p', { style: { marginTop: '10px', fontSize: '14px' } }, 'No microphone, or showing Hearth to a room? The demo reader pretends to be a parent reading, pauses and all, so you can watch the help appear.'),
     ),
     h('div.card',
       h('h3', 'Shortcuts'),
       h('div.row',
-        h('button.chip', { onclick: () => { reset(); Object.assign(getState(), demoFamily()); update(() => {}); go('#/home'); renderRail(); } }, 'Load demo family'),
-        h('button.chip', { onclick: () => { reset(); go('#/welcome'); renderRail(); } }, 'Start onboarding'),
+        h('button.chip', { onclick: () => { if (!okToReplace()) return; reset(); Object.assign(getState(), demoFamily()); update(() => {}); go('#/home'); renderRail(); } }, 'Load demo family'),
+        h('button.chip', { onclick: () => { if (!okToReplace()) return; reset(); go('#/welcome'); renderRail(); } }, 'Start onboarding'),
       ),
       h('p', { style: { marginTop: '10px', fontSize: '14px' } }, h('a', { href: 'studio/' }, 'Story Studio'), ' · ', h('a', { href: 'dashboard/' }, 'Partner dashboard'), isFramed ? null : ' · ', isFramed ? null : h('a', { href: '/' }, 'Website')),
     ),
@@ -136,7 +151,8 @@ async function boot() {
 
 boot().catch(err => {
   app.innerHTML = '';
-  app.append(h('div.screen', h('h2', 'Hearth could not start'), h('p.muted', String(err))));
+  app.append(h('div.screen.boot-fail', h('h2', t('boot_fail_title')), h('p', t('boot_fail_body')),
+    h('button.btn.primary', { type: 'button', onclick: () => location.reload() }, h('span.grow', t('try_again')))));
   console.error(err);
 });
 

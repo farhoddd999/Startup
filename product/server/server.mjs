@@ -63,11 +63,31 @@ function headersFor(p) {
   return out;
 }
 
+// A few stories per visitor every 10 minutes, and a ceiling per hour for everyone.
+const hits = new Map();
+let hourStart = Date.now(), hourCount = 0;
+function rateLimited(ip, now = Date.now()) {
+  if (now - hourStart > 3600e3) { hourStart = now; hourCount = 0; }
+  if (hourCount >= 60) return Math.ceil((hourStart + 3600e3 - now) / 1000);
+  const recent = (hits.get(ip) || []).filter(t => now - t < 600e3);
+  if (recent.length >= 5) return Math.ceil((recent[0] + 600e3 - now) / 1000);
+  recent.push(now); hits.set(ip, recent); hourCount++;
+  if (hits.size > 5000) hits.clear();
+  return 0;
+}
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   if (url.pathname.endsWith('/api/story')) {
     if (req.method === 'GET') return send(res, 200, { ready: storyEngineReady() });
     if (req.method !== 'POST') return send(res, 405, { error: 'POST only' });
+    // Only Hearth's own pages may ask for stories, and not too often: each one costs money.
+    const origin = req.headers.origin;
+    const sameSite = (() => { try { return !origin || new URL(origin).host === req.headers.host; } catch { return false; } })();
+    if (!sameSite) return send(res, 403, { error: 'Not allowed' });
+    if (!(req.headers['content-type'] || '').startsWith('application/json')) return send(res, 415, { error: 'JSON only' });
+    const wait = rateLimited(req.socket.remoteAddress || 'unknown');
+    if (wait) { res.setHeader('retry-after', String(wait)); return send(res, 429, { error: 'Too many stories at once. Please try again a little later.' }); }
     if (!storyEngineReady()) return send(res, 503, { error: 'Story engine offline: set ANTHROPIC_API_KEY' });
     try {
       const body = JSON.parse(await readBody(req) || '{}');
@@ -85,7 +105,7 @@ const server = http.createServer(async (req, res) => {
   if (rd) { res.writeHead(rd.status, { location: rd.to + (rd.to.includes('?') ? '' : url.search) }); return res.end(); }
   const extra = headersFor(p);
   let file = path.normalize(path.join(ROOT, p));
-  if (!file.startsWith(ROOT) || /(^|[\\/])\.(git|env)/.test(p)) return send(res, 403, 'forbidden', 'text/plain');
+  if ((file !== ROOT && !file.startsWith(ROOT + path.sep)) || /(^|[\\/])\.(git|env|wrangler|vercel)\b/.test(p) || p.includes('\0')) return send(res, 403, 'forbidden', 'text/plain');
   try {
     let st = fs.statSync(file);
     if (st.isDirectory()) {

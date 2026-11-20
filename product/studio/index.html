@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hearth Story Studio</title>
-  <meta name="description" content="Decodability x-ray, library audit and AI story writer for Hearth.">
+  <meta name="description" content="Hearth Story Studio: check which words a parent can read, check the story library, and write new stories.">
   <link rel="icon" href="../assets/hearth-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/fonts/fonts.css">
   <link rel="stylesheet" href="./studio.css">
@@ -13,8 +13,8 @@
   <header class="top">
     <a class="brand" href="../"><img src="../assets/hearth-mark.svg" alt=""><span>hearth</span><em>Story Studio</em></a>
     <nav>
-      <button class="tab on" data-tab="xray">Decodability x-ray</button>
-      <button class="tab" data-tab="library">Library audit</button>
+      <button class="tab on" data-tab="xray">Word checker</button>
+      <button class="tab" data-tab="library">Check the library</button>
       <button class="tab" data-tab="write">Write with Claude</button>
     </nav>
     <div class="links"><a href="../">Parent app</a><a href="../dashboard/">Partner dashboard</a></div>
@@ -23,8 +23,8 @@
   <main>
     <section id="xray" class="panel on">
       <div class="intro">
-        <h1>Which words can this parent actually read?</h1>
-        <p>Paste any text. Hearth explains every word as letter-sound patterns from its 40-step sequence, then sorts the words: ones this reader can sound out, the new sound they're learning, heart words they know by sight, and words they can't read yet. This check is what keeps every Hearth story readable for the parent holding it.</p>
+        <h1>Which of these words could this parent read?</h1>
+        <p>Paste in any text. Hearth breaks each word into the letter sounds from our 40 steps, then sorts the words: ones this parent can sound out, ones with the new sound they’re learning, heart words they know by sight, and ones they can’t read yet. This same check is what keeps every Hearth story readable for the parent holding it.</p>
       </div>
       <div class="grid2">
         <div class="card controls">
@@ -53,7 +53,7 @@
             <span><i class="sw tricky"></i>Not yet</span>
           </div>
           <div class="xray" id="xrayText" aria-live="polite"></div>
-          <div class="detail" id="detail"><p class="muted">Click any word to see how Hearth explains it.</p></div>
+          <div class="detail" id="detail"><p class="muted">Tap any word to see the sounds it’s made of.</p></div>
         </div>
       </div>
     </section>
@@ -61,7 +61,7 @@
     <section id="library" class="panel">
       <div class="intro">
         <h1>Every story, checked word by word</h1>
-        <p>Each library story is written for one step and passes this check automatically in the test suite. "Readable" counts decodable, heart and family words at the story's step.</p>
+        <p>We wrote each library story for one step, and this check runs on every one of them automatically whenever anything changes. “Readable” here includes words you can sound out, heart words and family names.</p>
       </div>
       <div class="card"><table class="tbl" id="libTable"></table></div>
     </section>
@@ -69,7 +69,7 @@
     <section id="write" class="panel">
       <div class="intro">
         <h1>Write a story for one family, one step</h1>
-        <p>Claude writes a 7-page bedtime story from the family's details and the parent's exact step. The phonics engine checks every word and sends unreadable ones back for revision (up to three rounds). A story is only accepted when every word passes.</p>
+        <p>Claude, an AI model, writes a 7-page bedtime story for the parent’s exact step. Hearth checks every word and sends back any the parent can’t read yet to be rewritten, up to three times. A story is only kept when every word passes. Names never leave this device: the story comes back with blanks, and they’re filled in here.</p>
       </div>
       <div class="grid2">
         <form class="card controls" id="writeForm">
@@ -84,7 +84,7 @@
           <button class="btn" type="submit">Write story</button>
           <p class="muted small" id="engineState"></p>
         </form>
-        <div class="card out" id="writeOut"><p class="muted">The story will appear here, with its illustrations and decodability report.</p></div>
+        <div class="card out" id="writeOut"><p class="muted">Your story will show up here, with its pictures and a check of every word.</p></div>
       </div>
     </section>
   </main>

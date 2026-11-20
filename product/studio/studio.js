@@ -53,12 +53,12 @@ function xray() {
   }
   const c = r.counts;
   const pct = c.words ? Math.round(((c.words - c.tricky) / c.words) * 100) : 100;
-  $('#stats').innerHTML = `<div class="stat"><b>${pct}%</b><span>readable for this parent</span></div><div class="stat"><b>${c.decodable + c.focus}</b><span>can sound out</span></div><div class="stat"><b>${c.heart}</b><span>heart words</span></div><div class="stat"><b>${c.tricky}</b><span>not yet</span></div>`;
+  $('#stats').innerHTML = `<div class="stat"><b>${pct}%</b><span>this parent could read</span></div><div class="stat"><b>${c.decodable + c.focus}</b><span>can sound out</span></div><div class="stat"><b>${c.heart}</b><span>heart words</span></div><div class="stat"><b>${c.tricky}</b><span>not yet</span></div>`;
 }
 
 function detail(tok, step) {
   const d = $('#detail');
-  if (tok.status === 'name') { d.innerHTML = `<h3>${esc(tok.text)}</h3><p>A family word. The parent knows it, so it is always readable and never hinted.</p>`; return; }
+  if (tok.status === 'name') { d.innerHTML = `<h3>${esc(tok.text)}</h3><p>A family word. The parent already knows it, so it always counts as readable and never gets a hint.</p>`; return; }
   const a = lx.analyze(tok.norm);
   const chunks = chunksFor(tok.text, lx);
   const rows = a.segments.filter(s => s.g || s.ph.length).map(s => {
@@ -101,7 +101,7 @@ async function setupWriter() {
     e.preventDefault();
     const out = $('#writeOut');
     const body = { step: +sel.value, interests: $('#wLoves').value.split(',').map(s => s.trim()).filter(Boolean), avoid: STORIES.map(s => s.title) };
-    out.innerHTML = '<p class="muted">Writing… Claude drafts, Hearth checks every word, Claude revises.</p>';
+    out.innerHTML = '<p class="muted">Writing your story… Claude writes a draft, Hearth checks every word, and Claude fixes any that don’t pass. This can take up to a minute.</p>';
     try {
       const res = await fetch('../api/story', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
       if (!res.ok) throw new Error((await res.json()).error || res.statusText);
@@ -116,7 +116,7 @@ function showStory(story, body) {
   const fam = { childName: body.childName, grownup: body.grownup };
   const known = [body.childName, body.grownup].map(x => x.toLowerCase());
   const v = validateStory({ pages: story.pages.map(p => ({ text: personalize(p.text, fam) })) }, lx, { step: story.step, known });
-  $('#writeOut').innerHTML = `<h2>${esc(personalize(story.title, fam))}</h2><p class="${v.ok ? 'ok' : 'bad'}">${v.ok ? '✓ Every word readable at step ' + story.step : v.problems.length + ' words need attention'} · ${v.words} words · practises: ${esc(v.focusWords.slice(0, 6).join(', '))}</p>` +
+  $('#writeOut').innerHTML = `<h2>${esc(personalize(story.title, fam))}</h2><p class="${v.ok ? 'ok' : 'bad'}">${v.ok ? '✓ A parent at step ' + story.step + ' can read every word' : v.problems.length + ' words still need fixing'} · ${v.words} words · practises: ${esc(v.focusWords.slice(0, 6).join(', '))}</p>` +
     story.pages.map((p, i) => `<div class="gen-page"><div class="mini-art wide">${renderScene({ bg: p.scene.bg, items: p.scene.items }, {})}</div><div><p class="gen-text">${esc(personalize(p.text, fam))}</p><p class="muted small">💬 ${esc(personalize(p.talk, fam))}</p></div></div>`).join('');
 }
 

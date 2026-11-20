@@ -3,43 +3,44 @@ import { page, stars, SITE } from '../layout.mjs';
 export default page({
   path: '/privacy/',
   title: 'Privacy',
-  description: 'Hearth’s privacy commitments: practice stays on the phone, voice stays on the device, programs see only a consented summary, and we never sell data or show ads.',
+  description: 'How Hearth handles your information, in plain words: practice stays on your phone, nothing is sent without you choosing to, no ads, no selling data, and what this test version does differently.',
   body: `
 <section class="page-hero night">
   ${stars(40)}
   <div class="wrap">
     <span class="eyebrow">Privacy</span>
-    <h1>This is just for you.</h1>
-    <p class="lead">Many of the parents who use Hearth have kept their reading private for years. We built Hearth so it stays that way. These are commitments, not settings.</p>
+    <h1>Your reading is your business.</h1>
+    <p class="lead">Many parents who use Hearth have kept their reading to themselves for years. We built Hearth so it stays that way. Here’s exactly what happens to your information, including the parts of this early test version that aren’t finished yet.</p>
   </div>
 </section>
 
 <section class="band paper" aria-labelledby="promTitle">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Our promises</span><h2 id="promTitle">Six things we will always do.</h2></div>
+    <div class="section-head"><span class="eyebrow">Our promises</span><h2 id="promTitle">Six things we’ll always do.</h2></div>
     <div class="grid3">
-      <div class="card"><h3>Practice stays on your phone</h3><p>Nobody sees which words you found hard: not your child, not your program, not Hearth staff.</p></div>
-      <div class="card"><h3>Your voice stays on your phone</h3><p>In the Hearth app, speech recognition runs on the device. Recordings you make for your child are stored only on your phone and deleted with one tap.</p></div>
-      <div class="card"><h3>No ads. No data sales.</h3><p>Ever. No tracking pixels or advertising networks, in the app or on this website.</p></div>
-      <div class="card"><h3>Programs see a summary, only if you agree</h3><p>Nights read, practice minutes, sounds learned and your words-you-can-read count. You can stop sharing at any time; the app keeps working.</p></div>
-      <div class="card"><h3>Children are not users</h3><p>We don’t collect information from children. Your child’s first name stays on your phone and is used only to put them in the story.</p></div>
-      <div class="card"><h3>No names sent to AI</h3><p>When Hearth writes a new story, it sends only your reading step and your child’s interests. Names are placeholders, filled in on your phone.</p></div>
+      <div class="card"><h3>Your practice stays on your phone</h3><p>Nobody sees which words you found hard. Not your child, not your program, not anyone at Hearth.</p></div>
+      <div class="card"><h3>No ads, and we never sell data</h3><p>Not now, not ever. There are no tracking pixels and no advertising networks, in the app or on this website.</p></div>
+      <div class="card"><h3>Nothing is sent without you</h3><p>Hearth doesn’t send anything about you on its own. Feedback only goes where you send it, and you see exactly what’s in it first.</p></div>
+      <div class="card"><h3>Programs only see what you agree to</h3><p>Later, if you join through a program, you’ll be able to share a short summary with them: nights read, minutes practised and sounds learned. You can stop at any time and the app keeps working. In this test version nothing is shared at all.</p></div>
+      <div class="card"><h3>Children aren’t users</h3><p>We don’t collect information from children. Your child’s first name stays on your phone and is only used to put them in the stories.</p></div>
+      <div class="card"><h3>We never send names to AI</h3><p>When Hearth writes a new story, it only sends your reading step and the things your child loves. The story comes back with blanks where the names go, and your phone fills them in.</p></div>
     </div>
   </div>
 </section>
 
 <section class="band paper-2" aria-labelledby="invTitle">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">In detail</span><h2 id="invTitle">What we keep, where, and for how long.</h2></div>
+    <div class="section-head"><span class="eyebrow">In detail</span><h2 id="invTitle">What’s kept, where, and for how long.</h2><p class="lead">This is how the test version works today.</p></div>
     <div class="table-wrap"><table class="t">
       <thead><tr><th>Information</th><th>Where it lives</th><th>Who can see it</th><th>How long</th></tr></thead>
       <tbody>
-        <tr><td>Child’s first name, age range, and what they call you; your family’s look; interests</td><td>Your phone</td><td>You</td><td>Until you reset the app</td></tr>
-        <tr><td>Which sounds you know; your reading history</td><td>Your phone</td><td>You</td><td>Until you reset the app</td></tr>
-        <tr><td>Your voice while practising</td><td>Processed on the phone, not stored</td><td>Nobody</td><td>Not kept</td></tr>
-        <tr><td>Recordings you make for your child</td><td>Your phone</td><td>You</td><td>Until you delete them</td></tr>
-        <tr><td>Stories written for you</td><td>Your phone; reusable story text (no names) on our server</td><td>You</td><td>Story text may be reused for other families at the same step</td></tr>
-        <tr><td>Program summary, if you agree to share</td><td>Hearth server</td><td>Staff at your program</td><td>Length of the program’s contract plus one year</td></tr>
+        <tr><td>Your child’s first name and age, what they call you, how your family looks in the pictures, and what your child loves</td><td>Your phone</td><td>You</td><td>Until you choose “Start over”</td></tr>
+        <tr><td>Which sounds you know, and what you’ve read</td><td>Your phone</td><td>You</td><td>Until you choose “Start over”</td></tr>
+        <tr><td>Your voice while you practise</td><td>Your browser’s speech service listens and turns it into text (see the note below). Hearth doesn’t record or keep it.</td><td>Hearth: nobody. The browser company: see their policy.</td><td>Hearth keeps nothing</td></tr>
+        <tr><td>Recordings you make for your child</td><td>Your phone</td><td>You</td><td>Until you delete them or start over</td></tr>
+        <tr><td>Stories written for you</td><td>Your phone. To write one, your step and your child’s interests (never names) go to our story writer, which uses an AI model from Anthropic.</td><td>You</td><td>We don’t keep them on our side</td></tr>
+        <tr><td>Feedback you choose to send</td><td>Wherever you send it: your email, a message app, or a copy you paste somewhere</td><td>The person you send it to</td><td>As long as they keep it</td></tr>
+        <tr><td>Basic technical details when you open the website or app, like your IP address</td><td>Our hosting provider’s normal server logs</td><td>Our hosting provider</td><td>Their standard log period</td></tr>
       </tbody>
     </table></div>
   </div>
@@ -47,11 +48,12 @@ export default page({
 
 <section class="band paper" aria-labelledby="protoTitle">
   <div class="wrap split top">
-    <div class="stack"><span class="eyebrow">About this prototype</span><h2 id="protoTitle">One honest note.</h2></div>
+    <div class="stack"><span class="eyebrow">About this test version</span><h2 id="protoTitle">One thing we want to be upfront about.</h2></div>
     <div class="stack prose">
-      <p>The prototype on this website runs in your web browser and uses the browser’s own speech recognition. In some browsers, that sends audio to the browser maker. The app tells you this in Settings, and you can use tap mode or the demo reader instead. The Hearth app used in pilots replaces it with recognition on the phone before any family uses it.</p>
-      <p>This website doesn’t use cookies or analytics. The demo app saves its progress only in your browser.</p>
-      <p>This page summarises our commitments. A full privacy policy and partner data agreements will be published before our first pilot. Questions: <a href="mailto:${SITE.contact}">${SITE.contact}</a>.</p>
+      <p>Right now, Hearth runs in your web browser and uses the browser’s own speech service to follow your reading. In some browsers, that means the sound of your voice goes to the company that makes the browser (Google for Chrome, Apple for Safari). Hearth tells you this before you turn the microphone on, and again in Settings. If you’d rather it didn’t, tap mode works without listening at all.</p>
+      <p>Before any family uses Hearth in a pilot, we’ll replace this with speech recognition that runs on the phone itself, so your voice never leaves it.</p>
+      <p>This website doesn’t use cookies or analytics. The app saves its progress only on your device, and “Start over” in Settings deletes all of it.</p>
+      <p>This page is a plain summary of our promises. We’ll publish a full privacy policy and our data agreements with programs before the first pilot starts. If you have any questions, write to us at <a href="mailto:${SITE.contact}">${SITE.contact}</a>.</p>
       <p class="small muted">Last updated November 2026.</p>
     </div>
   </div>

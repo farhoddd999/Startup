@@ -8,6 +8,7 @@ import { getLexicon } from './stories.js';
 export function demoFamily() {
   const s = defaultState();
   s.onboarded = true;
+  s.demo = true;
   s.family = {
     childName: 'Mateo', childAge: '4-5', grownup: 'Mama', interests: ['animals', 'space'], lang: 'en',
     look: { childSkin: 2, childHair: 'curls', childHairColor: 0, grownupSkin: 2, grownupHair: 'long', grownupHairColor: 0 },

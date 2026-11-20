@@ -22,7 +22,7 @@ export function growthChart() {
     const cx = x(s), cy = y(READABLE[s]);
     notes += `<circle cx="${cx}" cy="${cy}" r="5" class="dot"/><text x="${cx + dx}" y="${cy + dy}" text-anchor="${anchor}" class="note-t">${label}</text>`;
   }
-  return `<div class="chart-card"><svg viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="gt"><title id="gt">Words a parent can read at each of Hearth's 40 steps, out of the 5,000 most common English words. Step 1: 10. Step 18: 801. Step 34: 1,995. Step 40: 4,534.</title>${grid}<polygon points="${L},${y(0)} ${pts.join(' ')} ${x(40)},${y(0)}" class="area"/><polyline points="${pts.join(' ')}" class="line"/>${notes}</svg><p class="chart-cap">Words a parent can sound out or knows by heart at each step, from the Hearth engine run on the 5,000 most frequent words in American English (SUBTLEX-US).</p></div>`;
+  return `<div class="chart-card"><svg viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="gt"><title id="gt">Words a parent can read at each of Hearth's 40 steps, out of the 5,000 most common English words. Step 1: 10. Step 18: 801. Step 34: 1,995. Step 40: 4,534.</title>${grid}<polygon points="${L},${y(0)} ${pts.join(' ')} ${x(40)},${y(0)}" class="area"/><polyline points="${pts.join(' ')}" class="line"/>${notes}</svg><p class="chart-cap">How many of the 5,000 most common American English words (from the SUBTLEX-US word list) a parent can sound out or knows by heart at each step. Worked out by Hearth’s own reading engine.</p></div>`;
 }
 
 export const hintLadder = (eyebrow = 'Try it') => `
@@ -31,18 +31,18 @@ export const hintLadder = (eyebrow = 'Try it') => `
     <div>
       <span class="eyebrow">${eyebrow}</span>
       <h2 id="ladderTitle" class="mt-s">Help that waits for you.</h2>
-      <p class="lead mt">When a parent pauses on a word, Hearth gives the smallest hint that might work, so they do as much of the reading as they can.</p>
+      <p class="lead mt">When you stop on a word, Hearth starts with the smallest bit of help, so you get to do as much of the reading yourself as you can. Tap the buttons to see what happens the longer you pause.</p>
       <ol class="steps-list mt">
-        <li><span><b>Chunks.</b> The word splits into its sounds and the tricky part lights up.</span></li>
-        <li><span><b>Sounds.</b> Each chunk shows a picture and a key word to tap and hear.</span></li>
-        <li><span><b>The word.</b> Only then does Hearth say it, so the parent can say it back.</span></li>
+        <li><span><b>The parts.</b> The word breaks into its sounds, and the tricky bit lights up.</span></li>
+        <li><span><b>The sounds.</b> Each part gets a little picture and a key word you can tap to hear.</span></li>
+        <li><span><b>The word.</b> Only then does Hearth say the whole word, so you can say it back.</span></li>
       </ol>
     </div>
     <div class="ladder-demo" data-ladder aria-live="polite">
       <div class="lw"><span class="bubble"><span><b>w</b>🕸️</span><span><b>i</b>🦟</span><span class="hot"><b>sh</b>🚢</span></span><span class="ch">w</span><span class="ch">i</span><span class="ch hot">sh</span></div>
       <div class="said"></div>
       <div class="seg-ctl" role="group" aria-label="Hint level">
-        <button data-l="0" aria-pressed="true">Reading</button><button data-l="1" aria-pressed="false">Pause 3s</button><button data-l="2" aria-pressed="false">Pause 6s</button><button data-l="3" aria-pressed="false">Pause 10s</button>
+        <button data-l="0" aria-pressed="true">Reading</button><button data-l="1" aria-pressed="false">Stuck 3 sec</button><button data-l="2" aria-pressed="false">6 sec</button><button data-l="3" aria-pressed="false">10 sec</button>
       </div>
     </div>
   </div>
@@ -56,8 +56,8 @@ export const phonesHero = () => `
 
 export const phone = (src, alt) => `<div class="phone-solo"><div class="phone"><img src="/assets/img/${src}" alt="${alt}" width="780" height="1688" loading="lazy"></div></div>`;
 
-const DEFAULT_BUTTONS = [['/app/', 'Try the app', 'lamp'], ['/pilot/', 'Start a pilot', 'line']];
-export const ctaBand = (title = 'Every child deserves a bedtime story. Every parent deserves to be the one who reads it.', lead = 'Try the app with a demo family, or talk to us about a pilot with the families you serve.', buttons = DEFAULT_BUTTONS) => `
+const DEFAULT_BUTTONS = [['/install', 'Get the app', 'lamp'], ['/pilot/', 'Start a pilot', 'line']];
+export const ctaBand = (title = 'Want to see it for yourself?', lead = 'Try the app with our demo family. Or, if you work with families, get in touch about a free pilot.', buttons = DEFAULT_BUTTONS) => `
 <section class="band night" style="position:relative;overflow:hidden">
   <div class="wrap center stack" style="align-items:center;position:relative">
     <h2 style="max-width:22ch">${title}</h2>

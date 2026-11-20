@@ -1,11 +1,11 @@
 // Home: tonight's story, practise-first nudge, and a quiet sense of progress.
 
 import { h, icon, sayButton, fmt, toast } from '../ui.js';
-import { t } from '../i18n.js';
+import { t, getLang } from '../i18n.js';
 import { getState, update } from '../store.js';
 import { speak } from '../voice.js';
 import { renderScene } from '../art.js';
-import { pickTonight, findStory, requestNewStory, prepare, getLexicon } from '../stories.js';
+import { pickTonight, findStory, requestNewStory, prepare, getLexicon, storyEngineAvailable } from '../stories.js';
 import { workingStep, stepProgress } from '../../engine/learner.js';
 import { STEPS, PATTERN_INFO } from '../../engine/phonics.js';
 import { personalize } from '../../engine/text.js';
@@ -20,9 +20,9 @@ export function tabbar(active) {
 
 function greeting() {
   const hr = new Date().getHours();
-  if (hr < 12) return 'Good morning';
-  if (hr < 17) return 'Good afternoon';
-  return 'Good evening';
+  if (hr < 12) return t('greet_morning');
+  if (hr < 17) return t('greet_afternoon');
+  return t('greet_evening');
 }
 
 export function render(root) {
@@ -64,15 +64,15 @@ export function render(root) {
   }, icon('pen'), h('span.grow', t('new_story')));
 
   const scr = h('div.screen.with-tabs',
-    h('div.greet', h('div', h('div.date', new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })), h('div.hello', `${greeting()}`)), sayButton(t('home_say'))),
+    h('div.greet', h('div', h('div.date', new Date().toLocaleDateString(getLang() === 'es' ? 'es' : 'en-US', { weekday: 'long', month: 'long', day: 'numeric' })), h('div.hello', `${greeting()}`)), sayButton(t('home_say'))),
     h('div.tonight',
       h('div.art', { html: renderScene(story.cover, fam.look) }, h('span.badge', icon('moon'), t('tonight_for', vars))),
       h('div.body',
         h('h2', title),
         h('div.ready',
-          rec.practiced ? h('span.pill.sage', icon('check'), 'Practised') : null,
-          rec.readTogether ? h('span.pill', icon('star'), `Read together ×${rec.readTogether}`) : null,
-          story.generated ? h('span.pill', icon('sparkle'), 'Written for you') : null,
+          rec.practiced ? h('span.pill.sage', icon('check'), t('pill_practised')) : null,
+          rec.readTogether ? h('span.pill', icon('star'), t('pill_read_together', { n: rec.readTogether })) : null,
+          story.generated ? h('span.pill', icon('sparkle'), t('pill_written')) : null,
         ),
         h('button.btn.primary', { say: `${t('practice')}. ${t('practice_sub')}`, onclick: () => { go(`#/read/${story.id}/practice`); } },
           icon('mic'), h('span.grow', t('practice'), h('span.sub', t('practice_sub'))), icon('next')),
@@ -85,16 +85,18 @@ export function render(root) {
     h('div.mini-grid',
       h('button.mini.learning', { say: `${t('learning_now')}: ${info.key}`, onclick: () => { go('#/sky'); } },
         h('div.emo', info.pic || '⭐'),
-        h('div', { style: { flex: 1 } }, h('div.small', t('learning_now')), h('div.grapheme', info.label || step.title), h('div.small', `${info.key ? `as in “${info.key}”` : ''}`)),
+        h('div', { style: { flex: 1 } }, h('div.small', t('learning_now')), h('div.grapheme', info.label || step.title), h('div.small', info.key ? t('as_in', { word: info.key }) : '')),
         h('span', { html: ring })),
       h('button.mini', { onclick: () => { go('#/sky'); } }, h('div.big', fmt(readable)), h('div.small', t('words_you_can_read'))),
       h('button.mini', { onclick: () => { go('#/sky'); } }, h('div.big', fmt(st.stats.nights)), h('div.small', t('nights'))),
     ),
-    h('div', { style: { marginTop: '14px' } }, writeNew),
+    h('div.write-new', { style: { marginTop: '14px' }, hidden: true }, writeNew),
     installCard({ dismissKey: 'hearth.install.later' }),
     tabbar('home'),
   );
   root.append(scr);
+  // Only offer a new story when the story writer can actually be reached.
+  storyEngineAvailable().then(ok => { const box = scr.querySelector('.write-new'); if (box) box.hidden = !ok; });
   if (st.settings.narrate && !sessionStorage.getItem('hearth.homeSaid')) {
     try { sessionStorage.setItem('hearth.homeSaid', '1'); } catch { /* ignore */ }
   }

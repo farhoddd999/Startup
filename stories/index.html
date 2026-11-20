@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Story library · Hearth</title>
-<meta name="description" content="Read Hearth’s 14 illustrated bedtime stories. Each is written for one step of a 40-step phonics sequence, so every word is readable for the parent holding it.">
+<meta name="description" content="Read Hearth’s 14 illustrated bedtime stories. Each one is written for one of our 40 steps, so the parent holding it can read every word.">
 <meta name="theme-color" content="#131A2E">
 
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Hearth">
 <meta property="og:title" content="Story library · Hearth">
-<meta property="og:description" content="Read Hearth’s 14 illustrated bedtime stories. Each is written for one step of a 40-step phonics sequence, so every word is readable for the parent holding it.">
+<meta property="og:description" content="Read Hearth’s 14 illustrated bedtime stories. Each one is written for one of our 40 steps, so the parent holding it can read every word.">
 <meta property="og:image" content="/assets/og-image.png">
 
 <meta name="twitter:card" content="summary_large_image">
@@ -38,7 +38,7 @@
   <div class="wrap">
     <span class="eyebrow">Story library</span>
     <h1>Stories worth reading twice.</h1>
-    <p class="lead">14 illustrated bedtime stories, from a first book with a handful of words to owls counting stars. Each is written for one step, so every word is one the parent can read. Put your own child in them.</p>
+    <p class="lead">Here are all 14 of our bedtime stories, from a first book with just a few words to two owls counting stars. Each one is written for a particular step, so a parent at that step can read every word. Type your child’s name below and they’ll be in the stories.</p>
   </div>
 </section>
 
@@ -47,9 +47,9 @@
     <div class="personalise">
       <div class="field"><label for="stChild">Child’s name</label><input id="stChild" type="text" value="Mateo" maxlength="20" autocomplete="off"></div>
       <div class="field"><label for="stGrown">What they call you</label><input id="stGrown" type="text" value="Mama" maxlength="16" autocomplete="off"></div>
-      <p class="small muted" style="max-width:36ch">Names stay in your browser. In the app, pictures also take on your family’s look.</p>
+      <p class="small muted" style="max-width:36ch">Names stay in your browser and aren’t sent anywhere. In the app, the pictures look like your family too.</p>
     </div>
-    <div class="story-grid" data-stories aria-live="polite"><p class="muted">Loading stories…</p></div>
+    <div class="story-grid" data-stories aria-live="polite"><p class="muted">Getting the stories…</p></div>
   </div>
 </section>
 
@@ -63,7 +63,7 @@
       <div class="reader-nav">
         <button class="btn line sm" data-r="prev" aria-label="Previous page">←</button>
         <div class="dots" data-r="dots"></div>
-        <button class="btn line sm" data-r="listen">Read aloud</button>
+        <button class="btn line sm" data-r="listen">Read it to me</button>
         <button class="btn lamp sm" data-r="next" aria-label="Next page">→</button>
       </div>
       <p class="small" style="color:var(--on-night-3)" data-r="meta"></p>
@@ -73,10 +73,10 @@
 
 <section class="band night" aria-labelledby="howStories">
   <div class="wrap split top">
-    <div class="stack"><span class="eyebrow">How the stories are made</span><h2 id="howStories">Written for a step, checked word by word.</h2></div>
+    <div class="stack"><span class="eyebrow">How we make the stories</span><h2 id="howStories">Written for one step, then checked word by word.</h2></div>
     <div class="stack">
-      <p class="lead">Each library story was written for one step of the sequence and passes the same automated check in our test suite: every word decodable, a heart word already taught, or a family word. The question on each page follows dialogic reading.</p>
-      <p class="lead">In the app, Hearth can also write a new story for one family at one parent’s exact step. It is checked the same way, and rewritten until it passes.</p>
+      <p class="lead">We wrote each story for one step. Then a computer check goes over every word, every time we change anything: each word has to be one you can sound out at that step, a heart word you’ve already learned, or a family name. The question on each page is there to get you and your child talking.</p>
+      <p class="lead">When the app is connected to our story writer, it can also write a brand-new story for one family. That story gets exactly the same check, and is rewritten until every word passes.</p>
       <p><a class="link-arrow" href="/check/">Check a story’s words yourself</a></p>
     </div>
   </div>
@@ -88,14 +88,14 @@
     <div class="footer-grid">
       <div class="stack">
         <a class="logo" href="/"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4c5.5 7 10 11.5 9.2 18.4-.6 5-4.4 8.1-9.2 8.1s-8.6-3.1-9.2-8.1C22 15.5 26.5 11 32 4z" fill="#F2C14E"/><path d="M32 14.5c2.8 3.6 5 6 4.6 9.6-.3 2.6-2.2 4.2-4.6 4.2s-4.3-1.6-4.6-4.2c-.4-3.6 1.8-6 4.6-9.6z" fill="#E8833A"/><path d="M32 33c-6.5-4.8-15.2-6.3-25-4.6v24.3c9.8-1.7 18.5-.2 25 4.6z" fill="#E8833A"/><path d="M32 33c6.5-4.8 15.2-6.3 25-4.6v24.3c-9.8-1.7-18.5-.2-25 4.6z" fill="#C9622A"/></svg><b>hearth</b></a>
-        <p>A private reading coach for parents, built around the bedtime story. Every night, two people get better at reading.</p>
-        <p>Pilots and partnerships: <a href="mailto:hello@hearth.example">hello@hearth.example</a></p>
+        <p>A reading coach for parents, built around the bedtime story.</p>
+        <p>Questions, pilots, or just want to say hello? <a href="mailto:hello@hearth.example">hello@hearth.example</a></p>
       </div>
-      <div><h4>Product</h4><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/install">Get the app</a></li><li><a href="/app/">Try it in the browser</a></li><li><a href="/stories/">Story library</a></li><li><a href="/check/">Decodability checker</a></li><li><a href="/dashboard/">Partner dashboard demo</a></li></ul></div>
-      <div><h4>Who it's for</h4><ul><li><a href="/families/">Families</a></li><li><a href="/families/#es">Familias (español)</a></li><li><a href="/programs/">Programs and partners</a></li><li><a href="/pilot/">Start a pilot</a></li></ul></div>
-      <div><h4>Learn more</h4><ul><li><a href="/science/">The science</a></li><li><a href="/research/">Research and sources</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/about/">About Hearth</a></li></ul></div>
+      <div><h2 class="fh">Product</h2><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/install">Get the app</a></li><li><a href="/app/">Try it in the browser</a></li><li><a href="/stories/">Story library</a></li><li><a href="/check/">Word checker</a></li><li><a href="/dashboard/">Partner dashboard demo</a></li></ul></div>
+      <div><h2 class="fh">Who it's for</h2><ul><li><a href="/families/">Families</a></li><li><a href="/families/#es">Familias (español)</a></li><li><a href="/programs/">Programs and partners</a></li><li><a href="/pilot/">Start a pilot</a></li></ul></div>
+      <div><h2 class="fh">Learn more</h2><ul><li><a href="/science/">The science</a></li><li><a href="/research/">Research and sources</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/about/">About Hearth</a></li></ul></div>
     </div>
-    <div class="footer-base"><span>© <span data-year>2026</span> Hearth. Working prototype; pilots next.</span><span>Families never pay. No ads. No data sales.</span></div>
+    <div class="footer-base"><span>© <span data-year>2026</span> Hearth. This is an early version, and we’re testing it now.</span><span>Families never pay. We don’t show ads or sell data.</span></div>
   </div>
 </footer>
 <script src="/assets/site.js" defer></script>

@@ -2,7 +2,8 @@
 
 import { STORIES } from '../data/stories.js';
 import { personalize, tokenize, baseForm } from '../engine/text.js';
-import { analyzeText } from '../engine/decodable.js';
+import { analyzeText, validateStory } from '../engine/decodable.js';
+import { isBlocked } from '../engine/safety.js';
 import { workingStep } from '../engine/learner.js';
 import { getState } from './store.js';
 
@@ -73,6 +74,21 @@ export function watchWords(prepared, results) {
 
 export const storyWordCount = prepared => prepared.pages.reduce((n, p) => n + p.words.length, 0);
 
+/**
+ * Is the story writer reachable? Asked at most once a day per phone (the
+ * answer is remembered), so the home screen never shows a button that can't work.
+ */
+let engineCheck = null;
+export function storyEngineAvailable() {
+  if (engineCheck) return engineCheck;
+  const KEY = 'hearth.engine';
+  try { const c = JSON.parse(localStorage.getItem(KEY) || 'null'); if (c && Date.now() - c.at < 864e5) return (engineCheck = Promise.resolve(c.ok)); } catch { /* ignore */ }
+  engineCheck = fetch('./api/story', { cache: 'no-store' })
+    .then(r => (r.ok ? r.json() : { ready: false })).then(j => j?.ready === true).catch(() => false)
+    .then(ok => { try { localStorage.setItem(KEY, JSON.stringify({ ok, at: Date.now() })); } catch { /* ignore */ } return ok; });
+  return engineCheck;
+}
+
 /** Ask the story engine (server) for a brand-new story at this parent's step. */
 export async function requestNewStory(state = getState(), { timeout = 45000 } = {}) {
   const ctrl = new AbortController();
@@ -84,10 +100,35 @@ export async function requestNewStory(state = getState(), { timeout = 45000 } = 
       body: JSON.stringify({ step: workingStep(state.learner), interests: state.family.interests, avoid: allStories().map(s => s.title) }),
     });
     if (!res.ok) return null;
-    const story = await res.json();
-    if (!story?.pages?.length) return null;
-    story.id = story.id || `gen-${Date.now()}`;
-    story.generated = true;
-    return story;
+    return acceptGeneratedStory(await res.json(), state);
   } catch { return null; } finally { clearTimeout(timer); }
+}
+
+/**
+ * A story from the story engine is checked again on the phone before it is kept:
+ * plain text only, sensible lengths, and every word readable for this parent.
+ */
+export function acceptGeneratedStory(raw, state = getState()) {
+  const str = (v, max) => (typeof v === 'string' ? v.replace(/[<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, max) : '');
+  if (!raw || typeof raw !== 'object' || !Array.isArray(raw.pages)) return null;
+  const pages = raw.pages.slice(0, 12).map(p => ({
+    text: str(p?.text, 300),
+    talk: str(p?.talk, 200),
+    scene: p?.scene && typeof p.scene === 'object' ? { bg: p.scene.bg, items: Array.isArray(p.scene.items) ? p.scene.items.slice(0, 12) : [] } : { bg: 'room', items: [] },
+  })).filter(p => p.text);
+  const title = str(raw.title, 80);
+  if (!title || pages.length < 4) return null;
+  const step = workingStep(state.learner);
+  const story = { id: `gen-${Date.now().toString(36)}`, title, step, generated: true, cover: pages[0].scene, pages };
+  const lx = getLexicon();
+  if (lx) {
+    // the family's names are always readable for them, so the placeholders count as known words
+    const known = ['childname', 'grownupname'];
+    const named = p => p.text.replace(/\{child\}/g, 'childname').replace(/\{[Gg]rownup\}/g, 'grownupname');
+    const check = validateStory({ pages: pages.map(p => ({ text: named(p) })) }, lx, { step: Math.max(step, 2), known });
+    if (!check.ok) return null;
+  }
+  const words = pages.flatMap(p => `${p.text} ${p.talk}`.toLowerCase().match(/[a-z']+/g) || []);
+  if (words.some(isBlocked)) return null;
+  return story;
 }

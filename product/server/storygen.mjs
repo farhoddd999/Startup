@@ -198,10 +198,24 @@ async function ask(messages) {
   return { response, json: JSON.parse(text) };
 }
 
-export async function generateStory(body) {
+// The request comes from the internet, so only known values reach the prompt:
+// interests from the app's own list, short plain titles, a step number in range.
+const INTERESTS = new Set(['animals', 'space', 'sea', 'trucks', 'food', 'music', 'snow', 'bedtime']);
+export function cleanRequest(body = {}) {
+  const step = Math.min(Math.max(Math.round(Number(body.step)) || 4, 2), STEPS.length);
+  const interests = [...new Set((Array.isArray(body.interests) ? body.interests : []).filter(x => INTERESTS.has(x)))];
+  const avoid = (Array.isArray(body.avoid) ? body.avoid : [])
+    .filter(x => typeof x === 'string')
+    .map(x => x.replace(/[^\p{L}\p{N} '’!?,.-]/gu, '').replace(/\s+/g, ' ').trim().slice(0, 60))
+    .filter(Boolean).slice(0, 40);
+  return { step, interests, avoid };
+}
+
+export async function generateStory(raw) {
+  const body = cleanRequest(raw);
   const lx = await lexicon();
-  const step = Math.min(Math.max(Number(body.step) || 4, 2), STEPS.length);
-  const messages = [{ role: 'user', content: userPrompt({ ...body, step }, lx) }];
+  const step = body.step;
+  const messages = [{ role: 'user', content: userPrompt(body, lx) }];
   let story = null, report = null;
   for (let round = 0; round < MAX_ROUNDS; round++) {
     const { response, json } = await ask(messages);

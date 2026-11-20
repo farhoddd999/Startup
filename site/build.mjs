@@ -62,16 +62,22 @@ const REDIRECTS = [
   ...PRIVATE_DIRS.flatMap(d => [{ from: d, to: '/', status: 302 }, { from: `${d}/*`, to: '/', status: 302 }]),
   ...PRIVATE_FILES.map(f => ({ from: f, to: '/', status: 302 })),
 ];
+// Scripts only from our own files: no inline scripts, no eval, no third parties.
+// (The one inline block is the link-preloading rules, which browsers treat as data.)
 const CSP = [
-  "default-src 'self'", "script-src 'self' 'unsafe-inline'", "style-src 'self' 'unsafe-inline'", "img-src 'self' data: blob:",
+  "default-src 'self'", "script-src 'self' 'inline-speculation-rules'", "style-src 'self' 'unsafe-inline'", "img-src 'self' data: blob:",
   "media-src 'self' blob:", "font-src 'self'", "connect-src 'self'", "frame-src 'self'", "frame-ancestors 'self'",
-  "base-uri 'self'", "form-action 'self' mailto:", "object-src 'none'",
+  "worker-src 'self'", "manifest-src 'self'", "base-uri 'self'", "form-action 'self' mailto:", "object-src 'none'",
+  'upgrade-insecure-requests',
 ].join('; ');
 const HEADERS = [
   ['/*', {
     'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'SAMEORIGIN',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
-    'Permissions-Policy': 'camera=(), geolocation=(), payment=(), usb=(), microphone=(self)',
+    'Permissions-Policy': 'microphone=(self), camera=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), display-capture=(), accelerometer=(), gyroscope=(), magnetometer=(), browsing-topics=()',
+    'Cross-Origin-Opener-Policy': 'same-origin',
+    'Cross-Origin-Resource-Policy': 'same-origin',
     'Content-Security-Policy': CSP,
     'Strict-Transport-Security': 'max-age=31536000',
   }],
@@ -138,7 +144,6 @@ async function shortcuts() {
   for (const [from, to] of SHORTCUTS) {
     const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Hearth</title>
 <meta http-equiv="refresh" content="0; url=${to}"><link rel="canonical" href="${to}">
-<script>location.replace(${JSON.stringify(to)}${to.includes('?') ? '' : ' + location.search'} + location.hash)</script>
 </head><body style="background:#131A2E;color:#FBF2E4;font:18px system-ui;padding:40px"><a style="color:#F4B860" href="${to}">Continue to Hearth</a></body></html>\n`;
     await out(`${from}/index.html`, html);
   }
@@ -215,6 +220,7 @@ async function images() {
 }
 
 console.log('Building the Hearth website…');
+if (!process.env.HEARTH_CONTACT) console.warn('  ⚠ HEARTH_CONTACT is not set: the site and app will show hello@hearth.example, which nobody reads.\n    Rebuild with HEARTH_CONTACT=you@yourdomain node site/build.mjs');
 await appBuild();
 await pages();
 await shortcuts();

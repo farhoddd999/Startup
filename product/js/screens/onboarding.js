@@ -36,7 +36,7 @@ export function welcome(root) {
     installCard(),
     h('button.btn.primary', { say: t('start'), onclick: () => { speak(t('welcome_say')); go('#/onboard/promise'); } }, h('span.grow', t('start')), icon('next')),
     h('p.muted', { style: { textAlign: 'center', fontSize: '15px' } }, t('hold_to_hear')),
-    h('button.demo-link', { type: 'button', onclick: () => { replaceState(demoFamily()); go('#/home'); } }, 'Presenting Hearth? Explore with a demo family'),
+    h('button.demo-link', { type: 'button', onclick: () => { replaceState(demoFamily()); go('#/home'); } }, t('demo_link')),
   );
   root.append(scr);
 }
@@ -111,7 +111,7 @@ function call(root, i) {
   const vars = { child: st.family.childName };
   narrate(t('call_say'));
   const opts = ['Mama', 'Mom', 'Mommy', 'Papa', 'Dad', 'Daddy', 'Grandma', 'Grandpa', 'Abuela', 'Abuelo', 'Nana', 'Auntie'];
-  const custom = h('input', { type: 'text', placeholder: '…', value: opts.includes(st.family.grownup) ? '' : st.family.grownup, maxlength: 16, 'aria-label': 'Other' });
+  const custom = h('input', { type: 'text', placeholder: '…', value: opts.includes(st.family.grownup) ? '' : st.family.grownup, maxlength: 16, 'aria-label': t('other_name') });
   const chips = h('div.chips', opts.map(o => h(`button.chip-btn${st.family.grownup === o ? '.on' : ''}`, {
     type: 'button', say: o,
     onclick: e => { update(s => { s.family.grownup = o; }); custom.value = ''; [...chips.children].forEach(c => c.classList.toggle('on', c === e.currentTarget)); speak(o, { lang: 'en' }); },

@@ -19,7 +19,7 @@ const stepLabel = s => ({ 2: 'first words', 4: 'c, d', 6: 'g, b', 8: 'short e', 
 
 function renderGrid() {
   const f = fam();
-  grid.innerHTML = sorted.map(s => `<button class="story-card" data-id="${s.id}" aria-label="Read ${esc(personalize(s.title, f))}"><div class="art">${renderScene(s.cover, LOOK)}</div><div class="body"><h3>${esc(personalize(s.title, f))}</h3><div class="pills"><span class="pill ember">Step ${s.step}${stepLabel(s.step) ? ` · ${stepLabel(s.step)}` : ''}</span><span class="pill">${s.pages.length} pages</span></div></div></button>`).join('');
+  grid.innerHTML = sorted.map(s => `<button class="story-card" data-id="${s.id}" aria-label="Read ${esc(personalize(s.title, f))}"><div class="art">${renderScene(s.cover, LOOK)}</div><div class="body"><h2>${esc(personalize(s.title, f))}</h2><div class="pills"><span class="pill ember">Step ${s.step}${stepLabel(s.step) ? ` · ${stepLabel(s.step)}` : ''}</span><span class="pill">${s.pages.length} pages</span></div></div></button>`).join('');
   grid.querySelectorAll('.story-card').forEach(b => b.addEventListener('click', () => open(b.dataset.id)));
 }
 
@@ -39,11 +39,11 @@ function show() {
   r('art').innerHTML = renderScene(p.scene, LOOK, { title: personalize(p.text, f) });
   const words = tokenize(personalize(p.text, f));
   r('text').innerHTML = words.map(t => (t.t === 'w' ? `<span class="rw" data-wi="${t.wi}">${esc(t.text)}</span>` : esc(t.text))).join('');
-  r('talk').innerHTML = `<b>Talk together</b>${esc(personalize(p.talk || '', f))}`;
+  r('talk').innerHTML = `<b>Ask together</b>${esc(personalize(p.talk || '', f))}`;
   r('dots').innerHTML = cur.pages.map((_, i) => `<i class="${i === pageIdx ? 'on' : ''}"></i>`).join('');
   r('prev').disabled = pageIdx === 0;
-  r('next').textContent = pageIdx === cur.pages.length - 1 ? 'Done' : '→';
-  r('meta').textContent = `Page ${pageIdx + 1} of ${cur.pages.length} · Written for step ${cur.step}: every word readable for a parent at that step.`;
+  r('next').textContent = pageIdx === cur.pages.length - 1 ? 'The end' : '→';
+  r('meta').textContent = `Page ${pageIdx + 1} of ${cur.pages.length}. Written for step ${cur.step}, so a parent at that step can read every word.`;
 }
 function go(d) {
   speechSynthesis?.cancel();

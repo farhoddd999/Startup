@@ -291,16 +291,52 @@ function element(name, o, look) {
  * @param look  family look (skin/hair choices)
  */
 export function renderScene(scene, look = {}, { title = '', className = 'scene' } = {}) {
-  const items = (scene.items || []).map(([name, x = 50, y = 86, s = 1, o = {}]) => {
+  // Scenes can come from the story engine, so nothing in them is trusted:
+  // only known pictures, plain numbers and short plain words reach the SVG.
+  const L = cleanLook(look);
+  const items = (Array.isArray(scene?.items) ? scene.items : []).slice(0, 24).map(item => {
+    if (!Array.isArray(item)) return '';
+    const [name, x, y, s, opts] = item;
+    if (typeof name !== 'string' || !ELEMENT_SET.has(name)) return '';
+    const o = cleanOpts(opts);
+    const sc = num(s, 1, 0.1, 4);
+    const tx = (num(x, 50, -20, 120) / 100) * W, ty = (num(y, 86, -20, 120) / 100) * H;
     const flip = o.flip ? -1 : 1;
-    const tx = (x / 100) * W, ty = (y / 100) * H;
-    const body = element(name, o, look);
-    return `<g class="el el-${name}" transform="translate(${tx.toFixed(1)} ${ty.toFixed(1)}) scale(${(s * flip).toFixed(2)} ${s.toFixed(2)})">${body}</g>`;
+    return `<g class="el el-${name}" transform="translate(${tx.toFixed(1)} ${ty.toFixed(1)}) scale(${(sc * flip).toFixed(2)} ${sc.toFixed(2)})">${element(name, o, L)}</g>`;
   }).join('');
-  const label = title ? `<title>${title.replace(/</g, '&lt;')}</title>` : '';
-  return `<svg class="${className}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" preserveAspectRatio="xMidYMid slice">${label}${background(scene.bg)}${items}</svg>`;
+  const label = title ? `<title>${escapeXml(String(title))}</title>` : '';
+  const bg = BACKGROUNDS.includes(scene?.bg) ? scene.bg : 'room';
+  // with a description it is a picture for everyone; without one it is decoration next to text that says the same
+  const role = title ? 'role="img"' : 'aria-hidden="true" focusable="false"';
+  return `<svg class="${String(className).replace(/[^\w -]/g, '')}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" ${role} preserveAspectRatio="xMidYMid slice">${label}${background(bg)}${items}</svg>`;
+}
+
+const escapeXml = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const num = (v, fallback, lo, hi) => { const n = typeof v === 'number' ? v : Number.NaN; return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : fallback; };
+function cleanOpts(o) {
+  const out = {};
+  if (!o || typeof o !== 'object' || Array.isArray(o)) return out;
+  for (const [k, v] of Object.entries(o)) {
+    if (!/^[a-z]\w{0,20}$/i.test(k)) continue;
+    if (typeof v === 'boolean') out[k] = v;
+    else if (typeof v === 'number' && Number.isFinite(v)) out[k] = Math.min(10, Math.max(-10, v));
+    else if (typeof v === 'string' && /^[a-z][a-z0-9-]{0,24}$/i.test(v)) out[k] = v;
+  }
+  return out;
+}
+function cleanLook(look = {}) {
+  const idx = (v, n) => (Number.isInteger(v) && v >= 0 && v < n ? v : undefined);
+  const style = v => (HAIR_STYLES.includes(v) ? v : undefined);
+  const colour = v => (typeof v === 'string' && /^#[0-9a-f]{3,8}$/i.test(v) ? v : undefined);
+  return {
+    childSkin: idx(look.childSkin, SKIN.length), grownupSkin: idx(look.grownupSkin, SKIN.length),
+    childHairColor: idx(look.childHairColor, HAIR.length), grownupHairColor: idx(look.grownupHairColor, HAIR.length),
+    childHair: style(look.childHair), grownupHair: style(look.grownupHair),
+    childShirt: colour(look.childShirt), grownupShirt: colour(look.grownupShirt),
+  };
 }
 
 export const ELEMENTS = ['child', 'grownup', 'cat', 'dog', 'pup', 'hen', 'fox', 'duck', 'fish', 'frog', 'owl', 'seal', ...Object.keys(things)];
 export const BACKGROUNDS = ['room', 'kitchen', 'bath', 'day', 'dusk', 'night', 'farm', 'pond', 'sea', 'beach', 'rain', 'space', 'snow'];
+const ELEMENT_SET = new Set(ELEMENTS);
 export { SKY_ITEMS };

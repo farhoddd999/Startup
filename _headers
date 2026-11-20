@@ -2,9 +2,12 @@
 
 /*
   X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), geolocation=(), payment=(), usb=(), microphone=(self)
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'
+  Permissions-Policy: microphone=(self), camera=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), display-capture=(), accelerometer=(), gyroscope=(), magnetometer=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'inline-speculation-rules'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=31536000
 
 /assets/*

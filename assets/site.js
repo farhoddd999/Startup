@@ -77,7 +77,7 @@
     const set = l => {
       lw.className = 'lw' + (l ? ` l${Math.min(l, 2)}` : '') + (l === 3 ? ' l3' : '');
       btns.forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.l === l)));
-      said.textContent = l === 3 ? '🔊 “wish”' : l === 2 ? 'Tap a sound to hear its key word: web, itch, ship.' : l === 1 ? 'The tricky part lights up.' : '';
+      said.textContent = l === 3 ? '🔊 Hearth says “wish”, and you say it back.' : l === 2 ? 'Each sound gets a picture: web, itch, ship. Tap one to hear it.' : l === 1 ? 'The word breaks into parts, and the tricky bit lights up.' : '';
       if (l === 3) say('wish', 'en-US', 0.75);
     };
     btns.forEach(b => b.addEventListener('click', () => set(+b.dataset.l)));
@@ -134,14 +134,14 @@
     let ok = true;
     fields.forEach(n => { const i = form.elements[n]; const bad = !i.value.trim() || (n === 'email' && !/^\S+@\S+\.\S+$/.test(i.value)); i.setAttribute('aria-invalid', bad ? 'true' : 'false'); if (bad && ok) { i.focus(); ok = false; } });
     const msg = $('[data-form-msg]', form);
-    if (!ok) { msg.hidden = false; msg.style.background = '#FBE3DF'; msg.style.color = '#8E2A1F'; msg.textContent = 'Please fill in your name, organization and a valid email.'; return; }
+    if (!ok) { msg.hidden = false; msg.style.background = '#FBE3DF'; msg.style.color = '#8E2A1F'; msg.textContent = 'We just need your name, your organization and an email address we can reply to.'; return; }
     const d = Object.fromEntries(new FormData(form));
     const to = document.querySelector('a[href^="mailto:"]')?.getAttribute('href').replace('mailto:', '') || '';
     const body = `Pilot request\n\nName: ${d.name}\nRole: ${d.role || '-'}\nOrganization: ${d.organization}\nEmail: ${d.email}\nProgram type: ${d.type}\nFamilies served: ${d.families || '-'}\nLocation: ${d.location || '-'}\n\n${d.message || ''}`;
     const href = `mailto:${to}?subject=${encodeURIComponent('Hearth pilot request: ' + d.organization)}&body=${encodeURIComponent(body)}`;
     msg.hidden = false; msg.style.background = ''; msg.style.color = '';
     msg.innerHTML = '';
-    const p = document.createElement('p'); p.textContent = `Thank you. Your email app should open with your request to ${to}. If it doesn’t, copy the details below and send them to us.`;
+    const p = document.createElement('p'); p.textContent = `Thank you! Your email app should open now with everything filled in, ready to send to ${to}. If it doesn’t open, copy the details below and email them to us.`;
     const pre = document.createElement('textarea'); pre.readOnly = true; pre.rows = 7; pre.value = body; pre.style.cssText = 'width:100%;margin-top:10px;border-radius:10px;border:1px solid #cfe3d6;padding:10px;font:14px var(--body)';
     const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn ink sm'; btn.style.marginTop = '10px'; btn.textContent = 'Copy details';
     btn.addEventListener('click', () => copy(`To: ${to}\n\n${body}`, btn));
@@ -176,8 +176,8 @@
       const l = document.documentElement.lang === 'es' ? 'es' : 'en';
       const name = prog.value.trim();
       note.value = l === 'es'
-        ? `Hola${name ? `, equipo de ${name}` : ''}:\n\nA nuestra familia le gustaría usar Hearth, una aplicación gratis de cuentos para la hora de dormir. ¿Nuestro programa podría ofrecerla? Más información para programas: ${location.origin}/programs/\n\nGracias.`
-        : `Hello${name ? ` ${name} team` : ''},\n\nOur family would love to use Hearth, a free bedtime story app for parents and kids. Could our program offer it? Information for programs: ${location.origin}/programs/\n\nThank you!`;
+        ? `Hola${name ? `, equipo de ${name}` : ''}:\n\nA nuestra familia le encantaría usar Hearth, una aplicación gratis de cuentos para la hora de dormir. ¿Es algo que nuestro programa podría ofrecer? Aquí hay información para programas: ${location.origin}/programs/\n\n¡Muchas gracias!`
+        : `Hello${name ? ` ${name} team` : ''},\n\nOur family would love to use Hearth, a free bedtime story app for parents and children. Is it something our program could offer? There’s information for programs here: ${location.origin}/programs/\n\nThank you so much!`;
     }
     prog?.addEventListener('input', updateNote);
     $('[data-copy-note]')?.addEventListener('click', async e => { if (await copy(note.value, null)) $$('[data-copied]').forEach(n => { n.hidden = false; }); else { note.select(); } });

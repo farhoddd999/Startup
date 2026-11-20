@@ -22,17 +22,17 @@ export function render(root) {
       h('div.art', { html: renderScene(s.cover, st.family.look) }),
       h('div.t', personalize(s.title, st.family)),
       h('div.s',
-        r.practiced ? h('span.pill.sage', icon('check'), 'Practised') : null,
+        r.practiced ? h('span.pill.sage', icon('check'), t('pill_practised')) : null,
         r.readTogether ? h('span.pill', icon('moon'), `×${r.readTogether}`) : null,
         r.recorded ? h('span.pill', icon('record'), st.family.grownup) : null,
-        s.generated ? h('span.pill', icon('sparkle'), 'New') : null,
+        s.generated ? h('span.pill', icon('sparkle'), t('pill_new')) : null,
       ));
   };
   root.append(h('div.screen.with-tabs',
     h('h2', { style: { margin: '8px 0 4px' } }, t('library')),
-    h('div.section-title', h('h3', 'Ready for you')),
+    h('div.section-title', h('h3', t('lib_ready'))),
     h('div.lib-grid', ready.map(s => card(s, false))),
-    later.length ? h('div.section-title', h('h3', 'Coming up')) : null,
+    later.length ? h('div.section-title', h('h3', t('lib_later'))) : null,
     later.length ? h('div.lib-grid', later.map(s => card(s, true))) : null,
     tabbar('library'),
   ));

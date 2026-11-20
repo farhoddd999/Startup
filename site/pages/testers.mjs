@@ -30,8 +30,8 @@ export default page({
       <button class="btn line sm listen-btn" data-listen aria-label="Listen to this page"><span style="width:20px;height:20px;display:inline-flex">${ICON.speaker}</span>${inline('Listen to this page', 'Escuchar esta página')}</button>
     </div>
     ${both(
-      `<span class="eyebrow">Hearth test version</span><h1>Thank you for testing Hearth.</h1><p class="lead">Hearth helps parents practise tonight’s bedtime story in private, then read it to their child. This is an early test. Your honest reactions, especially when something is hard or confusing, decide what we build next.</p>`,
-      `<span class="eyebrow">Versión de prueba de Hearth</span><h1>Gracias por probar Hearth.</h1><p class="lead">Hearth ayuda a los padres a practicar el cuento de esta noche en privado, y luego leérselo a su hijo. Esta es una prueba temprana. Sus reacciones sinceras, sobre todo cuando algo es difícil o confuso, deciden lo que haremos después.</p>`,
+      `<span class="eyebrow">Hearth test version</span><h1>Thank you for testing Hearth.</h1><p class="lead">Hearth helps parents practise tonight’s bedtime story on their own, and then read it to their child. This is an early test version, so not everything will be perfect. What you tell us, especially when something feels hard or confusing, shapes what we do next.</p>`,
+      `<span class="eyebrow">Versión de prueba de Hearth</span><h1>Gracias por probar Hearth.</h1><p class="lead">Hearth ayuda a los padres a practicar el cuento de esta noche a solas, y luego leérselo a su hijo. Esta es una versión de prueba temprana, así que no todo será perfecto. Lo que usted nos cuente, sobre todo cuando algo le parezca difícil o confuso, decide lo que haremos después.</p>`,
     )}
     <div class="cta-row"><a class="btn lamp" href="/app/">${inline('Open the app', 'Abrir la app')}</a><a class="btn line" href="#feedback">${inline('How to send feedback', 'Cómo enviar comentarios')}</a></div>
   </div>
@@ -68,7 +68,7 @@ export default page({
 
 <section class="band paper-2 big-text" data-read aria-labelledby="tryTitle">
   <div class="wrap">
-    <div class="section-head">${both('<h2 id="tryTitle">What to try</h2><p class="lead">About 20 minutes in all. Tick things off as you go; this list is saved only on this device.</p>', '<h2>Qué probar</h2><p class="lead">Unos 20 minutos en total. Marque cada paso al terminarlo; esta lista se guarda solo en este aparato.</p>')}</div>
+    <div class="section-head">${both('<h2 id="tryTitle">What to try</h2><p class="lead">It takes about 20 minutes. Tick things off as you go. This list is only saved on this device.</p>', '<h2>Qué probar</h2><p class="lead">Toma unos 20 minutos. Marque cada paso al terminarlo. Esta lista solo se guarda en este aparato.</p>')}</div>
     <ul class="todo" data-checklist>
       ${TRY.map(([id, en, es]) => `<li><label><input type="checkbox" data-check="${id}"><span class="box" aria-hidden="true">${ICON.check}</span><span>${inline(en, es)}</span></label></li>`).join('')}
     </ul>

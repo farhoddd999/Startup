@@ -38,6 +38,9 @@ export function page({ path, title, description, body, scripts = [], modules = [
   const fullTitle = path === '/' ? 'Hearth · Be the one who reads the bedtime story' : `${title} · Hearth`;
   const nav = NAV.map(([href, label]) => `<a href="${href}"${path === href ? ' aria-current="page"' : ''}>${label}</a>`).join('');
   const abs = p => (SITE.url ? SITE.url + p : p);
+  // wide tables scroll sideways on phones: make that region reachable and named for keyboard users
+  let tableNo = 0;
+  body = body.replace(/<div class="table-wrap([^"]*)">/g, (_, more) => `<div class="table-wrap${more}" tabindex="0" role="region" aria-label="Table ${++tableNo} (scrolls sideways on small screens)">`);
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -79,14 +82,14 @@ ${body}
     <div class="footer-grid">
       <div class="stack">
         <a class="logo" href="/">${MARK}<b>hearth</b></a>
-        <p>A private reading coach for parents, built around the bedtime story. Every night, two people get better at reading.</p>
-        <p>Pilots and partnerships: <a href="mailto:${SITE.contact}">${SITE.contact}</a></p>
+        <p>A reading coach for parents, built around the bedtime story.</p>
+        <p>Questions, pilots, or just want to say hello? <a href="mailto:${SITE.contact}">${SITE.contact}</a></p>
       </div>
-      <div><h4>Product</h4><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/install">Get the app</a></li><li><a href="/app/">Try it in the browser</a></li><li><a href="/stories/">Story library</a></li><li><a href="/check/">Decodability checker</a></li><li><a href="/dashboard/">Partner dashboard demo</a></li></ul></div>
-      <div><h4>Who it's for</h4><ul><li><a href="/families/">Families</a></li><li><a href="/families/#es">Familias (español)</a></li><li><a href="/programs/">Programs and partners</a></li><li><a href="/pilot/">Start a pilot</a></li></ul></div>
-      <div><h4>Learn more</h4><ul><li><a href="/science/">The science</a></li><li><a href="/research/">Research and sources</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/about/">About Hearth</a></li></ul></div>
+      <div><h2 class="fh">Product</h2><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/install">Get the app</a></li><li><a href="/app/">Try it in the browser</a></li><li><a href="/stories/">Story library</a></li><li><a href="/check/">Word checker</a></li><li><a href="/dashboard/">Partner dashboard demo</a></li></ul></div>
+      <div><h2 class="fh">Who it's for</h2><ul><li><a href="/families/">Families</a></li><li><a href="/families/#es">Familias (español)</a></li><li><a href="/programs/">Programs and partners</a></li><li><a href="/pilot/">Start a pilot</a></li></ul></div>
+      <div><h2 class="fh">Learn more</h2><ul><li><a href="/science/">The science</a></li><li><a href="/research/">Research and sources</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/about/">About Hearth</a></li></ul></div>
     </div>
-    <div class="footer-base"><span>© <span data-year>2026</span> Hearth. Working prototype; pilots next.</span><span>Families never pay. No ads. No data sales.</span></div>
+    <div class="footer-base"><span>© <span data-year>2026</span> Hearth. This is an early version, and we’re testing it now.</span><span>Families never pay. We don’t show ads or sell data.</span></div>
   </div>
 </footer>
 <script src="/assets/site.js" defer></script>

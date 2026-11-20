@@ -248,16 +248,28 @@
           "value": "nosniff"
         },
         {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
         },
         {
           "key": "Permissions-Policy",
-          "value": "camera=(), geolocation=(), payment=(), usb=(), microphone=(self)"
+          "value": "microphone=(self), camera=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), display-capture=(), accelerometer=(), gyroscope=(), magnetometer=(), browsing-topics=()"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'"
+          "value": "default-src 'self'; script-src 'self' 'inline-speculation-rules'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'; upgrade-insecure-requests"
         },
         {
           "key": "Strict-Transport-Security",

@@ -30,9 +30,25 @@ const listeners = new Set();
 function load() {
   try {
     const raw = localStorage.getItem(KEY);
-    if (raw) return { ...defaultState(), ...JSON.parse(raw) };
+    if (raw) return merge(defaultState(), JSON.parse(raw));
   } catch { /* private mode or blocked storage: run in memory */ }
   return defaultState();
+}
+
+// Saved data from an older version keeps working: new settings get their defaults,
+// and anything of the wrong shape is ignored rather than breaking the app.
+function merge(base, saved) {
+  if (!saved || typeof saved !== 'object' || Array.isArray(saved)) return base;
+  const out = { ...base };
+  for (const [k, v] of Object.entries(saved)) {
+    const b = base[k];
+    if (b && typeof b === 'object' && !Array.isArray(b) && v && typeof v === 'object' && !Array.isArray(v) && k !== 'learner' && k !== 'stories') out[k] = { ...b, ...v };
+    else if (b === undefined || b === null || typeof b === typeof v) out[k] = v;
+  }
+  if (!Array.isArray(out.history)) out.history = [];
+  if (!Array.isArray(out.generated)) out.generated = [];
+  if (!Array.isArray(out.family.interests)) out.family.interests = [];
+  return out;
 }
 
 export const getState = () => state;

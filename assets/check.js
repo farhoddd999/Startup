@@ -37,18 +37,18 @@ function run() {
     const b = document.createElement('button');
     b.className = `xw ${tok.status}`;
     b.textContent = tok.text;
-    b.title = { decodable: 'Can sound out', focus: 'Uses the new sound', heart: 'Heart word', name: 'Family word', tricky: 'Not yet' }[tok.status];
+    b.title = { decodable: 'They can sound this out', focus: 'Uses the new sound', heart: 'Heart word', name: 'Family word', tricky: 'Not yet' }[tok.status];
     b.addEventListener('click', () => detail(tok, st));
     out.append(b);
   }
   const c = r.counts;
   const pct = c.words ? Math.round(((c.words - c.tricky) / c.words) * 100) : 100;
-  ck('stats').innerHTML = `<div><b>${pct}%</b><span>readable for this reader</span></div><div><b>${c.decodable + c.focus}</b><span>can sound out</span></div><div><b>${c.heart}</b><span>heart words</span></div><div><b>${c.tricky}</b><span>not yet</span></div>`;
+  ck('stats').innerHTML = `<div><b>${pct}%</b><span>they could read</span></div><div><b>${c.decodable + c.focus}</b><span>they can sound out</span></div><div><b>${c.heart}</b><span>heart words</span></div><div><b>${c.tricky}</b><span>not yet</span></div>`;
 }
 
 function detail(tok, st) {
   const d = ck('detail');
-  if (tok.status === 'name') { d.innerHTML = `<h3 style="font-family:var(--story)">${esc(tok.text)}</h3><p class="muted">A family word. The parent knows it, so it is always readable.</p>`; return; }
+  if (tok.status === 'name') { d.innerHTML = `<h3 style="font-family:var(--story)">${esc(tok.text)}</h3><p class="muted">A family word. The parent already knows it, so it always counts as readable.</p>`; return; }
   const a = lx.analyze(tok.norm);
   const chunks = chunksFor(tok.text, lx);
   const rows = a.segments.filter(s => s.g || s.ph.length).map(s => {
@@ -58,10 +58,10 @@ function detail(tok, st) {
     return `<tr class="${cls}"><td class="g">${esc(s.g || '·')}</td><td class="p">/${ipa(s.ph) || '∅'}/</td><td>${esc(info.label || s.pat)} ${info.pic || ''}</td><td>${s.pat === 'irregular' ? 'by heart' : s.pat === 'close' ? '' : `step ${ps}`}</td></tr>`;
   }).join('');
   const verdict = tok.status === 'tricky'
-    ? (a.decodeStep === Infinity ? 'Not readable yet. It has an irregular part, so Hearth teaches it as a heart word.' : `Not readable yet. It becomes decodable at step ${a.decodeStep}: ${STEPS[a.decodeStep - 1]?.title}.`)
-    : tok.status === 'heart' ? `A heart word, learned by sight at step ${a.heartStep}.`
-    : tok.status === 'focus' ? 'Uses the sound this reader is learning now.'
-    : 'This reader can sound it out.';
+    ? (a.decodeStep === Infinity ? 'Not yet. Part of this word doesn’t follow the usual rules, so Hearth teaches it as a heart word instead.' : `Not yet. They’ll be able to sound it out at step ${a.decodeStep} (${STEPS[a.decodeStep - 1]?.title}).`)
+    : tok.status === 'heart' ? `A heart word. They learn this one by sight, at step ${a.heartStep}.`
+    : tok.status === 'focus' ? 'This one uses the new sound they’re learning right now.'
+    : 'They can sound this one out.';
   d.innerHTML = `<h3 style="font-family:var(--story);font-size:32px">${chunks.map(c => `<span class="chunk">${esc(c.g)}</span>`).join('')}</h3>
     <p class="muted small" style="margin:6px 0 10px">/${ipa(a.phones)}/</p>
     <div class="table-wrap"><table class="seg-table"><thead><tr><th>Letters</th><th>Sound</th><th>Pattern</th><th>Taught</th></tr></thead><tbody>${rows}</tbody></table></div>
@@ -70,5 +70,5 @@ function detail(tok, st) {
 
 run();
 fetch('/product/data/lexicon.json').then(r => r.json()).then(data => { lx = new Lexicon(data); run(); }).catch(() => {
-  ck('stats').innerHTML = '<div><b>!</b><span>The dictionary could not load. Please refresh.</span></div>';
+  ck('stats').innerHTML = '<div><b>!</b><span>The dictionary didn’t load. Please check your connection and refresh the page.</span></div>';
 });

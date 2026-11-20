@@ -37,22 +37,22 @@ const SOURCES = [
 export default page({
   path: '/research/',
   title: 'Research and sources',
-  description: 'The evidence behind Hearth: adult literacy, parents, shared reading and dialogic reading, with sources and an honest note on how strong each figure is.',
+  description: 'The evidence behind Hearth, on adult reading, parents and reading to children, with every source listed and an honest note on how solid each number is.',
   body: `
 <section class="page-hero night">
   ${stars(40)}
   <div class="wrap">
     <span class="eyebrow">Research and sources</span>
-    <h1>The numbers, and how sure we are.</h1>
-    <p class="lead">Every figure on this website comes from this page. Where the evidence is thin, we say so.</p>
+    <h1>The numbers, and how sure we are of them.</h1>
+    <p class="lead">Every number on this website comes from this page, with its source. Some of them rest on strong national data and some on a single small study, so we’ve said which is which.</p>
   </div>
 </section>
 
 <section class="band paper" aria-labelledby="numTitle">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Key figures</span><h2 id="numTitle">What we know.</h2></div>
+    <div class="section-head"><span class="eyebrow">Key figures</span><h2 id="numTitle">What the research tells us.</h2></div>
     <div class="table-wrap"><table class="t">
-      <thead><tr><th style="width:13%">Figure</th><th style="width:42%">What it measures</th><th style="width:26%">Source</th><th>Strength</th></tr></thead>
+      <thead><tr><th style="width:13%">Number</th><th style="width:42%">What it means</th><th style="width:26%">Where it comes from</th><th>How solid it is</th></tr></thead>
       <tbody>${ROWS.map(r => `<tr><td class="num" style="font-weight:700;font-size:18px">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody>
     </table></div>
   </div>
@@ -60,18 +60,18 @@ export default page({
 
 <section class="band paper-2" aria-labelledby="notTitle">
   <div class="wrap split top">
-    <div class="stack"><span class="eyebrow">What we don’t say</span><h2 id="notTitle">Figures we chose not to use.</h2></div>
+    <div class="stack"><span class="eyebrow">What we don’t say</span><h2 id="notTitle">Numbers we decided not to use.</h2></div>
     <div class="stack prose">
-      <p><b>“54% of U.S. adults read below a sixth-grade level.”</b> This mixes PIAAC levels with school grade levels, and several outlets have withdrawn it.</p>
-      <p><b>“72% of children of low-literacy parents end up at the lowest reading levels.”</b> Widely repeated, without a clear primary source we could verify.</p>
-      <p><b>Hearth outcome claims.</b> Hearth is a prototype with no users yet. We cite research on the methods it uses, not results for Hearth itself. Our first pilot will measure those.</p>
+      <p><b>“54% of U.S. adults read below a sixth-grade level.”</b> You’ll see this one a lot, but it mixes up two different scales (adult reading levels and school grades), and several news outlets have since taken it back.</p>
+      <p><b>“72% of children of low-literacy parents end up at the lowest reading levels.”</b> It’s repeated everywhere, but we couldn’t trace it back to an original study we could check.</p>
+      <p><b>Any claim that Hearth works.</b> Hearth is an early version and nobody is using it yet, so we can’t say how well it works. What we can point to is research on the methods it uses. Our first pilot is how we’ll find out about Hearth itself.</p>
     </div>
   </div>
 </section>
 
 <section class="band paper" aria-labelledby="srcTitle">
   <div class="wrap">
-    <div class="section-head"><span class="eyebrow">Sources</span><h2 id="srcTitle">References.</h2></div>
+    <div class="section-head"><span class="eyebrow">Sources</span><h2 id="srcTitle">Where everything comes from.</h2></div>
     <div class="sources prose" style="max-width:none"><ol>${SOURCES.map(([id, t]) => `<li id="${id}">${t}</li>`).join('')}</ol></div>
   </div>
 </section>

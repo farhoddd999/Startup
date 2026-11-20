@@ -431,7 +431,7 @@ export function finish(root, { id, mode }) {
       h('div.moon', { html: `<svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="#F7E7A8" opacity=".12"/><circle cx="70" cy="70" r="50" fill="#F7E7A8" opacity=".18"/><circle cx="70" cy="70" r="36" fill="#F8EBC3"/><circle cx="60" cy="62" r="6" fill="#EADBA6"/><circle cx="80" cy="80" r="8" fill="#EADBA6"/></svg>` }),
       h('h1', t('goodnight', vars)),
       h('p', { style: { fontSize: '20px', opacity: .85 } }, t('goodnight_sub', vars)),
-      s ? h('p', { style: { opacity: .7 } }, `${fmt(s.words)} words read aloud tonight.`) : null,
+      s ? h('p', { style: { opacity: .7 } }, t('gn_words', { n: fmt(s.words) })) : null,
       h('div', { style: { height: '20px' } }),
       h('button.btn.primary', { onclick: () => { go('#/home'); } }, h('span.grow', t('done')), icon('check')),
       h('button.link-btn', { type: 'button', onclick: () => openFeedback({ where: 'goodnight' }) }, icon('chat'), t('tell_us')),
@@ -454,8 +454,8 @@ export function finish(root, { id, mode }) {
     h('div.stars-burst', icon('star'), icon('star'), icon('star')),
     h('h1', { style: { textAlign: 'center' } }, t('finish_practice_title')),
     h('div.summary', total
-      ? `You read ${fmt(onOwn)} of ${fmt(total)} words on your own${q.helped ? `, and ${q.helped} with a hand from Hearth` : ''}. That's exactly how reading grows.`
-      : 'Practice done.'),
+      ? t(q.helped ? 'fin_summary_helped' : 'fin_summary', { own: fmt(onOwn), total: fmt(total), helped: q.helped })
+      : t('fin_done')),
     watch.length ? h('div.label', t('watch_words')) : null,
     watch.length ? h('div.watch', watch.map(w => {
       const chunks = chunksFor(w.text, lx);
