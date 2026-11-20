@@ -13,6 +13,7 @@ import { demoFamily } from '../demo.js';
 import { replaceState } from '../store.js';
 import { go, back } from '../router.js';
 import { installCard } from '../install-sheet.js';
+import { chooseBackup } from '../household.js';
 
 const STEPS = ['promise', 'child', 'call', 'look', 'loves', 'mic'];
 const narrate = text => { if (getState().settings.narrate) speak(text); };
@@ -37,6 +38,7 @@ export function welcome(root) {
     h('button.btn.primary', { say: t('start'), onclick: () => { speak(t('welcome_say')); go('#/onboard/promise'); } }, h('span.grow', t('start')), icon('next')),
     h('p.muted', { style: { textAlign: 'center', fontSize: '15px' } }, t('hold_to_hear')),
     h('button.demo-link', { type: 'button', onclick: () => { replaceState(demoFamily()); go('#/home'); } }, t('demo_link')),
+    h('button.demo-link.restore-link', { type: 'button', onclick: () => chooseBackup() }, t('backup_load')),
   );
   root.append(scr);
 }

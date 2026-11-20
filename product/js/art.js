@@ -340,3 +340,24 @@ export const ELEMENTS = ['child', 'grownup', 'cat', 'dog', 'pup', 'hen', 'fox', 
 export const BACKGROUNDS = ['room', 'kitchen', 'bath', 'day', 'dusk', 'night', 'farm', 'pond', 'sea', 'beach', 'rain', 'space', 'snow'];
 const ELEMENT_SET = new Set(ELEMENTS);
 export { SKY_ITEMS };
+
+// ---- stickers: one picture from the stories, in a round sticker ----
+// Bounding boxes measured from the drawings, so each picture sits centred and fills the circle.
+const STICKER_BOX = {
+  cat: [-38, -76, 60, 76], dog: [-43, -76, 100, 76], pup: [-31, -55, 72, 55], hen: [-37, -78, 72, 74], fox: [-60, -86, 89, 86],
+  duck: [-30, -50, 66, 48], fish: [-46, -37, 76, 35], frog: [-34, -48, 68, 49], owl: [-29, -80, 58, 78], seal: [-48, -62, 82, 58],
+  moon: [-40, -40, 80, 80], sun: [-43, -44, 86, 88], heart: [-17, -18, 33, 30], cloud: [-40, -34, 80, 48], ship: [-36, -70, 72, 70],
+  cake: [-56, -70, 112, 76], boat: [-74, -34, 148, 34], snowman: [-48, -138, 96, 140], rocket: [-46, -138, 92, 120], house: [-42, -82, 84, 82],
+  tree: [-50, -130, 100, 130], hat: [-40, -56, 80, 58], ball: [-14, -28, 28, 28], bowl: [-36, -37, 72, 37], box: [-64, -82, 128, 82], earth: [-22, -22, 44, 44],
+};
+export const STICKERS = Object.keys(STICKER_BOX);
+const STICKER_BG = ['#FCE6D3', '#E3F1E6', '#FFF1C9', '#DCE8F7', '#F6DDE8', '#E8E1F5'];
+export function renderSticker(name, look = {}, { title = '' } = {}) {
+  const id = STICKER_BOX[name] ? name : 'heart';
+  const [x, y, w, h] = STICKER_BOX[id];
+  const s = 78 / Math.max(w, h);
+  const bg = STICKER_BG[[...id].reduce((n, c) => n + c.charCodeAt(0), 0) % STICKER_BG.length];
+  const label = title ? `<title>${escapeXml(String(title))}</title>` : '';
+  const role = title ? 'role="img"' : 'aria-hidden="true" focusable="false"';
+  return `<svg class="sticker-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" ${role}>${label}<circle cx="60" cy="60" r="55" fill="${bg}" stroke="#fff" stroke-width="7"/><g transform="translate(60 ${60 + 4}) scale(${s.toFixed(3)}) translate(${-(x + w / 2)} ${-(y + h / 2)})">${element(id, {}, cleanLook(look))}</g></svg>`;
+}

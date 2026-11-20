@@ -12,12 +12,14 @@ import * as reader from './screens/reader.js';
 import * as sky from './screens/sky.js';
 import * as library from './screens/library.js';
 import * as settings from './screens/settings.js';
+import * as warmup from './screens/warmup.js';
 import { demoFamily } from './demo.js';
 import { go, current, onRoute, isFramed } from './router.js';
 import { openFeedback } from './feedback.js';
 import { BUILD } from './config.js';
 import { isStandalone } from './install.js';
 import { openInstall } from './install-sheet.js';
+import { applyComfort } from './household.js';
 
 // iOS only shows :active (pressed) styles when the page listens for touches.
 document.addEventListener('touchstart', () => {}, { passive: true });
@@ -40,6 +42,7 @@ const routes = [
   [/^#\/sky$/, () => sky.render],
   [/^#\/library$/, () => library.render],
   [/^#\/settings$/, () => settings.render],
+  [/^#\/warmup$/, () => warmup.render],
 ];
 
 function route() {
@@ -65,7 +68,7 @@ function route() {
 // Every screen has a main heading for people using a screen reader.
 function ensureHeading(hash) {
   if (app.querySelector('h1')) return;
-  const name = /^#\/library/.test(hash) ? t('library') : /^#\/sky/.test(hash) ? t('sky') : /^#\/settings/.test(hash) ? t('settings')
+  const name = /^#\/warmup/.test(hash) ? t('warm_chip') : /^#\/library/.test(hash) ? t('library') : /^#\/sky/.test(hash) ? t('sky') : /^#\/settings/.test(hash) ? t('settings')
     : /\/story$/.test(hash) ? t('mode_story') : /\/(practice|listen)$/.test(hash) ? t('mode_practice') : /^#\/done/.test(hash) ? t('finish_practice_title') : t('home');
   app.prepend(h('h1.sr-only', name));
 }
@@ -130,6 +133,7 @@ function renderRail() {
 async function boot() {
   const st = getState();
   setLang(st.family.lang || 'en');
+  applyComfort(st);
   enableHoldToHear(document);
   enablePressFeedback(document);
   const res = await fetch('./data/lexicon.json');

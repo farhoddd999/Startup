@@ -74,7 +74,7 @@ const STRINGS = {
     inst_ios_1: 'Tap the Share button', inst_ios_1_sub: 'It’s at the bottom of Safari. On an iPad, it’s at the top.',
     inst_ios_2: 'Tap “Add to Home Screen”', inst_ios_2_sub: 'You might need to scroll down a little to find it.',
     inst_ios_3: 'Tap “Add”', inst_ios_3_sub: 'Hearth is now on your home screen. Open it from there.',
-    inst_ios_note: 'Good to know: do this before you set up. Safari and the home-screen app each keep their own copy, so anything you do in Safari stays there. Also, on iPhone the home-screen app sometimes can’t hear your voice yet. If that happens, Hearth switches to tapping.',
+    inst_ios_note: 'Good to know: Safari and the home-screen app each keep their own copy. If you’ve already set up in Safari, use Settings → Move to another phone to bring your progress across. Also, on iPhone the home-screen app sometimes can’t hear your voice yet. If that happens, Hearth switches to tapping.',
     inst_ios_other: 'In this browser, tap Share, then “Add to Home Screen”. If you can’t find it, open this page in Safari instead.',
     inst_android: 'Tap the menu (⋮) at the top of your browser, then “Install app” or “Add to Home screen”.',
     inst_inapp: 'You’ve opened this inside another app, and it can’t install Hearth. Open the link in Chrome or Safari and you’ll be able to.',
@@ -93,6 +93,33 @@ const STRINGS = {
     as_in: 'as in “{word}”',
     demo_link: 'Showing Hearth to someone? Use a demo family',
     boot_fail_title: 'Hearth didn’t open properly', boot_fail_body: 'This is usually a weak internet connection. Please check it and try again.', try_again: 'Try again',
+    // warm-up
+    warm_chip: 'Warm-up', warm_title: 'Quick warm-up: {n} words', warm_title_1: 'Quick warm-up: 1 word', warm_sub: 'Words from last time, about a minute',
+    warm_say: 'Here are a few words that were tricky last time. Try reading each one out loud. If you’d like help, tap Sound it out.',
+    warm_q: 'Try reading this word out loud', warm_sound: 'Sound it out', warm_hear: 'Hear the word', warm_got: 'I read it', warm_notyet: 'Not yet',
+    warm_done_title: 'Nice warm-up', warm_done_body: '{n} of {total} felt easier today. The others will come back another day.',
+    warm_done_all: 'You read every one. They’ll come back less often now.', warm_none: 'Nothing to warm up today. Your words are resting.',
+    warm_back: 'Back to tonight’s story', watch_later: 'We’ll bring these back for a quick warm-up tomorrow.',
+    talk_practice: 'Tonight you can ask',
+    // stickers and milestones
+    sticker_q: 'Pick a sticker for tonight', sticker_say: '{child}, pick a sticker for tonight!', sticker_saved: 'Saved in {child}’s sticker book',
+    stickers_title: '{child}’s sticker book', stickers_empty: 'After each bedtime story, {child} can pick a sticker to keep here.', stickers_count: '{n} stickers', stickers_count_1: '1 sticker',
+    milestone_title: '{n} nights of stories!', milestone_first: 'Your very first bedtime story together!',
+    milestone_body: '{child} and {grownup} have read {n} bedtime stories together.',
+    cert_make: 'Make a certificate', cert_title: 'Bedtime story certificate', cert_line: 'read {n} bedtime stories together', cert_line_1: 'read their first bedtime story together',
+    cert_ready: 'Your certificate is ready', cert_share: 'Share or save it', cert_saved: 'Saved',
+    // reminders
+    remind: 'Bedtime reminder', remind_sub: 'A daily reminder in your phone’s calendar. Hearth itself sends nothing.', remind_time: 'Story time', remind_add_g: 'Add to Google Calendar', remind_add_file: 'Add to my calendar (file)',
+    remind_event: 'Bedtime story', remind_note: 'Practise tonight’s story in Hearth first, about 5 minutes. Then read it together.', remind_done: 'Open the file to add the reminder to your calendar.',
+    // moving phones
+    backup: 'Move to another phone', backup_sub: 'Save a backup file, then open it in Hearth on the other phone. Recordings stay on this phone.',
+    backup_save: 'Save a backup', backup_load: 'Restore a backup', backup_saved: 'Backup saved. Keep it somewhere safe, because it has your child’s name in it.',
+    backup_confirm: 'This replaces everything on this phone with the backup from {date}. Continue?', backup_bad: 'That file doesn’t look like a Hearth backup.', backup_done: 'All set. Welcome back!',
+    // reading comfort
+    comfort: 'Reading comfort', text_size: 'Story text size', size_m: 'Normal', size_l: 'Large', size_xl: 'Extra large',
+    voice_speed: 'Read-aloud speed', speed_slow: 'Slower', speed_normal: 'Normal',
+    // Spanish story questions
+    talk_show_en: 'Show in English', talk_show_es: 'Ver en español',
   },
   es: {
     tagline: 'Sea quien lee el cuento de buenas noches.',
@@ -160,7 +187,7 @@ const STRINGS = {
     inst_ios_1: 'Toque el botón Compartir', inst_ios_1_sub: 'Está abajo en Safari. En un iPad, está arriba.',
     inst_ios_2: 'Toque “Agregar a inicio”', inst_ios_2_sub: 'Puede que tenga que bajar un poco para encontrarlo.',
     inst_ios_3: 'Toque “Agregar”', inst_ios_3_sub: 'Hearth ya está en su pantalla de inicio. Ábralo desde ahí.',
-    inst_ios_note: 'Bueno saber: hágalo antes de empezar. Safari y la app de inicio guardan cada uno su propia copia, así que lo que haga en Safari se queda allí. Además, en iPhone la app de inicio a veces todavía no puede escuchar su voz. Si pasa, Hearth cambia a tocar las palabras.',
+    inst_ios_note: 'Bueno saber: Safari y la app de inicio guardan cada uno su propia copia. Si ya empezó en Safari, use Ajustes → Pasar a otro teléfono para traer su progreso. Además, en iPhone la app de inicio a veces todavía no puede escuchar su voz. Si pasa, Hearth cambia a tocar las palabras.',
     inst_ios_other: 'En este navegador, toque Compartir y luego “Agregar a inicio”. Si no lo encuentra, abra esta página en Safari.',
     inst_android: 'Toque el menú (⋮) arriba en su navegador y luego “Instalar app” o “Agregar a la pantalla principal”.',
     inst_inapp: 'Abrió esto dentro de otra app, y esa app no puede instalar Hearth. Abra el enlace en Chrome o Safari y podrá hacerlo.',
@@ -179,6 +206,33 @@ const STRINGS = {
     as_in: 'como en “{word}”',
     demo_link: '¿Está mostrando Hearth a alguien? Use una familia de demostración',
     boot_fail_title: 'Hearth no se abrió bien', boot_fail_body: 'Casi siempre es una conexión a internet débil. Revísela e inténtelo de nuevo.', try_again: 'Intentar de nuevo',
+    // calentamiento
+    warm_chip: 'Calentamiento', warm_title: 'Calentamiento rápido: {n} palabras', warm_title_1: 'Calentamiento rápido: 1 palabra', warm_sub: 'Palabras de la última vez, un minuto',
+    warm_say: 'Aquí hay unas palabras que le costaron la última vez. Intente leer cada una en voz alta. Si quiere ayuda, toque Por sonidos.',
+    warm_q: 'Intente leer esta palabra en voz alta', warm_sound: 'Por sonidos', warm_hear: 'Escuchar la palabra', warm_got: 'La leí', warm_notyet: 'Todavía no',
+    warm_done_title: '¡Buen calentamiento!', warm_done_body: '{n} de {total} le resultaron más fáciles hoy. Las demás volverán otro día.',
+    warm_done_all: 'Las leyó todas. Ahora volverán con menos frecuencia.', warm_none: 'Hoy no hay nada para calentar. Sus palabras están descansando.',
+    warm_back: 'Volver al cuento de esta noche', watch_later: 'Mañana volverán para un calentamiento rápido.',
+    talk_practice: 'Esta noche puede preguntar',
+    // calcomanías y logros
+    sticker_q: 'Elige una calcomanía para esta noche', sticker_say: '¡{child}, elige una calcomanía para esta noche!', sticker_saved: 'Guardada en el álbum de {child}',
+    stickers_title: 'El álbum de calcomanías de {child}', stickers_empty: 'Después de cada cuento, {child} puede elegir una calcomanía para guardarla aquí.', stickers_count: '{n} calcomanías', stickers_count_1: '1 calcomanía',
+    milestone_title: '¡{n} noches de cuentos!', milestone_first: '¡Su primer cuento juntos!',
+    milestone_body: '{child} y {grownup} han leído {n} cuentos juntos.',
+    cert_make: 'Hacer un certificado', cert_title: 'Certificado de cuentos', cert_line: 'leyeron {n} cuentos juntos', cert_line_1: 'leyeron su primer cuento juntos',
+    cert_ready: 'Su certificado está listo', cert_share: 'Compartirlo o guardarlo', cert_saved: 'Guardado',
+    // recordatorios
+    remind: 'Recordatorio para la hora del cuento', remind_sub: 'Un recordatorio diario en el calendario de su teléfono. Hearth no envía nada.', remind_time: 'Hora del cuento', remind_add_g: 'Agregar a Google Calendar', remind_add_file: 'Agregar a mi calendario (archivo)',
+    remind_event: 'Cuento de buenas noches', remind_note: 'Primero practique el cuento de esta noche en Hearth, unos 5 minutos. Luego léanlo juntos.', remind_done: 'Abra el archivo para agregar el recordatorio a su calendario.',
+    // cambiar de teléfono
+    backup: 'Pasar a otro teléfono', backup_sub: 'Guarde una copia y ábrala en Hearth en el otro teléfono. Las grabaciones se quedan en este teléfono.',
+    backup_save: 'Guardar una copia', backup_load: 'Restaurar una copia', backup_saved: 'Copia guardada. Guárdela en un lugar seguro, porque tiene el nombre de su hijo.',
+    backup_confirm: 'Esto reemplaza todo lo que hay en este teléfono con la copia del {date}. ¿Continuar?', backup_bad: 'Ese archivo no parece una copia de Hearth.', backup_done: '¡Listo! Bienvenido de nuevo.',
+    // comodidad para leer
+    comfort: 'Comodidad para leer', text_size: 'Tamaño de las letras del cuento', size_m: 'Normal', size_l: 'Grande', size_xl: 'Muy grande',
+    voice_speed: 'Velocidad de lectura en voz alta', speed_slow: 'Más lento', speed_normal: 'Normal',
+    // preguntas del cuento en español
+    talk_show_en: 'Ver en inglés', talk_show_es: 'Ver en español',
   },
 };
 

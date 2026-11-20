@@ -49,6 +49,20 @@ node site/build.mjs --images   # also the social card and touch icon (uses Playw
 
 Set `HEARTH_CONTACT=you@yourdomain` (pilot form, footer email, and where tester feedback is addressed) and `HEARTH_SITE_URL=https://yourdomain` (canonical links and sitemap) before building. The build also stamps the app with a build number (a hash of the app's files) and regenerates the service worker's offline file list.
 
+## What's in the app
+
+- **Tonight's story**, written for the parent's step, with their child in it, and **practice with a coach that listens**: help comes in stages (the parts of the word, then the sounds, then the word).
+- **Story time** in bedtime mode, with a question on each page (in Spanish too, when the app is in Spanish, with one tap to see the English).
+- **A quick warm-up**: words that needed help come back the next day and then rest longer each time they feel easy (1, 3, 7, 14 days), until they're learned.
+- **A sticker book** for the child (one sticker after each bedtime story), and **milestone nights** (1, 3, 7, 14, 30…) with a certificate drawn on the phone to share or print.
+- **Your sky**: sounds learned, words you can read, nights of stories.
+- **Bedtime reminder** in the phone's own calendar (a calendar file, or Google Calendar on Android), with no names in it.
+- **Move to another phone** with a backup file the family keeps (recordings stay on the phone); a new phone can restore it from the welcome screen.
+- **Reading comfort**: bigger story text and a slower reading voice. English and Spanish throughout; every screen can be read aloud.
+- **Feedback** from inside the app, and a recording option for nights a parent works late.
+
+Everything is stored on the phone. Nothing is sent anywhere unless the family chooses to send it.
+
 ## Installing the app
 
 Hearth installs like a native app straight from the web: no app store needed. Send people to **`/install`** (the website's "Get the app" button).

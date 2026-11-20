@@ -12,6 +12,7 @@ import { personalize } from '../../engine/text.js';
 import { readableCount } from './sky.js';
 import { go, back } from '../router.js';
 import { installCard } from '../install-sheet.js';
+import { dueWords } from '../wordbank.js';
 
 export function tabbar(active) {
   const tab = (id, ic, label, hash) => h(`button${active === id ? '.on' : ''}`, { say: label, onclick: () => { go(hash); } }, icon(ic), label);
@@ -82,6 +83,7 @@ export function render(root) {
           icon('play'), h('span.grow', t('play_recording', { grownup: fam.grownup }))) : null,
       ),
     ),
+    warmupCard(),
     h('div.mini-grid',
       h('button.mini.learning', { say: `${t('learning_now')}: ${info.key}`, onclick: () => { go('#/sky'); } },
         h('div.emo', info.pic || '⭐'),
@@ -104,3 +106,11 @@ export function render(root) {
 
 function clear(root) { root.innerHTML = ''; return root; }
 export { prepare, getLexicon, speak };
+
+// A short warm-up with words that were tricky last time, when any are due today.
+function warmupCard() {
+  const n = dueWords().length;
+  if (!n) return null;
+  return h('button.btn.ghost.warmup-card', { type: 'button', say: t(n === 1 ? 'warm_title_1' : 'warm_title', { n }), onclick: () => go('#/warmup') },
+    icon('sparkle'), h('span.grow', t(n === 1 ? 'warm_title_1' : 'warm_title', { n }), h('span.sub', t('warm_sub'))), icon('next'));
+}

@@ -1,7 +1,8 @@
 // Shared page chrome for the Hearth website.
 export const SITE = {
   name: 'Hearth',
-  contact: process.env.HEARTH_CONTACT || 'hello@hearth.example',
+  // Where people reach Hearth: pilot requests, feedback, questions. Override with HEARTH_CONTACT.
+  contact: process.env.HEARTH_CONTACT || 'farhodxurramov07@gmail.com',
   url: (process.env.HEARTH_SITE_URL || '').replace(/\/$/, ''),
 };
 
@@ -41,7 +42,7 @@ export function page({ path, title, description, body, scripts = [], modules = [
   // wide tables scroll sideways on phones: make that region reachable and named for keyboard users
   let tableNo = 0;
   body = body.replace(/<div class="table-wrap([^"]*)">/g, (_, more) => `<div class="table-wrap${more}" tabindex="0" role="region" aria-label="Table ${++tableNo} (scrolls sideways on small screens)">`);
-  return `<!doctype html>
+  return shieldEmail(`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -97,7 +98,11 @@ ${scripts.map(s => `<script src="${s}" defer></script>`).join('\n')}
 ${modules.map(s => `<script type="module" src="${s}"></script>`).join('\n')}
 </body>
 </html>
-`;
+`);
 }
+
+// The contact address is written as HTML character references everywhere it appears.
+// Browsers show and link it normally; the simple bots that scrape pages for emails miss it.
+const shieldEmail = html => html.split(SITE.contact).join([...SITE.contact].map(c => `&#${c.codePointAt(0)};`).join(''));
 
 export const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

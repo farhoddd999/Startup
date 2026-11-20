@@ -58,6 +58,8 @@ export function save() {
 }
 export function update(fn) { fn(state); save(); }
 export function replaceState(next) { state = next; save(); }
+/** Replace everything with a restored backup (cleaned by the same rules as saved data). */
+export function restoreFrom(saved) { state = merge(defaultState(), saved); save(); }
 export function reset() { state = defaultState(); save(); clearRecordings(); }
 export const subscribe = fn => (listeners.add(fn), () => listeners.delete(fn));
 

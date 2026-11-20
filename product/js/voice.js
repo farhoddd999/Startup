@@ -28,7 +28,12 @@ export function stopSpeaking() { try { synth && synth.cancel(); } catch { /* ign
  * Speak text. Resolves when finished (or immediately if TTS is unavailable).
  * opts: {lang, rate, onWord(charIndex)} — onWord fires on word boundaries where supported.
  */
-export function speak(text, { lang = getLang(), rate = 0.92, pitch = 1, onWord, interrupt = true } = {}) {
+// "Read-aloud speed" in Settings: 'slow' makes every spoken line a little slower.
+let rateScale = 1;
+export const setSpeechPace = pace => { rateScale = pace === 'slow' ? 0.8 : 1; };
+
+export function speak(text, { lang = getLang(), rate: baseRate = 0.92, pitch = 1, onWord, interrupt = true } = {}) {
+  const rate = baseRate * rateScale;
   return new Promise(resolve => {
     if (!synth || !text) return resolve();
     if (interrupt) stopSpeaking();
@@ -73,7 +78,7 @@ export function readAloud(words, { onWord, rate = 0.85 } = {}) {
     const timer = setInterval(() => {
       if (gotBoundary || cancelled) return clearInterval(timer);
       if (timerIdx < words.length) onWord?.(timerIdx++);
-    }, 420 / rate);
+    }, 420 / (rate * rateScale));
     await speak(text, {
       lang: 'en', rate,
       onWord: ci => { gotBoundary = true; const i = starts.findLastIndex(s => s <= ci); if (i >= 0) onWord?.(i); },

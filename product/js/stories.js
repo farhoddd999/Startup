@@ -1,6 +1,7 @@
 // Story selection & preparation for one family.
 
 import { STORIES } from '../data/stories.js';
+import { TALK_ES } from '../data/talk-es.js';
 import { personalize, tokenize, baseForm } from '../engine/text.js';
 import { analyzeText, validateStory } from '../engine/decodable.js';
 import { isBlocked } from '../engine/safety.js';
@@ -48,7 +49,8 @@ export function prepare(story, state = getState()) {
       lenient: t.status === 'name' || known.includes(baseForm(t.norm)),
       focus: t.status === 'focus',
     }));
-    return { ...p, index: pi, text, tokens, words, talk: personalize(p.talk || '', family) };
+    const talkEs = TALK_ES[story.id]?.[pi];
+    return { ...p, index: pi, text, tokens, words, talk: personalize(p.talk || '', family), talkEs: talkEs ? personalize(talkEs, family) : '' };
   });
   return { ...story, title: personalize(story.title, family), pages, step };
 }

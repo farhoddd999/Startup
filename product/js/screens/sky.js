@@ -3,7 +3,8 @@
 // no percentiles — just a sky that keeps getting brighter.
 
 import { h, icon, sayButton, fmt } from '../ui.js';
-import { t } from '../i18n.js';
+import { t, getLang } from '../i18n.js';
+import { renderSticker } from '../art.js';
 import { getState } from '../store.js';
 import { speak } from '../voice.js';
 import { STEPS, PATTERN_INFO } from '../../engine/phonics.js';
@@ -70,7 +71,7 @@ export function render(root) {
   const svg = `<svg viewBox="0 0 360 640" xmlns="http://www.w3.org/2000/svg">${bg}${lines}${starsSvg}</svg>`;
 
   const skyEl = h('div.sky-wrap', { html: svg },
-    h('div.cap', h('div.n', fmt(readable)), h('div.l', `${t('words_you_can_read')} — ${t('of_common')}`)));
+    h('div.cap', h('div.n', fmt(readable)), h('div.l', `${t('words_you_can_read')}, ${t('of_common')}`)));
   skyEl.addEventListener('click', e => { const g = e.target.closest('.star-btn'); if (g) openStep(+g.dataset.step, stepState(STEPS[+g.dataset.step - 1])); });
 
   // growth sparkline from history
@@ -97,6 +98,7 @@ export function render(root) {
       h('div.mini', h('div.big', fmt(st.stats.wordsAloud)), h('div.small', t('words_heard', { child: fam.childName }))),
       spark,
     ),
+    stickerBook(st),
     tabbar('sky'),
   ));
 }
@@ -118,4 +120,17 @@ function openStep(n, state) {
       h('div.example-words', s.words.map(w => h('button', { onclick: () => speak(w, { lang: 'en', rate: 0.75 }) }, w))),
     ));
   document.body.append(back);
+}
+
+// The child's sticker book: one sticker for each night of stories.
+function stickerBook(st) {
+  const list = (st.stickers || []).slice().reverse();
+  const vars = { child: st.family.childName };
+  return h('section.sticker-book', { 'aria-label': t('stickers_title', vars) },
+    h('div.row', h('h3', { style: { flex: 1 } }, t('stickers_title', vars)), list.length ? h('span.muted.small', t(list.length === 1 ? 'stickers_count_1' : 'stickers_count', { n: list.length })) : null),
+    list.length
+      ? h('div.sticker-grid', list.map(x => h('div.sticker', { title: new Date(x.at).toLocaleDateString(getLang() === 'es' ? 'es' : 'en-US', { month: 'short', day: 'numeric' }) },
+        h('span', { html: renderSticker(x.id, st.family.look) }),
+        h('small', new Date(x.at).toLocaleDateString(getLang() === 'es' ? 'es' : 'en-US', { month: 'short', day: 'numeric' })))))
+      : h('p.muted', t('stickers_empty', vars)));
 }

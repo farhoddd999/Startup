@@ -174,7 +174,7 @@ p { margin: 0; }
 .page-art .rec { position: absolute; right: 10px; top: 10px; background: rgba(217, 86, 74, .92); color: #fff; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 999px; display: inline-flex; gap: 6px; align-items: center; }
 .page-art .rec .ic { width: 12px; height: 12px; animation: pulse 1.2s infinite; border-radius: 50%; }
 .page-text {
-  font-family: var(--story); font-size: 31px; line-height: 1.75; padding: 6px 4px 0; min-height: 140px;
+  font-family: var(--story); font-size: calc(31px * var(--text-scale, 1)); line-height: 1.75; padding: 6px 4px 0; min-height: 140px;
   word-spacing: .08em; position: relative;
 }
 .w { position: relative; display: inline-block; border-radius: 10px; padding: 0 3px; margin: 0 -1px; transition: background .25s, color .25s; cursor: pointer; }
@@ -249,7 +249,7 @@ p { margin: 0; }
 #app.bedtime .mic { background: var(--night-3); }
 #app.bedtime .mic.live { background: var(--ember); }
 #app.bedtime .mode-chip { background: var(--night-2); color: var(--gold); }
-#app.bedtime .page-text { font-size: 33px; color: var(--cream-text); }
+#app.bedtime .page-text { font-size: calc(33px * var(--text-scale, 1)); color: var(--cream-text); }
 #app.bedtime .w.current { background: rgba(242, 193, 78, .14); }
 #app.bedtime .w.chunked { background: rgba(242, 193, 78, .14); box-shadow: 0 0 0 2px rgba(242, 193, 78, .6); }
 #app.bedtime .w.chunked .ch.hot { color: var(--gold); }
@@ -434,3 +434,55 @@ button, .btn, a.chip { transition: transform .14s cubic-bezier(.2, .8, .3, 1), b
 /* screen-reader-only text (each screen gets a heading for people using one) */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .boot-fail { gap: 16px; justify-content: center; text-align: center; }
+
+/* ---------- warm-up ---------- */
+.warmup .warm-body { display: flex; flex-direction: column; gap: 16px; flex: 1; }
+.warm-q { text-align: center; font-size: 17px; margin-top: 10px; }
+.warm-word { text-align: center; font-family: var(--story); font-weight: 700; font-size: calc(64px * var(--text-scale, 1)); line-height: 1.2; color: var(--ink); padding: 18px 8px; background: var(--surface); border-radius: 24px; box-shadow: var(--shadow); }
+.warm-word .wc { transition: margin .2s, background .2s; border-radius: 10px; padding: 0 2px; }
+.warm-word.split .wc { margin: 0 .12em; background: var(--gold-soft); }
+.warm-word .wc.hot { color: var(--ember-deep); }
+.warm-sounds { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.warm-sounds[hidden] { display: none; }
+.warm-help, .warm-answer { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.warm-help .btn, .warm-answer .btn { justify-content: center; text-align: center; min-height: 64px; font-size: 18px; }
+.warmup .summary { text-align: center; font-size: 19px; }
+.warmup-card { margin-top: 14px; text-align: left; border-left: 6px solid var(--gold); }
+.watch-note { text-align: center; margin: -4px 0 0; }
+
+/* ---------- stickers and milestones ---------- */
+.sticker-pick { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 8px; }
+.sticker-q { font-size: 19px; font-weight: 700; color: var(--cream-text); }
+.sticker-row { display: flex; gap: 14px; justify-content: center; }
+.sticker-pick button.sticker { width: 96px; height: 96px; border-radius: 50%; padding: 0; background: none; animation: stickerIn .5s cubic-bezier(.2, .8, .3, 1.4) both; }
+.sticker-pick button.sticker:nth-child(2) { animation-delay: .08s; }
+.sticker-pick button.sticker:nth-child(3) { animation-delay: .16s; }
+@keyframes stickerIn { from { transform: scale(.4) rotate(-12deg); opacity: 0; } }
+.sticker svg, .sticker-svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .25)); }
+.sticker-pick .saved { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.sticker-pick .saved .big { width: 120px; height: 120px; display: block; animation: stickerIn .6s cubic-bezier(.2, .8, .3, 1.4) both; }
+.sticker-pick .saved p { color: var(--cream-text); opacity: .9; font-weight: 700; }
+.milestone { background: rgba(242, 193, 78, .14); border: 2px solid rgba(242, 193, 78, .5); border-radius: 22px; padding: 16px 18px; text-align: center; display: flex; flex-direction: column; gap: 8px; color: var(--cream-text); }
+.milestone h2 { font-family: var(--display); font-size: 26px; }
+.milestone .ms-stars { display: flex; justify-content: center; gap: 6px; color: var(--gold); }
+.milestone .ms-stars .ic { width: 26px; height: 26px; }
+.milestone .btn.ghost { background: var(--night-2); color: var(--cream-text); box-shadow: inset 0 0 0 2px rgba(255, 239, 217, .25); }
+.cert-sheet img { width: 100%; height: auto; border-radius: 16px; box-shadow: var(--shadow); }
+.sticker-book { margin-top: 18px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px; }
+.sticker-book h3 { font-size: 19px; }
+.sticker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 12px; margin-top: 12px; }
+.sticker-grid .sticker { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.sticker-grid .sticker span { width: 64px; height: 64px; display: block; }
+.sticker-grid small { font-size: 12px; color: var(--muted); }
+
+/* ---------- settings: comfort, reminder, moving phones ---------- */
+.set-row.col { flex-direction: column; align-items: stretch; gap: 10px; }
+.set-row.col .seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.set-row.col .seg button { flex: 1 1 auto; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.two .btn { min-height: 56px; font-size: 16px; justify-content: center; text-align: center; padding: 10px 12px; }
+.remind-time { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 700; }
+.remind-time input { width: auto; min-width: 130px; text-transform: none; }
+.restore-link { margin-top: -6px; }
+.talk-q { display: block; }
+.talk-lang { display: inline-block; margin-top: 6px; font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; color: inherit; opacity: .8; padding: 4px 0; }

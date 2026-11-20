@@ -82,6 +82,19 @@ export default page({
   </div>
 </section>
 
+<section class="band paper-2" aria-labelledby="extrasTitle">
+  <div class="wrap">
+    <div class="section-head"><span class="eyebrow">The little things</span><h2 id="extrasTitle">Small extras that help it stick.</h2><p class="lead">None of these need an account or a server. They all live on your phone.</p></div>
+    <div class="grid4">
+      <div class="card"><div class="glyph">${ICON.check}</div><h3>A one-minute warm-up</h3><p>Words you found tricky come back the next day. Each time one feels easy it rests a bit longer, until it’s yours for good.</p></div>
+      <div class="card"><div class="glyph">${ICON.star}</div><h3>A sticker book</h3><p>After each bedtime story your child picks a sticker to keep. On special nights, like the 7th or the 30th, you can make a certificate to print or share.</p></div>
+      <div class="card"><div class="glyph">${ICON.moon}</div><h3>A bedtime reminder</h3><p>Add a daily reminder to your phone’s own calendar, with a nudge 20 minutes before to practise. Hearth itself never sends you anything.</p></div>
+      <div class="card"><div class="glyph">${ICON.phone}</div><h3>Moving to a new phone</h3><p>Save a backup file and open it on the new phone. You keep the file, so your progress never has to live on anyone else’s server.</p></div>
+    </div>
+    <p class="mt muted">In Spanish, the question on each page comes in Spanish too, so you can talk about the story in the language you’re most at home in. You can also make the story text bigger, or slow down the reading voice.</p>
+  </div>
+</section>
+
 <section class="band night" aria-labelledby="hoodTitle">
   <div class="wrap">
     <div class="section-head"><span class="eyebrow">Under the hood</span><h2 id="hoodTitle">The four pieces that make it work.</h2></div>

@@ -26,5 +26,10 @@ export function demoFamily() {
   s.history = readable.map((r, i) => ({ at: now - (readable.length - i) * 2 * day, id: 'x', mode: i % 2 ? 'story' : 'practice', words: 60, q: { fluent: 48, effortful: 7, helped: 4, skipped: 1 }, readable: r }));
   s.stats = { nights: 12, wordsAloud: 742, practiceMs: 12 * 6 * 60000 };
   for (const id of ['tap-tap-tap', 'pip-the-cat', 'dig-bob-dig', 'hen-and-the-hat', 'gus-the-mud-pup']) s.stories[id] = { practiced: 2, readTogether: 2, lastAt: now - day * 3, recorded: id === 'gus-the-mud-pup' };
+  // a few words Rosa found tricky last time, due for a warm-up today
+  // stickers Mateo picked on earlier nights, and the milestones already celebrated
+  s.stickers = ['fox', 'moon', 'cat', 'hen', 'dog', 'pup', 'fish', 'owl'].map((id, k) => ({ id, story: 'x', at: now - (16 - k * 2) * day }));
+  s.milestones = [1, 3, 7];
+  s.wordbank = Object.fromEntries(['shop', 'dish', 'rush'].map((w, k) => [w, { word: w, box: 0, due: now - 3600e3 * (k + 1), misses: 1, added: now - 864e5 }]));
   return s;
 }

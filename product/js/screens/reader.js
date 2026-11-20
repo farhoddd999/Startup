@@ -5,7 +5,7 @@
 // level → UI; on page end → learner.observe() for every word.
 
 import { h, icon, sayButton, fmt, toast } from '../ui.js';
-import { t } from '../i18n.js';
+import { t, getLang } from '../i18n.js';
 import { getState, update, storyRecord, saveRecording, getRecording } from '../store.js';
 import { speak, sayWord, readAloud, stopSpeaking, createRecognizer, createSimulatedReader, recognitionAvailable } from '../voice.js';
 import { renderScene } from '../art.js';
@@ -17,6 +17,8 @@ import { PATTERN_INFO, STEPS } from '../../engine/phonics.js';
 import { readableCount } from './sky.js';
 import { go, back, current } from '../router.js';
 import { openFeedback } from '../feedback.js';
+import { addTricky, noteFluent } from '../wordbank.js';
+import { stickerPicker, milestoneCard, newMilestone } from '../keepsakes.js';
 
 let lastSession = null;   // handed to the finish screen
 
@@ -315,8 +317,18 @@ export function render(root, { id, mode }) {
     const page = P.pages[pageIdx];
     if (!page.talk) return;
     talkSlot.innerHTML = '';
-    talkSlot.append(h('div.talk', icon('chat', 'ic ic-chat'), h('div', { style: { flex: 1 } }, h('b', story_mode ? t('talk') : 'Tonight you can ask'), page.talk), sayButton(page.talk)));
-    if (sayIt && st.settings.whisperHints) speak(page.talk, { lang: 'en', rate: 0.95 });
+    // In Spanish, the question comes in Spanish so the parent can talk with their child in their own language.
+    const spanish = getLang() === 'es' && page.talkEs;
+    let showEs = spanish;
+    const textOf = () => (showEs ? page.talkEs : page.talk);
+    const q = h('span.talk-q', { lang: showEs ? 'es' : 'en' }, textOf());
+    const say = h('button.say-btn', { type: 'button', 'aria-label': t('listen'), onclick: () => speak(textOf(), { lang: showEs ? 'es' : 'en', rate: 0.95 }) }, icon('speaker'));
+    const flip = spanish ? h('button.talk-lang', { type: 'button', onclick: () => {
+      showEs = !showEs; q.textContent = textOf(); q.lang = showEs ? 'es' : 'en';
+      flip.textContent = showEs ? t('talk_show_en') : t('talk_show_es');
+    } }, t('talk_show_en')) : null;
+    talkSlot.append(h('div.talk', icon('chat', 'ic ic-chat'), h('div', { style: { flex: 1 } }, h('b', story_mode ? t('talk') : t('talk_practice')), q, flip), say));
+    if (sayIt && st.settings.whisperHints) speak(textOf(), { lang: showEs ? 'es' : 'en', rate: 0.95 });
   }
 
   function listenModel() {
@@ -362,6 +374,9 @@ export function render(root, { id, mode }) {
       s.history.push({ at: Date.now(), id: story.id, mode, words, q, readable: readableCount(s.learner) });
       if (s.history.length > 400) s.history.shift();
     });
+    // tricky words come back for a warm-up; banked words read smoothly here count as a good review
+    addTricky(watch.map(w => ({ norm: w.norm, text: w.text })));
+    noteFluent(results.flatMap((r, pi) => (r || []).map((x, wi) => (x === 'fluent' ? P.pages[pi].words[wi]?.norm : null))).filter(Boolean));
     lastSession = { id: story.id, mode, q, words, watch, step: workingStep(getState().learner) };
     go(`#/done/${story.id}/${mode}`);
   }
@@ -426,13 +441,16 @@ export function finish(root, { id, mode }) {
   const vars = { child: fam.childName, n: st.stats.nights };
   if (mode === 'story') {
     root.classList.add('bedtime');
+    const milestone = s ? newMilestone() : 0;
     speak(t('goodnight_say', vars));
     root.append(h('div.screen.goodnight',
       h('div.moon', { html: `<svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="#F7E7A8" opacity=".12"/><circle cx="70" cy="70" r="50" fill="#F7E7A8" opacity=".18"/><circle cx="70" cy="70" r="36" fill="#F8EBC3"/><circle cx="60" cy="62" r="6" fill="#EADBA6"/><circle cx="80" cy="80" r="8" fill="#EADBA6"/></svg>` }),
       h('h1', t('goodnight', vars)),
       h('p', { style: { fontSize: '20px', opacity: .85 } }, t('goodnight_sub', vars)),
       s ? h('p', { style: { opacity: .7 } }, t('gn_words', { n: fmt(s.words) })) : null,
-      h('div', { style: { height: '20px' } }),
+      milestone ? milestoneCard(milestone) : null,
+      story ? stickerPicker(story) : null,
+      h('div', { style: { height: '12px' } }),
       h('button.btn.primary', { onclick: () => { go('#/home'); } }, h('span.grow', t('done')), icon('check')),
       h('button.link-btn', { type: 'button', onclick: () => openFeedback({ where: 'goodnight' }) }, icon('chat'), t('tell_us')),
     ));
@@ -465,7 +483,8 @@ export function finish(root, { id, mode }) {
         h('span.wd', chunks.map((c, k) => h(`span${k === hot ? '.hot' : ''}`, c.g))),
         h('span.hear', icon('speaker'), t('hint_hear')));
     })) : null,
-    h('div.newsound', h('span.emo', info.pic || '⭐'), h('div', h('div.small.muted', t('new_sound')), h('span.g', info.label || ''), h('span.muted', info.key ? `  as in “${info.key}”` : '')), h('span.spacer'), sayButton(info.key || '')),
+    watch.length ? h('p.small.muted.watch-note', t('watch_later')) : null,
+    h('div.newsound', h('span.emo', info.pic || '⭐'), h('div', h('div.small.muted', t('new_sound')), h('span.g', info.label || ''), h('span.muted', info.key ? `  ${t('as_in', { word: info.key })}` : '')), h('span.spacer'), sayButton(info.key || '')),
     h('div.spacer'),
     h('button.btn.primary', { onclick: () => { go(`#/read/${id}/story`); } }, icon('moon'), h('span.grow', t('read_now', { child: fam.childName })), icon('next')),
     h('button.btn.ghost', { onclick: () => { go('#/home'); } }, h('span.grow', t('later'))),

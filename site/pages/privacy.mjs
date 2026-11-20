@@ -35,7 +35,9 @@ export default page({
       <thead><tr><th>Information</th><th>Where it lives</th><th>Who can see it</th><th>How long</th></tr></thead>
       <tbody>
         <tr><td>Your child’s first name and age, what they call you, how your family looks in the pictures, and what your child loves</td><td>Your phone</td><td>You</td><td>Until you choose “Start over”</td></tr>
-        <tr><td>Which sounds you know, and what you’ve read</td><td>Your phone</td><td>You</td><td>Until you choose “Start over”</td></tr>
+        <tr><td>Which sounds you know, what you’ve read, words to warm up with, your child’s stickers, and your reading settings</td><td>Your phone</td><td>You</td><td>Until you choose “Start over”</td></tr>
+        <tr><td>A backup file, if you save one to move phones</td><td>Wherever you save it. It includes your child’s name and your progress, but not recordings.</td><td>Whoever has the file</td><td>Until you delete it</td></tr>
+        <tr><td>A bedtime reminder, if you add one</td><td>Your phone’s calendar (no names are in it)</td><td>You, and your calendar provider</td><td>Until you delete it</td></tr>
         <tr><td>Your voice while you practise</td><td>Your browser’s speech service listens and turns it into text (see the note below). Hearth doesn’t record or keep it.</td><td>Hearth: nobody. The browser company: see their policy.</td><td>Hearth keeps nothing</td></tr>
         <tr><td>Recordings you make for your child</td><td>Your phone</td><td>You</td><td>Until you delete them or start over</td></tr>
         <tr><td>Stories written for you</td><td>Your phone. To write one, your step and your child’s interests (never names) go to our story writer, which uses an AI model from Anthropic.</td><td>You</td><td>We don’t keep them on our side</td></tr>

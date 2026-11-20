@@ -73,7 +73,7 @@ export default page({
       ${TRY.map(([id, en, es]) => `<li><label><input type="checkbox" data-check="${id}"><span class="box" aria-hidden="true">${ICON.check}</span><span>${inline(en, es)}</span></label></li>`).join('')}
     </ul>
     <p class="muted mt" data-check-count aria-live="polite"></p>
-    ${both('<p class="small muted">Extra, if you have time: switch to Spanish in Settings, or record yourself reading a story for a night you work late.</p>', '<p class="small muted">Extra, si tiene tiempo: cambie a inglés o español en Ajustes, o grábese leyendo un cuento para una noche en que trabaje tarde.</p>')}
+    ${both('<p class="small muted">Extra, if you have time: come back the next day for the quick warm-up, let your child pick a sticker after story time, add a bedtime reminder in Settings, or switch the app to Spanish.</p>', '<p class="small muted">Extra, si tiene tiempo: vuelva al día siguiente para el calentamiento rápido, deje que su hijo elija una calcomanía después del cuento, agregue un recordatorio en Ajustes, o cambie la app a español.</p>')}
   </div>
 </section>
 
