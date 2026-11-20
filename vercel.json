@@ -1,0 +1,302 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "redirects": [
+    {
+      "source": "/app",
+      "destination": "/product/",
+      "statusCode": 302
+    },
+    {
+      "source": "/app/",
+      "destination": "/product/",
+      "statusCode": 302
+    },
+    {
+      "source": "/test",
+      "destination": "/testers/",
+      "statusCode": 302
+    },
+    {
+      "source": "/test/",
+      "destination": "/testers/",
+      "statusCode": 302
+    },
+    {
+      "source": "/studio",
+      "destination": "/product/studio/",
+      "statusCode": 302
+    },
+    {
+      "source": "/studio/",
+      "destination": "/product/studio/",
+      "statusCode": 302
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/product/dashboard/",
+      "statusCode": 302
+    },
+    {
+      "source": "/dashboard/",
+      "destination": "/product/dashboard/",
+      "statusCode": 302
+    },
+    {
+      "source": "/demo",
+      "destination": "/product/?demo",
+      "statusCode": 302
+    },
+    {
+      "source": "/demo/",
+      "destination": "/product/?demo",
+      "statusCode": 302
+    },
+    {
+      "source": "/website",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/website/",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/website/:path*",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/docs",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/pitch",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/pitch/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/site",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/site/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/product/server",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/product/server/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/product/test",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/product/test/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/product/tools",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/product/tools/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.git",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.git/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.github",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.github/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.wrangler",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.wrangler/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.vercel",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.vercel/:path*",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/README.md",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/product/package.json",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/product/package-lock.json",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/product/artifact.html",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/wrangler.jsonc",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/vercel.json",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.gitignore",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.assetsignore",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/.vercelignore",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/_redirects",
+      "destination": "/",
+      "statusCode": 302
+    },
+    {
+      "source": "/_headers",
+      "destination": "/",
+      "statusCode": 302
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), geolocation=(), payment=(), usb=(), microphone=(self)"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self'; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self' mailto:; object-src 'none'"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/img/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
+      "source": "/product/assets/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/product/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    },
+    {
+      "source": "/product/api/story",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    }
+  ]
+}

@@ -57,13 +57,15 @@ In the app, **Settings → Send feedback** (and **Tell us how it went** after st
 
 Before testing with families who find reading hard, put a consent process in place (see the session guide), and know that in this prototype the browser's speech recognition may send audio to the browser maker. The app says so on the microphone screen before the microphone is allowed.
 
-## Deploy (Cloudflare)
+## Deploy (Cloudflare or Vercel)
 
-The site is plain static files served from the repository root; there is no build step on Cloudflare.
+The site is plain static files served from the repository root; no build step runs on the host. `site/build.mjs` writes the same redirects (short addresses, private paths) and headers (security, caching) for both hosts, so they behave the same.
 
-- **Workers** (Workers Builds, `npx wrangler deploy`): uses `wrangler.jsonc`. Its `name` must match the Worker's name in the Cloudflare dashboard. `.assetsignore` keeps `docs/`, `pitch/`, `site/` and the server code out of the upload (83 public files).
-- **Pages**: no build command; build output directory `/`. `_redirects` sends private paths (`/docs`, `/pitch`, …) to the home page.
-- Both read `_redirects` (short addresses, private paths) and `_headers` (security headers, caching).
+- **Cloudflare Workers** (Workers Builds, `npx wrangler deploy`): uses `wrangler.jsonc`. Its `name` must match the Worker's name in the Cloudflare dashboard. `.assetsignore` keeps `docs/`, `pitch/`, `site/` and the server code out of the upload (92 public files).
+- **Cloudflare Pages**: no build command; build output directory `/`. Reads `_redirects` and `_headers`.
+- **Vercel**: import the GitHub repository at vercel.com/new, keep the framework preset **Other**, leave the build command empty and the root directory as is, then deploy. Uses `vercel.json` (redirects run before files are served, so private paths are never reachable) and `.vercelignore` for CLI uploads. Every push to `main` redeploys.
+
+Hosting on the free tiers: Cloudflare doesn't charge for static-file traffic. Vercel's Hobby plan is for non-commercial use, so a company site belongs on Vercel Pro. A home-page visit is about 470 KB and 11 requests; opening the app for the first time is about 390 KB and 35 requests.
 
 Live story writing needs the Node server and an API key, so on static hosting the app and Studio use the story library; everything else works offline-first in the browser.
 
