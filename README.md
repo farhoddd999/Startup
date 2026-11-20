@@ -38,7 +38,7 @@ To let Hearth write new stories live, set `ANTHROPIC_API_KEY` before `npm start`
 Eleven pages plus a 404, all static, with the product's real engine and stories running in the browser:
 
 - **How it works** with the live app embedded, **For families** (English and Spanish, read-aloud, a note-to-your-program generator), **For programs** (use cases, dashboard, pricing calculator, pilot plan), **The science** (40-step sequence explorer), **Decodability checker** (paste any text, see which words a reader can read), **Story library** (all 14 stories, personalised, page by page), **Research and sources**, **About**, **Privacy**, **Start a pilot** (request form).
-- Short addresses: `/app`, `/demo`, `/studio`, `/dashboard`.
+- Short addresses: `/app`, `/demo`, `/studio`, `/dashboard`, `/test`.
 
 Edit pages in `site/pages/`, then rebuild:
 
@@ -47,7 +47,15 @@ node site/build.mjs            # pages, _redirects, _headers, robots.txt, favico
 node site/build.mjs --images   # also the social card and touch icon (uses Playwright)
 ```
 
-Set `HEARTH_CONTACT=you@yourdomain` (pilot form and footer email) and `HEARTH_SITE_URL=https://yourdomain` (canonical links and sitemap) before building.
+Set `HEARTH_CONTACT=you@yourdomain` (pilot form, footer email, and where tester feedback is addressed) and `HEARTH_SITE_URL=https://yourdomain` (canonical links and sitemap) before building. The build also stamps the app with a build number (a hash of the app's files) and regenerates the service worker's offline file list.
+
+## Testing with real people
+
+Send testers to **`/test`** (the tester guide at `/testers/`, unlisted and not indexed). It has a QR code that opens the app, install steps for Android and iPhone, a 20-minute "what to try" checklist, privacy in plain words, known limits, and a printable 30-minute session guide for program staff, with a consent script. Parent sections are in English and Spanish.
+
+In the app, **Settings → Send feedback** (and **Tell us how it went** after story time) lets a tester tap a face, pick quick notes, record a voice message, or write. They see exactly what will be sent, then share it through their phone's share sheet, email, or copy. Nothing is sent automatically, and the child's name is never included; a practice summary (counts only) is added only if the tester switches it on. Every message carries the build number and device type, so reports can be matched to a build.
+
+Before testing with families who find reading hard, put a consent process in place (see the session guide), and know that in this prototype the browser's speech recognition may send audio to the browser maker. The app says so on the microphone screen before the microphone is allowed.
 
 ## Deploy (Cloudflare)
 

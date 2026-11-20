@@ -23,7 +23,9 @@ Hearth's users are adults who have often hidden their reading difficulty for yea
 | Program summary (if consented) | Hearth server | Program staff for that program | Duration of contract + 1 year, then deleted |
 | Program code | Phone, server | Program | Contract |
 
-**Prototype note:** the prototype uses the browser's speech recognition, which in some browsers sends audio to the browser maker. The app says so in Settings. The production app replaces it with on-device recognition before any pilot with real families.
+**Prototype note:** the prototype uses the browser's speech recognition, which in some browsers sends audio to the browser maker. The app says so on the microphone screen during setup (spoken and on screen, before the microphone is allowed) and again in Settings. The production app replaces it with on-device recognition before any pilot with real families.
+
+**Tester feedback:** the prototype has no server and no analytics. Feedback is composed on the phone and shown in full before the tester shares it through their own share sheet, email or copy/paste. It contains what the tester chose (a face, quick notes, free text, an optional voice message), the build number, the browser and platform, and, only if switched on, a practice summary of counts (sessions, words read, hints, current step). It never includes the child's name or the parent's story recordings.
 
 ## Regulatory map (to confirm with counsel)
 

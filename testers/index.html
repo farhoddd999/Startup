@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Testing Hearth · Hearth</title>
+<meta name="description" content="How to open, install and test the Hearth prototype, send feedback, and run a test session.">
+<meta name="theme-color" content="#131A2E">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hearth">
+<meta property="og:title" content="Testing Hearth · Hearth">
+<meta property="og:description" content="How to open, install and test the Hearth prototype, send feedback, and run a test session.">
+<meta property="og:image" content="/assets/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="/product/assets/fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Hearth home"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4c5.5 7 10 11.5 9.2 18.4-.6 5-4.4 8.1-9.2 8.1s-8.6-3.1-9.2-8.1C22 15.5 26.5 11 32 4z" fill="#F2C14E"/><path d="M32 14.5c2.8 3.6 5 6 4.6 9.6-.3 2.6-2.2 4.2-4.6 4.2s-4.3-1.6-4.6-4.2c-.4-3.6 1.8-6 4.6-9.6z" fill="#E8833A"/><path d="M32 33c-6.5-4.8-15.2-6.3-25-4.6v24.3c9.8-1.7 18.5-.2 25 4.6z" fill="#E8833A"/><path d="M32 33c6.5-4.8 15.2-6.3 25-4.6v24.3c-9.8-1.7-18.5-.2-25 4.6z" fill="#C9622A"/></svg><b>hearth</b></a>
+    <nav class="nav" id="site-nav" aria-label="Main"><a href="/how-it-works/">How it works</a><a href="/families/">For families</a><a href="/programs/">For programs</a><a href="/science/">Science</a><a href="/stories/">Stories</a><a href="/about/">About</a><div class="nav-cta"><a class="btn line sm" href="/app/">Try the app</a><a class="btn lamp sm" href="/pilot/">Start a pilot</a></div></nav>
+    <div class="header-cta"><a class="btn line sm" href="/app/">Try the app</a><a class="btn lamp sm" href="/pilot/">Start a pilot</a></div>
+    <button class="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<main id="main">
+
+<section class="page-hero night">
+  <svg class="stars" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="0" cy="0" r="0.6" fill="#F6E7B4" opacity="0.15"/><circle cx="173" cy="97" r="1.1" fill="#F6E7B4" opacity="0.24"/><circle cx="346" cy="194" r="1.6" fill="#F6E7B4" opacity="0.33"/><circle cx="519" cy="291" r="0.6" fill="#F6E7B4" opacity="0.42"/><circle cx="692" cy="388" r="1.1" fill="#F6E7B4" opacity="0.51"/><circle cx="865" cy="485" r="1.6" fill="#F6E7B4" opacity="0.15"/><circle cx="1038" cy="582" r="0.6" fill="#F6E7B4" opacity="0.24"/><circle cx="11" cy="679" r="1.1" fill="#F6E7B4" opacity="0.33"/><circle cx="184" cy="76" r="1.6" fill="#F6E7B4" opacity="0.42"/><circle cx="357" cy="173" r="0.6" fill="#F6E7B4" opacity="0.51"/><circle cx="530" cy="270" r="1.1" fill="#F6E7B4" opacity="0.15"/><circle cx="703" cy="367" r="1.6" fill="#F6E7B4" opacity="0.24"/><circle cx="876" cy="464" r="0.6" fill="#F6E7B4" opacity="0.33"/><circle cx="1049" cy="561" r="1.1" fill="#F6E7B4" opacity="0.42"/><circle cx="22" cy="658" r="1.6" fill="#F6E7B4" opacity="0.51"/><circle cx="195" cy="55" r="0.6" fill="#F6E7B4" opacity="0.15"/><circle cx="368" cy="152" r="1.1" fill="#F6E7B4" opacity="0.24"/><circle cx="541" cy="249" r="1.6" fill="#F6E7B4" opacity="0.33"/><circle cx="714" cy="346" r="0.6" fill="#F6E7B4" opacity="0.42"/><circle cx="887" cy="443" r="1.1" fill="#F6E7B4" opacity="0.51"/><circle cx="1060" cy="540" r="1.6" fill="#F6E7B4" opacity="0.15"/><circle cx="33" cy="637" r="0.6" fill="#F6E7B4" opacity="0.24"/><circle cx="206" cy="34" r="1.1" fill="#F6E7B4" opacity="0.33"/><circle cx="379" cy="131" r="1.6" fill="#F6E7B4" opacity="0.42"/><circle cx="552" cy="228" r="0.6" fill="#F6E7B4" opacity="0.51"/><circle cx="725" cy="325" r="1.1" fill="#F6E7B4" opacity="0.15"/><circle cx="898" cy="422" r="1.6" fill="#F6E7B4" opacity="0.24"/><circle cx="1071" cy="519" r="0.6" fill="#F6E7B4" opacity="0.33"/><circle cx="44" cy="616" r="1.1" fill="#F6E7B4" opacity="0.42"/><circle cx="217" cy="13" r="1.6" fill="#F6E7B4" opacity="0.51"/><circle cx="390" cy="110" r="0.6" fill="#F6E7B4" opacity="0.15"/><circle cx="563" cy="207" r="1.1" fill="#F6E7B4" opacity="0.24"/><circle cx="736" cy="304" r="1.6" fill="#F6E7B4" opacity="0.33"/><circle cx="909" cy="401" r="0.6" fill="#F6E7B4" opacity="0.42"/><circle cx="1082" cy="498" r="1.1" fill="#F6E7B4" opacity="0.51"/><circle cx="55" cy="595" r="1.6" fill="#F6E7B4" opacity="0.15"/><circle cx="228" cy="692" r="0.6" fill="#F6E7B4" opacity="0.24"/><circle cx="401" cy="89" r="1.1" fill="#F6E7B4" opacity="0.33"/><circle cx="574" cy="186" r="1.6" fill="#F6E7B4" opacity="0.42"/><circle cx="747" cy="283" r="0.6" fill="#F6E7B4" opacity="0.51"/><circle cx="920" cy="380" r="1.1" fill="#F6E7B4" opacity="0.15"/><circle cx="1093" cy="477" r="1.6" fill="#F6E7B4" opacity="0.24"/><circle cx="66" cy="574" r="0.6" fill="#F6E7B4" opacity="0.33"/><circle cx="239" cy="671" r="1.1" fill="#F6E7B4" opacity="0.42"/><circle cx="412" cy="68" r="1.6" fill="#F6E7B4" opacity="0.51"/><circle cx="585" cy="165" r="0.6" fill="#F6E7B4" opacity="0.15"/><circle cx="758" cy="262" r="1.1" fill="#F6E7B4" opacity="0.24"/><circle cx="931" cy="359" r="1.6" fill="#F6E7B4" opacity="0.33"/><circle cx="1104" cy="456" r="0.6" fill="#F6E7B4" opacity="0.42"/><circle cx="77" cy="553" r="1.1" fill="#F6E7B4" opacity="0.51"/></svg>
+  <div class="wrap">
+    <div class="cta-row no-print" style="margin-bottom:18px">
+      <div class="lang-switch" role="group" aria-label="Language / Idioma"><button data-set-lang="en" aria-pressed="true">English</button><button data-set-lang="es" aria-pressed="false">Español</button></div>
+      <button class="btn line sm listen-btn" data-listen aria-label="Listen to this page"><span style="width:20px;height:20px;display:inline-flex"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></span><span data-lang="en">Listen to this page</span><span data-lang="es" lang="es" hidden>Escuchar esta página</span></button>
+    </div>
+    <div data-lang="en"><span class="eyebrow">Hearth test version</span><h1>Thank you for testing Hearth.</h1><p class="lead">Hearth helps parents practise tonight’s bedtime story in private, then read it to their child. This is an early test. Your honest reactions, especially when something is hard or confusing, decide what we build next.</p></div><div data-lang="es" lang="es" hidden><span class="eyebrow">Versión de prueba de Hearth</span><h1>Gracias por probar Hearth.</h1><p class="lead">Hearth ayuda a los padres a practicar el cuento de esta noche en privado, y luego leérselo a su hijo. Esta es una prueba temprana. Sus reacciones sinceras, sobre todo cuando algo es difícil o confuso, deciden lo que haremos después.</p></div>
+    <div class="cta-row"><a class="btn lamp" href="/app/"><span data-lang="en">Open the app</span><span data-lang="es" lang="es" hidden>Abrir la app</span></a><a class="btn line" href="#feedback"><span data-lang="en">How to send feedback</span><span data-lang="es" lang="es" hidden>Cómo enviar comentarios</span></a></div>
+  </div>
+</section>
+
+<section class="band paper big-text" data-read aria-labelledby="openTitle">
+  <div class="wrap split">
+    <div class="stack-lg">
+      <div data-lang="en"><h2 id="openTitle">Open Hearth on your phone</h2>
+         <ol class="steps-list">
+           <li><span><b>Scan the code</b> with your phone’s camera, or type the address under it.</span></li>
+           <li><span><b>Allow the microphone</b> if you want Hearth to follow your voice. You can also tap words instead.</span></li>
+           <li><span><b>Put it on your home screen.</b> Android (Chrome): tap the menu <b>⋮</b>, then <b>Add to Home screen</b> or <b>Install app</b>. iPhone (Safari): tap <b>Share</b>, then <b>Add to Home Screen</b>.</span></li>
+         </ol>
+         <p class="callout">Voice works best in <b>Chrome on Android</b> or <b>Safari on iPhone</b>, in a quiet room. If Hearth can’t hear you, open Settings and choose <b>I’ll tap words I need</b>.</p></div><div data-lang="es" lang="es" hidden><h2>Abra Hearth en su teléfono</h2>
+         <ol class="steps-list">
+           <li><span><b>Escanee el código</b> con la cámara de su teléfono, o escriba la dirección que aparece abajo.</span></li>
+           <li><span><b>Permita el micrófono</b> si quiere que Hearth siga su voz. También puede tocar las palabras.</span></li>
+           <li><span><b>Póngalo en su pantalla de inicio.</b> Android (Chrome): toque el menú <b>⋮</b> y luego <b>Agregar a la pantalla principal</b> o <b>Instalar app</b>. iPhone (Safari): toque <b>Compartir</b> y luego <b>Agregar a inicio</b>.</span></li>
+         </ol>
+         <p class="callout">La voz funciona mejor en <b>Chrome en Android</b> o <b>Safari en iPhone</b>, en un lugar tranquilo. Si Hearth no le escucha, abra Ajustes y elija <b>Tocaré las palabras que necesito</b>.</p></div>
+    </div>
+    <div class="qr-card" id="qrCard">
+      <div class="qr-brand"><span>hearth</span> <span data-lang="en">Scan to open Hearth</span><span data-lang="es" lang="es" hidden>Escanee para abrir Hearth</span></div>
+      <div class="qr" data-qr role="img" aria-label="QR code that opens the Hearth app"></div>
+      <p class="qr-url" data-app-url>/app/</p>
+      <div class="cta-row no-print" style="justify-content:center"><button class="btn ink sm" type="button" data-copy-url><span data-lang="en">Copy link</span><span data-lang="es" lang="es" hidden>Copiar enlace</span></button><button class="btn line sm" type="button" data-print="card"><span data-lang="en">Print this card</span><span data-lang="es" lang="es" hidden>Imprimir esta tarjeta</span></button></div>
+    </div>
+  </div>
+</section>
+
+<section class="band paper-2 big-text" data-read aria-labelledby="tryTitle">
+  <div class="wrap">
+    <div class="section-head"><div data-lang="en"><h2 id="tryTitle">What to try</h2><p class="lead">About 20 minutes in all. Tick things off as you go; this list is saved only on this device.</p></div><div data-lang="es" lang="es" hidden><h2>Qué probar</h2><p class="lead">Unos 20 minutos en total. Marque cada paso al terminarlo; esta lista se guarda solo en este aparato.</p></div></div>
+    <ul class="todo" data-checklist>
+      <li><label><input type="checkbox" data-check="setup"><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><span data-lang="en">Set up Hearth for your family: your child’s name, what they call you, and how the pictures look.</span><span data-lang="es" lang="es" hidden>Prepare Hearth para su familia: el nombre de su hijo, cómo le llama a usted y cómo se ven los dibujos.</span></span></label></li><li><label><input type="checkbox" data-check="check"><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><span data-lang="en">Do the short reading check. Skipping words is completely fine.</span><span data-lang="es" lang="es" hidden>Haga la pequeña prueba de lectura. Saltar palabras está perfectamente bien.</span></span></label></li><li><label><input type="checkbox" data-check="practise"><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><span data-lang="en">Tap <b>Practise first</b> and read tonight’s story out loud. Stop on a word for a few seconds and see what happens.</span><span data-lang="es" lang="es" hidden>Toque <b>Practicar primero</b> y lea el cuento en voz alta. Deténgase en una palabra unos segundos y vea qué pasa.</span></span></label></li><li><label><input type="checkbox" data-check="together"><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><span data-lang="en">Tap <b>Read with</b> your child and read the story at bedtime. No child nearby? Read it to yourself.</span><span data-lang="es" lang="es" hidden>Toque <b>Leer con</b> su hijo y lea el cuento a la hora de dormir. ¿No hay un niño cerca? Léaselo a usted mismo.</span></span></label></li><li><label><input type="checkbox" data-check="sky"><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><span data-lang="en">Open <b>Your sky</b> to see the sounds you can read.</span><span data-lang="es" lang="es" hidden>Abra <b>Su cielo</b> para ver los sonidos que puede leer.</span></span></label></li><li><label><input type="checkbox" data-check="feedback"><span class="box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><span data-lang="en">Send us your feedback. It takes a minute (see below).</span><span data-lang="es" lang="es" hidden>Envíenos sus comentarios. Toma un minuto (vea abajo).</span></span></label></li>
+    </ul>
+    <p class="muted mt" data-check-count aria-live="polite"></p>
+    <div data-lang="en"><p class="small muted">Extra, if you have time: switch to Spanish in Settings, or record yourself reading a story for a night you work late.</p></div><div data-lang="es" lang="es" hidden><p class="small muted">Extra, si tiene tiempo: cambie a inglés o español en Ajustes, o grábese leyendo un cuento para una noche en que trabaje tarde.</p></div>
+  </div>
+</section>
+
+<section class="band night big-text" id="feedback" data-read aria-labelledby="fbTitle">
+  <div class="wrap split">
+    <div class="stack-lg">
+      <div data-lang="en"><span class="eyebrow">Your feedback</span><h2 id="fbTitle">Tell us what you think.</h2>
+         <ol class="steps-list">
+           <li><span>In Hearth, open <b>Settings</b> and tap <b>Send feedback</b>. After story time you can also tap <b>Tell us how it went</b>.</span></li>
+           <li><span>Tap a face, choose a few words, or <b>record a voice message</b>. You don’t have to write anything.</span></li>
+           <li><span>You see exactly what will be sent. Send it to the person who invited you, or email us at <a href="mailto:hello@hearth.example">hello@hearth.example</a>.</span></li>
+         </ol>
+         <p class="lead">There are no wrong answers. If something is confusing, that’s our mistake, not yours.</p></div><div data-lang="es" lang="es" hidden><span class="eyebrow">Sus comentarios</span><h2>Díganos qué piensa.</h2>
+         <ol class="steps-list">
+           <li><span>En Hearth, abra <b>Ajustes</b> y toque <b>Enviar comentarios</b>. Después de la hora del cuento también puede tocar <b>Cuéntenos cómo le fue</b>.</span></li>
+           <li><span>Toque una cara, elija unas palabras o <b>grabe un mensaje de voz</b>. No tiene que escribir nada.</span></li>
+           <li><span>Usted ve exactamente lo que se enviará. Envíelo a la persona que le invitó, o escríbanos a <a href="mailto:hello@hearth.example">hello@hearth.example</a>.</span></li>
+         </ol>
+         <p class="lead">No hay respuestas incorrectas. Si algo es confuso, el error es nuestro, no suyo.</p></div>
+    </div>
+    <div class="media"><div class="phone-solo"><div class="phone"><img src="/assets/img/app-feedback.png" alt="The feedback screen in Hearth: three faces, a few quick choices, a button to record a voice message, and a preview of exactly what will be sent." width="780" height="1688" loading="lazy"></div></div></div>
+  </div>
+</section>
+
+<section class="band paper big-text" data-read aria-labelledby="privTitle">
+  <div class="wrap">
+    <div class="section-head"><div data-lang="en"><h2 id="privTitle">Your privacy in this test</h2></div><div data-lang="es" lang="es" hidden><h2>Su privacidad en esta prueba</h2></div></div>
+    <div class="grid2">
+      <div class="card"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></div><div data-lang="en"><h3>It stays on your phone</h3><p>Your names, your progress and your recordings are saved only on your phone. We can’t see them.</p></div><div data-lang="es" lang="es" hidden><h3>Se queda en su teléfono</h3><p>Sus nombres, su progreso y sus grabaciones se guardan solo en su teléfono. Nosotros no podemos verlos.</p></div></div>
+      <div class="card"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></div><div data-lang="en"><h3>Your voice</h3><p>In this test version, your browser’s speech service listens so Hearth can follow along. It may send the sound of your voice to the company that makes your browser (Google for Chrome, Apple for Safari). Tap mode doesn’t use it.</p></div><div data-lang="es" lang="es" hidden><h3>Su voz</h3><p>En esta versión de prueba, el servicio de voz de su navegador escucha para que Hearth siga la lectura. Puede enviar el sonido de su voz a la empresa que hace su navegador (Google para Chrome, Apple para Safari). El modo de tocar no lo usa.</p></div></div>
+      <div class="card"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11V4.5a1.5 1.5 0 0 1 3 0V12M14 11.5V6a1.5 1.5 0 0 1 3 0v8a7 7 0 0 1-7 7h-.5a6 6 0 0 1-5-2.7L3 15.5a1.6 1.6 0 0 1 2.6-1.8L8 16"/></svg></div><div data-lang="en"><h3>Feedback is your choice</h3><p>Hearth sends nothing by itself. Feedback goes only where you send it, and you see it first.</p></div><div data-lang="es" lang="es" hidden><h3>Los comentarios son su decisión</h3><p>Hearth no envía nada por sí solo. Los comentarios van solo a donde usted los envíe, y usted los ve primero.</p></div></div>
+      <div class="card"><div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><div data-lang="en"><h3>Start over any time</h3><p>In Settings, <b>Start over</b> deletes everything Hearth saved on this phone.</p></div><div data-lang="es" lang="es" hidden><h3>Empiece de nuevo cuando quiera</h3><p>En Ajustes, <b>Empezar de nuevo</b> borra todo lo que Hearth guardó en este teléfono.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band paper-2 big-text" data-read aria-labelledby="limitsTitle">
+  <div class="wrap">
+    <div class="section-head"><div data-lang="en"><h2 id="limitsTitle">Good to know</h2></div><div data-lang="es" lang="es" hidden><h2>Bueno saber</h2></div></div>
+    <div data-lang="en"><ul class="checklist">
+        <li>This is a test version. Some things may not work yet. Please tell us when they don’t.</li>
+        <li>There are 14 stories in the library. Writing brand-new stories is turned off in this test.</li>
+        <li>Your progress is saved in this browser on this phone. Clearing your browsing data, or using a different phone, starts fresh.</li>
+        <li>Voice following is still learning and can miss words, especially in a noisy room. Tap mode always works.</li>
+        <li>On iPhone, if Hearth can’t hear you from the home-screen icon, open it in Safari instead.</li>
+      </ul></div><div data-lang="es" lang="es" hidden><ul class="checklist">
+        <li>Esta es una versión de prueba. Algunas cosas pueden no funcionar todavía. Por favor, díganos cuando pase.</li>
+        <li>Hay 14 cuentos en la biblioteca. Escribir cuentos nuevos está desactivado en esta prueba.</li>
+        <li>Su progreso se guarda en este navegador, en este teléfono. Si borra los datos de navegación o usa otro teléfono, empieza de cero.</li>
+        <li>Seguir la voz todavía está aprendiendo y puede perder palabras, sobre todo con ruido. El modo de tocar siempre funciona.</li>
+        <li>En iPhone, si Hearth no le escucha desde el ícono de inicio, ábralo en Safari.</li>
+      </ul></div>
+  </div>
+</section>
+
+<section class="band paper" id="facilitators" aria-labelledby="facTitle">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">For program staff and researchers</span>
+      <h2 id="facTitle">Running a test session</h2>
+      <p class="lead">A 30-minute session with one parent at a time. Print this section and bring it with you.</p>
+      <div class="cta-row no-print"><button class="btn ink sm" type="button" data-print="guide">Print the session guide</button></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Who to invite first</h3>
+        <p>Start with staff and parents who are comfortable giving honest feedback. Before testing with families who find reading hard, put your program’s consent process in place. Invite everyone in a group the same way, so no one is singled out because of reading.</p>
+        <h3 class="mt">Before the session</h3>
+        <ul class="checklist"><li>A charged phone, or the parent’s own phone</li><li>A quiet corner, away from other parents</li><li>The QR card above, printed</li><li>A thank-you for the parent’s time</li><li>Your consent form, read aloud</li></ul>
+      </div>
+      <div class="card">
+        <h3>Say this before you start</h3>
+        <blockquote class="consent">“We’re testing a new app that helps parents practise bedtime stories. We’re testing the app, not you. There are no wrong answers, and you can stop at any time. What you practise stays on your phone. If you want to share feedback, you choose what to send. Is it okay if I watch and take a few notes?”</blockquote>
+      </div>
+    </div>
+    <div class="table-wrap mt-l">
+      <table class="t">
+        <thead><tr><th>Minutes</th><th>What happens</th><th>What to watch for</th></tr></thead>
+        <tbody>
+          <tr><td>0–5</td><td>Welcome, consent, open Hearth from the QR code</td><td>Can they open and install it without help?</td></tr>
+          <tr><td>5–10</td><td>Setup: child’s name, look, short reading check</td><td>Do they use “press and hold to hear”? Do they skip words comfortably?</td></tr>
+          <tr><td>10–20</td><td>Practise tonight’s story alone</td><td>Where they pause, which hint helps (chunks, sounds or the word), anything that feels like a test</td></tr>
+          <tr><td>20–25</td><td>Read the story aloud, to their child or to you</td><td>Confidence compared with practice; do they use the question on each page?</td></tr>
+          <tr><td>25–30</td><td>Talk, then send feedback together from Settings</td><td>Their words, not yours</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid2 mt-l">
+      <div class="card">
+        <h3>While you watch</h3>
+        <ul class="checklist"><li>Let them work through a hard word before you help; that’s what Hearth is for.</li><li>Don’t read words for them unless they ask.</li><li>Write down what they say, where they pause and what they tap.</li><li>If they seem embarrassed, switch to the demo reader in Settings and talk about it together instead.</li></ul>
+      </div>
+      <div class="card">
+        <h3>Questions to ask at the end</h3>
+        <ol class="steps-list"><li><span>What was that like for you?</span></li><li><span>When did Hearth help, and when did it get in the way?</span></li><li><span>Would you use it tonight? What would stop you?</span></li><li><span>Did anything feel like a test?</span></li><li><span>What would you tell a friend about it?</span></li></ol>
+      </div>
+    </div>
+    <p class="muted mt">Afterwards, send your notes with the parent’s permission, from <b>Settings → Send feedback</b> on your own phone, or by email to <a href="mailto:hello@hearth.example">hello@hearth.example</a>. Include the build number shown at the bottom of Settings.</p>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="stack">
+        <a class="logo" href="/"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4c5.5 7 10 11.5 9.2 18.4-.6 5-4.4 8.1-9.2 8.1s-8.6-3.1-9.2-8.1C22 15.5 26.5 11 32 4z" fill="#F2C14E"/><path d="M32 14.5c2.8 3.6 5 6 4.6 9.6-.3 2.6-2.2 4.2-4.6 4.2s-4.3-1.6-4.6-4.2c-.4-3.6 1.8-6 4.6-9.6z" fill="#E8833A"/><path d="M32 33c-6.5-4.8-15.2-6.3-25-4.6v24.3c9.8-1.7 18.5-.2 25 4.6z" fill="#E8833A"/><path d="M32 33c6.5-4.8 15.2-6.3 25-4.6v24.3c-9.8-1.7-18.5-.2-25 4.6z" fill="#C9622A"/></svg><b>hearth</b></a>
+        <p>A private reading coach for parents, built around the bedtime story. Every night, two people get better at reading.</p>
+        <p>Pilots and partnerships: <a href="mailto:hello@hearth.example">hello@hearth.example</a></p>
+      </div>
+      <div><h4>Product</h4><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/app/">Try the app</a></li><li><a href="/stories/">Story library</a></li><li><a href="/check/">Decodability checker</a></li><li><a href="/dashboard/">Partner dashboard demo</a></li></ul></div>
+      <div><h4>Who it's for</h4><ul><li><a href="/families/">Families</a></li><li><a href="/families/#es">Familias (español)</a></li><li><a href="/programs/">Programs and partners</a></li><li><a href="/pilot/">Start a pilot</a></li></ul></div>
+      <div><h4>Learn more</h4><ul><li><a href="/science/">The science</a></li><li><a href="/research/">Research and sources</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/about/">About Hearth</a></li></ul></div>
+    </div>
+    <div class="footer-base"><span>© <span data-year>2026</span> Hearth. Working prototype; pilots next.</span><span>Families never pay. No ads. No data sales.</span></div>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+<script src="/assets/vendor/qrcode.js" defer></script>
+<script src="/assets/testers.js" defer></script>
+
+</body>
+</html>

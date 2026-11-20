@@ -14,6 +14,9 @@ import * as library from './screens/library.js';
 import * as settings from './screens/settings.js';
 import { demoFamily } from './demo.js';
 import { go, current, onRoute, isFramed } from './router.js';
+import { openFeedback } from './feedback.js';
+import { BUILD } from './config.js';
+import './install.js';
 
 const app = document.getElementById('app');
 let cleanup = null;
@@ -83,7 +86,13 @@ function renderRail() {
         h('button.chip', { onclick: () => { reset(); Object.assign(getState(), demoFamily()); update(() => {}); go('#/home'); renderRail(); } }, 'Load demo family'),
         h('button.chip', { onclick: () => { reset(); go('#/welcome'); renderRail(); } }, 'Start onboarding'),
       ),
-      h('p', { style: { marginTop: '10px', fontSize: '14px' } }, h('a', { href: 'studio/index.html' }, 'Story Studio'), ' · ', h('a', { href: 'dashboard/index.html' }, 'Partner dashboard'), isFramed ? null : ' · ', isFramed ? null : h('a', { href: '/' }, 'Website')),
+      h('p', { style: { marginTop: '10px', fontSize: '14px' } }, h('a', { href: 'studio/' }, 'Story Studio'), ' · ', h('a', { href: 'dashboard/' }, 'Partner dashboard'), isFramed ? null : ' · ', isFramed ? null : h('a', { href: '/' }, 'Website')),
+    ),
+    isFramed ? null : h('div.card',
+      h('h3', 'Testing Hearth?'),
+      h('p', { style: { fontSize: '14px' } }, 'Tell us what worked and what didn’t. You see exactly what is sent, and you choose where it goes.'),
+      h('div.row', h('button.chip', { onclick: () => openFeedback({ where: `desktop ${current() || ''}` }) }, 'Send feedback'), h('a.chip', { href: '/testers/' }, 'Tester guide')),
+      h('p', { style: { marginTop: '10px', fontSize: '13px', opacity: .75 } }, `Test version · Hearth ${BUILD.version} · build ${BUILD.build}`),
     ),
   );
 }

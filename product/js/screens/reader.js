@@ -16,6 +16,7 @@ import { chunksFor } from '../../engine/decodable.js';
 import { PATTERN_INFO, STEPS } from '../../engine/phonics.js';
 import { readableCount } from './sky.js';
 import { go, back } from '../router.js';
+import { openFeedback } from '../feedback.js';
 
 let lastSession = null;   // handed to the finish screen
 
@@ -426,6 +427,7 @@ export function finish(root, { id, mode }) {
       s ? h('p', { style: { opacity: .7 } }, `${fmt(s.words)} words read aloud tonight.`) : null,
       h('div', { style: { height: '20px' } }),
       h('button.btn.primary', { onclick: () => { go('#/home'); } }, h('span.grow', t('done')), icon('check')),
+      h('button.link-btn', { type: 'button', onclick: () => openFeedback({ where: 'goodnight' }) }, icon('chat'), t('tell_us')),
     ));
     return;
   }

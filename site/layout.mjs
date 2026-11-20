@@ -34,7 +34,7 @@ export const ICON = {
 
 export const stars = (n = 70, w = 1200, h = 700) => `<svg class="stars" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${Array.from({ length: n }, (_, i) => `<circle cx="${(i * 173) % w}" cy="${(i * 97) % h}" r="${(i % 3) * 0.5 + 0.6}" fill="#F6E7B4" opacity="${(0.15 + (i % 5) * 0.09).toFixed(2)}"/>`).join('')}</svg>`;
 
-export function page({ path, title, description, body, scripts = [], modules = [], bodyClass = '' }) {
+export function page({ path, title, description, body, scripts = [], modules = [], bodyClass = '', noindex = false }) {
   const fullTitle = path === '/' ? 'Hearth · Be the one who reads the bedtime story' : `${title} · Hearth`;
   const nav = NAV.map(([href, label]) => `<a href="${href}"${path === href ? ' aria-current="page"' : ''}>${label}</a>`).join('');
   const abs = p => (SITE.url ? SITE.url + p : p);
@@ -46,6 +46,7 @@ export function page({ path, title, description, body, scripts = [], modules = [
 <title>${fullTitle}</title>
 <meta name="description" content="${description}">
 <meta name="theme-color" content="#131A2E">
+${noindex ? '<meta name="robots" content="noindex">' : ''}
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 ${SITE.url ? `<link rel="canonical" href="${abs(path)}">` : ''}

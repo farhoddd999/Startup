@@ -157,7 +157,7 @@ function loves(root, i) {
 }
 
 function mic(root, i) {
-  narrate(t('mic_say'));
+  narrate(`${t('mic_say')} ${recognitionAvailable() ? t('mic_privacy') : ''}`);
   const choose = async mode => {
     if (mode === 'voice') {
       const ok = recognitionAvailable() && await requestMic();
@@ -170,6 +170,7 @@ function mic(root, i) {
   root.append(frame(i, 'mic_q', 'mic_say', h('div.stack',
     h('div.hero-art', { html: art }),
     h('p', { style: { fontSize: '19px' } }, t('mic_body')),
+    recognitionAvailable() ? h('p.note.mic-privacy', { say: t('mic_privacy') }, t('mic_privacy')) : null,
     h('button.btn.primary', { say: t('mic_allow'), onclick: () => choose('voice') }, icon('mic'), h('span.grow', t('mic_allow'))),
     h('button.btn.ghost', { say: t('mic_tap'), onclick: () => choose('tap') }, icon('hand'), h('span.grow', t('mic_tap'))),
     h('button.btn.ghost', { say: t('mic_demo'), onclick: () => choose('demo') }, icon('play'), h('span.grow', t('mic_demo'))),

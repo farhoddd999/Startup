@@ -6,6 +6,9 @@ import { getState, update, reset } from '../store.js';
 import { recognitionAvailable, requestMic } from '../voice.js';
 import { tabbar } from './home.js';
 import { go, back } from '../router.js';
+import { openFeedback } from '../feedback.js';
+import { canPrompt, promptInstall, isIOS, isStandalone, onInstallChange } from '../install.js';
+import { BUILD } from '../config.js';
 
 const PROGRAMS = { 'RIVER-24': 'Riverside Family Center (demo)', 'LIB-OAK': 'Oakwood Public Library (demo)', 'HS-NORTH': 'Northside Head Start (demo)' };
 
@@ -26,8 +29,26 @@ export function render(root) {
   code.oninput = () => { update(s => { s.settings.program = code.value.trim().toUpperCase(); }); showJoined(); };
   showJoined();
 
+  // home-screen install: a button where the browser offers it, Safari steps on iPhone
+  const install = h('div.set-group', { hidden: true });
+  const drawInstall = () => {
+    install.innerHTML = '';
+    const ios = isIOS() && !isStandalone();
+    install.hidden = !(canPrompt() || ios);
+    if (install.hidden) return;
+    install.append(h('div.set-row',
+      h('div.txt', t('install'), h('small', ios ? t('install_ios') : t('install_sub'))),
+      ios ? null : h('button.btn.dark.small-btn', { type: 'button', onclick: () => promptInstall() }, t('okay')),
+    ));
+  };
+  drawInstall();
+  const offInstall = onInstallChange(drawInstall);
+
   root.append(h('div.screen.with-tabs',
     h('h2', { style: { margin: '8px 0 16px' } }, t('settings')),
+    h('button.btn.ghost.fb-open', { type: 'button', say: t('feedback'), onclick: () => openFeedback({ where: 'settings' }) },
+      icon('chat'), h('span.grow', t('feedback'), h('span.sub', t('feedback_sub'))), icon('next')),
+    install,
     h('div.set-group',
       h('div.set-row', h('div.txt', t('settings_lang')), h('div.seg', LANGS.map(l => h(`button${st.family.lang === l.id ? '.on' : ''}`, { onclick: () => { setLang(l.id); update(s => { s.family.lang = l.id; }); root.innerHTML = ''; render(root); } }, l.label)))),
       h('div.set-row', h('div.txt', t('settings_narrate')), toggle(st.settings.narrate, () => update(s => { s.settings.narrate = !s.settings.narrate; }))),
@@ -44,6 +65,8 @@ export function render(root) {
     h('p.note', t('privacy_note')),
     h('div', { style: { height: '14px' } }),
     h('button.btn.ghost', { onclick: () => { if (confirm(t('settings_reset') + '?')) { reset(); go('#/welcome'); } } }, icon('back'), h('span.grow', t('settings_reset'))),
+    h('p.fb-build', `${t('test_version')} · Hearth ${BUILD.version} · build ${BUILD.build} · ${BUILD.date}`),
     tabbar('settings'),
   ));
+  return offInstall;
 }
