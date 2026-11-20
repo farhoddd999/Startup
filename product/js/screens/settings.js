@@ -7,7 +7,8 @@ import { recognitionAvailable, requestMic } from '../voice.js';
 import { tabbar } from './home.js';
 import { go, back } from '../router.js';
 import { openFeedback } from '../feedback.js';
-import { canPrompt, promptInstall, isIOS, isStandalone, onInstallChange } from '../install.js';
+import { canPrompt, isStandalone, onInstallChange } from '../install.js';
+import { openInstall, isPhone } from '../install-sheet.js';
 import { BUILD } from '../config.js';
 
 const PROGRAMS = { 'RIVER-24': 'Riverside Family Center (demo)', 'LIB-OAK': 'Oakwood Public Library (demo)', 'HS-NORTH': 'Northside Head Start (demo)' };
@@ -29,16 +30,15 @@ export function render(root) {
   code.oninput = () => { update(s => { s.settings.program = code.value.trim().toUpperCase(); }); showJoined(); };
   showJoined();
 
-  // home-screen install: a button where the browser offers it, Safari steps on iPhone
+  // home-screen install: shown on phones (and where the browser offers it) until Hearth is installed
   const install = h('div.set-group', { hidden: true });
   const drawInstall = () => {
     install.innerHTML = '';
-    const ios = isIOS() && !isStandalone();
-    install.hidden = !(canPrompt() || ios);
+    install.hidden = isStandalone() || !(isPhone() || canPrompt());
     if (install.hidden) return;
     install.append(h('div.set-row',
-      h('div.txt', t('install'), h('small', ios ? t('install_ios') : t('install_sub'))),
-      ios ? null : h('button.btn.dark.small-btn', { type: 'button', onclick: () => promptInstall() }, t('okay')),
+      h('div.txt', t('install'), h('small', t('install_sub'))),
+      h('button.btn.dark.small-btn', { type: 'button', say: t('inst_btn'), onclick: () => openInstall() }, t('inst_btn')),
     ));
   };
   drawInstall();

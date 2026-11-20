@@ -11,6 +11,7 @@ import { STEPS, PATTERN_INFO } from '../../engine/phonics.js';
 import { personalize } from '../../engine/text.js';
 import { readableCount } from './sky.js';
 import { go, back } from '../router.js';
+import { installCard } from '../install-sheet.js';
 
 export function tabbar(active) {
   const tab = (id, ic, label, hash) => h(`button${active === id ? '.on' : ''}`, { say: label, onclick: () => { go(hash); } }, icon(ic), label);
@@ -90,6 +91,7 @@ export function render(root) {
       h('button.mini', { onclick: () => { go('#/sky'); } }, h('div.big', fmt(st.stats.nights)), h('div.small', t('nights'))),
     ),
     h('div', { style: { marginTop: '14px' } }, writeNew),
+    installCard({ dismissKey: 'hearth.install.later' }),
     tabbar('home'),
   );
   root.append(scr);

@@ -12,6 +12,7 @@ import { pickTonight } from '../stories.js';
 import { demoFamily } from '../demo.js';
 import { replaceState } from '../store.js';
 import { go, back } from '../router.js';
+import { installCard } from '../install-sheet.js';
 
 const STEPS = ['promise', 'child', 'call', 'look', 'loves', 'mic'];
 const narrate = text => { if (getState().settings.narrate) speak(text); };
@@ -32,6 +33,7 @@ export function welcome(root) {
       onclick: () => { setLang(l.id); update(s => { s.family.lang = l.id; }); welcomeRefresh(root); },
     }, l.label))),
     h('div.spacer'),
+    installCard(),
     h('button.btn.primary', { say: t('start'), onclick: () => { speak(t('welcome_say')); go('#/onboard/promise'); } }, h('span.grow', t('start')), icon('next')),
     h('p.muted', { style: { textAlign: 'center', fontSize: '15px' } }, t('hold_to_hear')),
     h('button.demo-link', { type: 'button', onclick: () => { replaceState(demoFamily()); go('#/home'); } }, 'Presenting Hearth? Explore with a demo family'),

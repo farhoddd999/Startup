@@ -375,3 +375,57 @@ p { margin: 0; }
 .small-btn { min-height: 44px; padding: 8px 16px; font-size: 16px; flex: none; width: auto; }
 .mic-privacy { font-size: 15px; line-height: 1.45; }
 .rail a.chip { text-decoration: none; display: inline-block; }
+
+/* ---------- touch: feels like an installed app ---------- */
+/* No tap box or text selection when a control is pressed and held (hold-to-hear uses long presses);
+   inputs stay selectable. No double-tap zoom delay. */
+#app, .rail, .sheet-backdrop, .toast { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+#app input, #app textarea, .sheet input, .sheet textarea { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
+a, button, label, summary, input, textarea, .w { touch-action: manipulation; }
+html.standalone, html.standalone body { overscroll-behavior: none; }
+
+/* pressed: every control answers the tap */
+button, .btn, a.chip { transition: transform .14s cubic-bezier(.2, .8, .3, 1), background-color .15s ease, box-shadow .2s ease; }
+:is(button:not(:disabled), a.btn, a.chip):is(:active, .is-pressed) { transform: scale(.95); }
+.btn:not(:disabled):is(:active, .is-pressed) { transform: scale(.97); }
+.tabbar button:is(:active, .is-pressed) { transform: scale(.9); color: var(--ember-deep); }
+:is(.chip-btn, .lang-row button, .fb-face, .swatch):is(:active, .is-pressed) { transform: scale(.93); }
+.w:is(:active, .is-pressed) { background: var(--gold-soft); }
+.toggle:is(:active, .is-pressed) { transform: none; }
+.toggle:is(:active, .is-pressed)::after { width: 28px; }
+.toggle.on:is(:active, .is-pressed)::after { transform: translateX(18px); }
+
+/* ---------- install ---------- */
+.install-card { position: relative; display: flex; align-items: stretch; margin: 6px 0 2px; }
+.install-main { flex: 1; display: flex; align-items: center; gap: 14px; text-align: left; padding: 14px 16px; border-radius: 20px; background: var(--ink); color: #fff; box-shadow: 0 10px 24px rgba(30, 42, 71, .22); }
+.install-main .grow { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.install-main b { font-size: 18px; }
+.install-main .grow span { font-size: 14px; opacity: .8; }
+.install-main .ic { width: 24px; height: 24px; }
+.install-card:has(.install-x) .install-main { padding-right: 52px; }
+.install-x { position: absolute; right: 8px; top: 50%; translate: 0 -50%; width: 40px; height: 40px; border-radius: 12px; color: #fff; opacity: .7; display: grid; place-items: center; }
+.install-x .ic { width: 20px; height: 20px; }
+.inst-app { width: 46px; height: 46px; flex: none; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, .25); }
+.inst-app img { width: 100%; height: 100%; display: block; }
+.inst-sheet { gap: 14px; }
+.inst-sheet > * { flex-shrink: 0; }
+.inst-sheet h3 { font-size: 23px; }
+.inst-sub { font-size: 16px; margin-top: -4px; }
+.inst-body { display: flex; flex-direction: column; gap: 14px; }
+.inst-go { justify-content: flex-start; min-height: 72px; }
+.inst-go .inst-app { width: 42px; height: 42px; box-shadow: none; }
+.inst-go:disabled { opacity: .75; }
+.inst-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.inst-step { display: flex; align-items: center; gap: 14px; background: var(--surface); border-radius: 18px; padding: 14px 16px; box-shadow: var(--shadow); }
+.inst-num { width: 34px; height: 34px; flex: none; border-radius: 50%; background: var(--ember); color: #fff; font-weight: 800; display: grid; place-items: center; }
+.inst-txt { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.inst-txt b { font-size: 18px; }
+.inst-txt span { font-size: 15px; color: var(--muted); }
+.inst-ico { width: 44px; height: 44px; flex: none; border-radius: 12px; background: #EAF2FE; color: #1F6FEB; display: inline-grid; place-items: center; }
+.inst-ico svg { width: 26px; height: 26px; }
+.inst-tip { display: flex; align-items: center; gap: 14px; font-size: 18px; line-height: 1.45; background: var(--surface); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); }
+.inst-ok { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; color: var(--sage-deep); background: #E3F1E6; border-radius: 16px; padding: 16px; }
+.inst-ok .ic { width: 26px; height: 26px; }
+.inst-qr { width: 220px; aspect-ratio: 1; align-self: center; background: #fff; border-radius: 16px; padding: 10px; box-shadow: var(--shadow); }
+.inst-qr svg { width: 100%; height: 100%; display: block; }
+.inst-url { text-align: center; font-weight: 700; word-break: break-all; margin: -4px 0 0; }

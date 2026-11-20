@@ -78,3 +78,8 @@ main { max-width: 1200px; margin: 0 auto; padding: 18px 24px 60px; }
 .tip.show { opacity: 1; }
 .tip b { display: block; }
 .hit { cursor: crosshair; }
+
+/* touch: no tap box; buttons answer with a pressed state */
+html { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+button:not(:disabled):active { transform: scale(.96); }

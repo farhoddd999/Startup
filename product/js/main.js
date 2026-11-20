@@ -4,7 +4,7 @@ import { Lexicon } from '../engine/lexicon.js';
 import { setLang, t } from './i18n.js';
 import { getState, update, reset, subscribe } from './store.js';
 import { setLexicon } from './stories.js';
-import { enableHoldToHear, h } from './ui.js';
+import { enableHoldToHear, enablePressFeedback, h } from './ui.js';
 import { stopSpeaking } from './voice.js';
 import * as onboarding from './screens/onboarding.js';
 import * as home from './screens/home.js';
@@ -16,7 +16,16 @@ import { demoFamily } from './demo.js';
 import { go, current, onRoute, isFramed } from './router.js';
 import { openFeedback } from './feedback.js';
 import { BUILD } from './config.js';
-import './install.js';
+import { isStandalone } from './install.js';
+import { openInstall } from './install-sheet.js';
+
+// iOS only shows :active (pressed) styles when the page listens for touches.
+document.addEventListener('touchstart', () => {}, { passive: true });
+if (isStandalone()) document.documentElement.classList.add('standalone');
+
+// A new version was installed in the background: switch to it the next time
+// the parent is on a calm screen (home or welcome), never in the middle of reading.
+let updateReady = false;
 
 const app = document.getElementById('app');
 let cleanup = null;
@@ -40,6 +49,7 @@ function route() {
   if (!st.onboarded && !/^#\/(welcome|onboard|place)/.test(hash)) target = '#/welcome';
   if (st.onboarded && (!hash || hash === '#/' || hash === '#/welcome')) target = '#/home';
   if (target !== hash) { go(target, { replace: true }); return; }
+  if (updateReady && /^#\/(home|welcome)$/.test(hash)) { location.reload(); return; }
   stopSpeaking();
   if (typeof cleanup === 'function') { try { cleanup(); } catch { /* ignore */ } }
   cleanup = null;
@@ -47,10 +57,15 @@ function route() {
   app.innerHTML = '';
   for (const [re, make] of routes) {
     const m = hash.match(re);
-    if (m) { cleanup = make(m)(app) || null; app.scrollTop = 0; window.scrollTo(0, 0); return; }
+    if (m) { cleanup = make(m)(app) || null; app.scrollTop = 0; window.scrollTo(0, 0); paintStatusBar(); return; }
   }
   go(st.onboarded ? '#/home' : '#/welcome', { replace: true });
 }
+
+// The phone's status bar follows the screen: cream by day, night blue at bedtime.
+const themeMeta = document.querySelector('meta[name="theme-color"]');
+function paintStatusBar() { themeMeta?.setAttribute('content', app.classList.contains('bedtime') ? '#161E36' : '#FFF8EE'); }
+new MutationObserver(paintStatusBar).observe(app, { attributes: true, attributeFilter: ['class'] });
 
 export { go };
 
@@ -101,6 +116,7 @@ async function boot() {
   const st = getState();
   setLang(st.family.lang || 'en');
   enableHoldToHear(document);
+  enablePressFeedback(document);
   const res = await fetch('./data/lexicon.json');
   setLexicon(new Lexicon(await res.json()));
   if ((new URLSearchParams(location.search).has('demo') || location.hash === '#demo') && !st.onboarded) {
@@ -110,7 +126,12 @@ async function boot() {
   subscribe(() => document.documentElement.setAttribute('lang', getState().family.lang || 'en'));
   renderRail();
   route();
-  if (!isFramed && 'serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(() => {});
+  if (new URLSearchParams(location.search).has('install')) openInstall();
+  if (!isFramed && 'serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadController) updateReady = true; });
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
 }
 
 boot().catch(err => {

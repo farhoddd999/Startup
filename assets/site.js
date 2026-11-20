@@ -15,14 +15,40 @@
   // year
   $$('[data-year]').forEach(n => { n.textContent = new Date().getFullYear(); });
 
-  // mobile menu
+  // iOS only shows pressed (:active) styles when the page listens for touches
+  document.addEventListener('touchstart', () => {}, { passive: true });
+
+  // Instant pressed state: a control shrinks the moment a finger lands on it
+  // (phones apply :active late or not at all) and lets go if the finger scrolls.
+  const PRESSABLE = '.btn, .menu-btn, .nav a, .story-card, .card.link, .lang-switch button, .seg-ctl button, [role="tab"], .seq button, .sound-chip, .xw, .todo label, .faq summary, .site-footer a, .link-arrow';
+  let pressed = null, px = 0, py = 0;
+  const unpress = () => { pressed?.classList.remove('is-pressed'); pressed = null; };
+  document.addEventListener('pointerdown', e => {
+    if (e.button > 0) return;
+    const el = e.target.closest?.(PRESSABLE);
+    if (!el || el.disabled) return;
+    unpress();
+    pressed = el; px = e.clientX; py = e.clientY;
+    el.classList.add('is-pressed');
+  }, { passive: true });
+  document.addEventListener('pointermove', e => { if (pressed && Math.hypot(e.clientX - px, e.clientY - py) > 10) unpress(); }, { passive: true });
+  ['pointerup', 'pointercancel', 'dragstart'].forEach(ev => document.addEventListener(ev, () => setTimeout(unpress, 90), { passive: true }));
+  window.addEventListener('scroll', unpress, { passive: true, capture: true });
+  window.addEventListener('pagehide', unpress);
+
+  // mobile menu: opens and closes on tap, closes when a link is chosen, Escape, or a tap outside
   const header = $('.site-header'), menuBtn = $('.menu-btn');
-  if (menuBtn) menuBtn.addEventListener('click', () => {
-    const open = header.classList.toggle('open');
+  const setMenu = open => {
+    if (!header || !menuBtn) return;
+    header.classList.toggle('open', open);
     menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
     menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && header?.classList.contains('open')) { header.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); } });
+  };
+  menuBtn?.addEventListener('click', () => setMenu(!header.classList.contains('open')));
+  $('#site-nav')?.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('click', e => { if (header?.classList.contains('open') && !header.contains(e.target)) setMenu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && header?.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
+  window.addEventListener('pageshow', () => setMenu(false)); // coming back with the Back button
 
   // hero: the headline is "read" word by word, with a short pause on "bedtime"
   const line = $('#heroLine');

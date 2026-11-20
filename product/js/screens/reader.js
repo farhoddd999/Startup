@@ -4,7 +4,7 @@
 // Pipeline per page:  voice/demo transcript → PageTracker → word states + hint
 // level → UI; on page end → learner.observe() for every word.
 
-import { h, icon, sayButton, fmt } from '../ui.js';
+import { h, icon, sayButton, fmt, toast } from '../ui.js';
 import { t } from '../i18n.js';
 import { getState, update, storyRecord, saveRecording, getRecording } from '../store.js';
 import { speak, sayWord, readAloud, stopSpeaking, createRecognizer, createSimulatedReader, recognitionAvailable } from '../voice.js';
@@ -15,7 +15,7 @@ import { observe, workingStep } from '../../engine/learner.js';
 import { chunksFor } from '../../engine/decodable.js';
 import { PATTERN_INFO, STEPS } from '../../engine/phonics.js';
 import { readableCount } from './sky.js';
-import { go, back } from '../router.js';
+import { go, back, current } from '../router.js';
 import { openFeedback } from '../feedback.js';
 
 let lastSession = null;   // handed to the finish screen
@@ -48,7 +48,14 @@ export function render(root, { id, mode }) {
         handleEvents(tracker.update(toks.slice(baseCount).join(' ')));
       },
       onState: s => { listening = s === 'listening'; if (tracker) tracker.listening = listening; paintMic(); },
-      onError: () => { listening = false; paintMic(); },
+      // Voice blocked or unavailable here (for example, some home-screen apps on iPhone):
+      // switch this phone to tap mode and say so, instead of leaving the parent stuck.
+      onError: () => {
+        listening = false;
+        update(s => { s.settings.mic = 'tap'; });
+        toast(t('voice_failed'), 5200);
+        setTimeout(() => go(current(), { replace: true }), 600);
+      },
     });
   }
 

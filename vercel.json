@@ -1,6 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
+  "git": {
+    "deploymentEnabled": {
+      "ccr-*": false,
+      "claude/*": false
+    }
+  },
   "redirects": [
     {
       "source": "/app",
@@ -10,6 +16,16 @@
     {
       "source": "/app/",
       "destination": "/product/",
+      "statusCode": 302
+    },
+    {
+      "source": "/install",
+      "destination": "/product/?install",
+      "statusCode": 302
+    },
+    {
+      "source": "/install/",
+      "destination": "/product/?install",
       "statusCode": 302
     },
     {

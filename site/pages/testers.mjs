@@ -44,15 +44,15 @@ export default page({
         `<h2 id="openTitle">Open Hearth on your phone</h2>
          <ol class="steps-list">
            <li><span><b>Scan the code</b> with your phone’s camera, or type the address under it.</span></li>
+           <li><span><b>Install it.</b> In Hearth, tap <b>Install Hearth on your phone</b>. On Android it’s one tap. On iPhone, Hearth shows you the three taps in Safari: <b>Share</b>, <b>Add to Home Screen</b>, <b>Add</b>. Then open Hearth from your home screen, like any app.</span></li>
            <li><span><b>Allow the microphone</b> if you want Hearth to follow your voice. You can also tap words instead.</span></li>
-           <li><span><b>Put it on your home screen.</b> Android (Chrome): tap the menu <b>⋮</b>, then <b>Add to Home screen</b> or <b>Install app</b>. iPhone (Safari): tap <b>Share</b>, then <b>Add to Home Screen</b>.</span></li>
          </ol>
          <p class="callout">Voice works best in <b>Chrome on Android</b> or <b>Safari on iPhone</b>, in a quiet room. If Hearth can’t hear you, open Settings and choose <b>I’ll tap words I need</b>.</p>`,
         `<h2>Abra Hearth en su teléfono</h2>
          <ol class="steps-list">
            <li><span><b>Escanee el código</b> con la cámara de su teléfono, o escriba la dirección que aparece abajo.</span></li>
+           <li><span><b>Instálelo.</b> En Hearth, toque <b>Instale Hearth en su teléfono</b>. En Android es un solo toque. En iPhone, Hearth le muestra los tres toques en Safari: <b>Compartir</b>, <b>Agregar a inicio</b>, <b>Agregar</b>. Luego abra Hearth desde su pantalla de inicio, como cualquier app.</span></li>
            <li><span><b>Permita el micrófono</b> si quiere que Hearth siga su voz. También puede tocar las palabras.</span></li>
-           <li><span><b>Póngalo en su pantalla de inicio.</b> Android (Chrome): toque el menú <b>⋮</b> y luego <b>Agregar a la pantalla principal</b> o <b>Instalar app</b>. iPhone (Safari): toque <b>Compartir</b> y luego <b>Agregar a inicio</b>.</span></li>
          </ol>
          <p class="callout">La voz funciona mejor en <b>Chrome en Android</b> o <b>Safari en iPhone</b>, en un lugar tranquilo. Si Hearth no le escucha, abra Ajustes y elija <b>Tocaré las palabras que necesito</b>.</p>`,
       )}

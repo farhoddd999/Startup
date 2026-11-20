@@ -59,15 +59,16 @@ ${SITE.url ? `<meta property="og:url" content="${abs(path)}">` : ''}
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/product/assets/fonts/Fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
+<script type="speculationrules">{"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"conservative"}]}</script>
 </head>
 <body class="${bodyClass}">
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap">
     <a class="logo" href="/" aria-label="Hearth home">${MARK}<b>hearth</b></a>
-    <nav class="nav" id="site-nav" aria-label="Main">${nav}<div class="nav-cta"><a class="btn line sm" href="/app/">Try the app</a><a class="btn lamp sm" href="/pilot/">Start a pilot</a></div></nav>
-    <div class="header-cta"><a class="btn line sm" href="/app/">Try the app</a><a class="btn lamp sm" href="/pilot/">Start a pilot</a></div>
-    <button class="menu-btn" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <nav class="nav" id="site-nav" aria-label="Main">${nav}<div class="nav-cta"><a class="btn line sm" href="/install">Get the app</a><a class="btn lamp sm" href="/pilot/">Start a pilot</a></div></nav>
+    <div class="header-cta"><a class="btn line sm" href="/install">Get the app</a><a class="btn lamp sm" href="/pilot/">Start a pilot</a></div>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   </div>
 </header>
 <main id="main">
@@ -81,7 +82,7 @@ ${body}
         <p>A private reading coach for parents, built around the bedtime story. Every night, two people get better at reading.</p>
         <p>Pilots and partnerships: <a href="mailto:${SITE.contact}">${SITE.contact}</a></p>
       </div>
-      <div><h4>Product</h4><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/app/">Try the app</a></li><li><a href="/stories/">Story library</a></li><li><a href="/check/">Decodability checker</a></li><li><a href="/dashboard/">Partner dashboard demo</a></li></ul></div>
+      <div><h4>Product</h4><ul><li><a href="/how-it-works/">How it works</a></li><li><a href="/install">Get the app</a></li><li><a href="/app/">Try it in the browser</a></li><li><a href="/stories/">Story library</a></li><li><a href="/check/">Decodability checker</a></li><li><a href="/dashboard/">Partner dashboard demo</a></li></ul></div>
       <div><h4>Who it's for</h4><ul><li><a href="/families/">Families</a></li><li><a href="/families/#es">Familias (español)</a></li><li><a href="/programs/">Programs and partners</a></li><li><a href="/pilot/">Start a pilot</a></li></ul></div>
       <div><h4>Learn more</h4><ul><li><a href="/science/">The science</a></li><li><a href="/research/">Research and sources</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/about/">About Hearth</a></li></ul></div>
     </div>

@@ -38,7 +38,7 @@ To let Hearth write new stories live, set `ANTHROPIC_API_KEY` before `npm start`
 Eleven pages plus a 404, all static, with the product's real engine and stories running in the browser:
 
 - **How it works** with the live app embedded, **For families** (English and Spanish, read-aloud, a note-to-your-program generator), **For programs** (use cases, dashboard, pricing calculator, pilot plan), **The science** (40-step sequence explorer), **Decodability checker** (paste any text, see which words a reader can read), **Story library** (all 14 stories, personalised, page by page), **Research and sources**, **About**, **Privacy**, **Start a pilot** (request form).
-- Short addresses: `/app`, `/demo`, `/studio`, `/dashboard`, `/test`.
+- Short addresses: `/install` (get the app), `/app`, `/demo`, `/studio`, `/dashboard`, `/test`.
 
 Edit pages in `site/pages/`, then rebuild:
 
@@ -48,6 +48,17 @@ node site/build.mjs --images   # also the social card and touch icon (uses Playw
 ```
 
 Set `HEARTH_CONTACT=you@yourdomain` (pilot form, footer email, and where tester feedback is addressed) and `HEARTH_SITE_URL=https://yourdomain` (canonical links and sitemap) before building. The build also stamps the app with a build number (a hash of the app's files) and regenerates the service worker's offline file list.
+
+## Installing the app
+
+Hearth installs like a native app straight from the web: no app store needed. Send people to **`/install`** (the website's "Get the app" button).
+
+- **Android (Chrome, Edge, Samsung Internet):** one tap on **Install Hearth**; it appears in the app drawer with its own icon, opens full screen, and has long-press shortcuts (Tonight's story, Stories, Your sky).
+- **iPhone and iPad:** Hearth shows Safari's three steps with pictures (Share, Add to Home Screen, Add). Installing before setting up matters on iPhone, because Safari and the home-screen app keep separate data. Apple's home-screen apps may not offer speech recognition; if voice is blocked, Hearth switches to tap mode and says so.
+- **Inside Instagram, Facebook, TikTok and similar:** Hearth asks people to open the link in their phone's browser, with a Copy link button.
+- **Computers:** a QR code to install on the phone, or keep using it in the browser.
+
+Once installed, the app opens from the phone's own copy, instantly and offline. Each launch checks for a newer build (one small request); a new build downloads once in the background and switches over the next time the parent is on the home screen, never mid-story.
 
 ## Testing with real people
 
@@ -65,7 +76,9 @@ The site is plain static files served from the repository root; no build step ru
 - **Cloudflare Pages**: no build command; build output directory `/`. Reads `_redirects` and `_headers`.
 - **Vercel**: import the GitHub repository at vercel.com/new, keep the framework preset **Other**, leave the build command empty and the root directory as is, then deploy. Uses `vercel.json` (redirects run before files are served, so private paths are never reachable) and `.vercelignore` for CLI uploads. Every push to `main` redeploys.
 
-Hosting on the free tiers: Cloudflare doesn't charge for static-file traffic. Vercel's Hobby plan is for non-commercial use, so a company site belongs on Vercel Pro. A home-page visit is about 470 KB and 11 requests; opening the app for the first time is about 390 KB and 35 requests.
+Hosting on the free tiers: Cloudflare doesn't charge for static-file traffic. Vercel's Hobby plan is for non-commercial use, so a company site belongs on Vercel Pro. A home-page visit is about 470 KB and 11 requests; installing the app is about 390 KB and 35 requests, once. After that, opening the installed app costs about one request (the update check).
+
+Keeping Vercel usage low: only `main` deploys (`vercel.json` turns off automatic deployments for work branches, and skipped branches don't count toward limits); there is no build step and no serverless function; links are prefetched only when a finger or mouse is already pressing them.
 
 Live story writing needs the Node server and an API key, so on static hosting the app and Studio use the story library; everything else works offline-first in the browser.
 

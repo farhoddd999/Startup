@@ -88,3 +88,8 @@ table { border-collapse: collapse; width: 100%; }
 .gen-page { display: flex; gap: 14px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
 .gen-text { font-family: 'Andika', sans-serif; font-size: 20px; margin: 0 0 4px; }
 @media (max-width: 600px) { .gen-page { flex-direction: column; align-items: flex-start; } }
+
+/* touch: no tap box; buttons answer with a pressed state */
+html { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+button:not(:disabled):active { transform: scale(.96); }

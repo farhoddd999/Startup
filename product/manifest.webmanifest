@@ -1,17 +1,35 @@
 {
+  "id": "./",
   "name": "Hearth — read the bedtime story",
   "short_name": "Hearth",
-  "description": "A private reading coach for parents. Practise tonight's story, then read it to your child.",
-  "id": "./",
+  "description": "A private reading coach for parents. Practise tonight's bedtime story on your own, with a coach that listens, then read it to your child. Free for families, works offline, in English and Spanish.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#FFF8EE",
-  "theme_color": "#1E2A47",
+  "display_override": ["standalone"],
   "orientation": "portrait",
+  "background_color": "#FFF8EE",
+  "theme_color": "#FFF8EE",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "books", "kids"],
   "icons": [
-    { "src": "./assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "./assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "./assets/hearth-mark.svg", "sizes": "any", "type": "image/svg+xml" }
+    { "src": "./assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "./assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "./assets/hearth-mark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "screenshots": [
+    { "src": "../assets/img/app-home.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Tonight's story, ready to practise" },
+    { "src": "../assets/img/app-hint.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Help that waits for you: a word split into its sounds" },
+    { "src": "../assets/img/app-storytime.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Story time with your child" },
+    { "src": "../assets/img/app-sky.png", "sizes": "780x1688", "type": "image/png", "form_factor": "narrow", "label": "Your sky: every star is a sound you can read" },
+    { "src": "../assets/img/app-wide.png", "sizes": "1280x800", "type": "image/png", "form_factor": "wide", "label": "Hearth on a computer" }
+  ],
+  "shortcuts": [
+    { "name": "Tonight's story", "short_name": "Tonight", "url": "./#/home" },
+    { "name": "Story library", "short_name": "Stories", "url": "./#/library" },
+    { "name": "Your sky", "short_name": "Sky", "url": "./#/sky" }
   ]
 }

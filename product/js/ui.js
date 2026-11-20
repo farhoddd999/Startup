@@ -48,6 +48,27 @@ export const ICONS = {
 };
 export const icon = (name, cls = 'ic') => h(`span.${cls}`, { html: ICONS[name] || '', 'aria-hidden': 'true' });
 
+/**
+ * Instant pressed state: the control shrinks the moment a finger lands on it
+ * (phones apply :active late or not at all), and lets go if the finger scrolls.
+ */
+export function enablePressFeedback(root = document, selector = 'button, a.btn, a.chip, .w') {
+  let el = null, x0 = 0, y0 = 0;
+  const clear = () => { el?.classList.remove('is-pressed'); el = null; };
+  root.addEventListener('pointerdown', e => {
+    if (e.button > 0) return;
+    const target = e.target.closest?.(selector);
+    if (!target || target.disabled) return;
+    clear();
+    el = target; x0 = e.clientX; y0 = e.clientY;
+    target.classList.add('is-pressed');
+  }, { passive: true });
+  root.addEventListener('pointermove', e => { if (el && Math.hypot(e.clientX - x0, e.clientY - y0) > 10) clear(); }, { passive: true });
+  for (const ev of ['pointerup', 'pointercancel', 'dragstart']) root.addEventListener(ev, () => setTimeout(clear, 90), { passive: true });
+  window.addEventListener('scroll', clear, { passive: true, capture: true });
+  window.addEventListener('blur', clear);
+}
+
 /** Press and hold anything with data-say to hear it (voice-first UI for non-readers). */
 export function enableHoldToHear(root = document) {
   let timer = null, target = null;

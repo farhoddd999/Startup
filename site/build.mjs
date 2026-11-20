@@ -37,6 +37,7 @@ export const UNLISTED = ['/testers/', '/404.html'];
 // Short, memorable addresses for the product surfaces.
 export const SHORTCUTS = [
   ['/app', '/product/'],
+  ['/install', '/product/?install'],
   ['/test', '/testers/'],
   ['/studio', '/product/studio/'],
   ['/dashboard', '/product/dashboard/'],
@@ -158,6 +159,8 @@ async function vercel() {
   const config = {
     $schema: 'https://openapi.vercel.sh/vercel.json',
     framework: null,
+    // Only main deploys. Work branches would otherwise create a preview deployment on every push.
+    git: { deploymentEnabled: { 'ccr-*': false, 'claude/*': false } },
     redirects: REDIRECTS.map(r => ({ source: pattern(r.from), destination: r.to, statusCode: r.status })),
     headers: HEADERS.map(([p, hs]) => ({ source: p.replace(/\*$/, '(.*)'), headers: Object.entries(hs).map(([key, value]) => ({ key, value })) })),
   };
